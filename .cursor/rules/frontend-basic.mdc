@@ -1,0 +1,14 @@
+---
+description: Basic frontend — tokens, permanent forms/UI/validation defaults, a11y
+globs: "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+alwaysApply: false
+---
+
+# Frontend — Basic
+
+- Obey permanent defaults: `forms.mdc`, `ui-styling.mdc`, `validation.mdc`
+- Design tokens from intake (`frontend-design` skill)
+- Semantic HTML; visible focus; labels on inputs
+- Responsive breakpoints (suggestion: 375 · 768 · 1024 · 1280)
+- Feature folders + shared `components/ui`
+- Build screens that match **concept** roles and flows — not generic demos

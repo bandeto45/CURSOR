@@ -1,0 +1,15 @@
+---
+description: Advanced security — threat modeling, headers, session hardening
+alwaysApply: false
+---
+
+# Security — Advanced
+
+Enable when rule level includes `advanced`. Base `security.mdc` still applies.
+
+- Threat notes for auth, uploads, admin, and payment-related flows from the concept
+- Security headers (CSP, etc.) appropriate to the stack/host
+- Session fixation / rotation on login; refresh-token rotation when using JWT refresh
+- Privilege checks on every object (IDOR): user can only access own resources unless role allows
+- Dependency/audit cadence when the project has a package lockfile
+- Secrets scanning in CI/hooks; never commit proof files or dumps

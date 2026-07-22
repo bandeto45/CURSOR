@@ -1,0 +1,15 @@
+---
+description: Advanced forms — multi-step wizards, dependent fields, a11y polish
+alwaysApply: false
+---
+
+# Forms — Advanced
+
+Enable when rule level includes `advanced`.
+
+- Multi-step / wizard forms: preserve values, per-step validation, clear progress
+- Dependent fields (show/hide/enable from other values) stay inside the shared form system
+- Async field validation (e.g. username taken) with pending/error/success states matching tokens
+- File upload: progress, retry, multiple files if concept needs it — still shared upload chrome
+- Sticky form actions on long pages when UX requires; do not break mobile tap targets
+- Prefer composable field primitives over page-specific form forks

@@ -1,0 +1,31 @@
+---
+description: DB engine defaults + schema derived from project concept
+alwaysApply: true
+---
+
+# Database
+
+## Default engine rules (permanent — never remove)
+
+- Schema changes via **PHP migrations** only (`migrations/*.php` `up()`/`down()` and/or `migration.php`)
+- Seeds via **PHP** only (`seeds/*.php` and/or `seed.php`)
+- **No `.sql`** files as source of truth for migrate/seed
+- **Prepared statements** / parameterized queries only
+- Do not edit already-applied migrations in shared environments
+- Prefer soft delete (`deleted_at`) when the concept keeps recoverable user data
+
+## Concept-driven schema (from intake)
+
+- Tables, columns, and relationships **follow the product concept** in `concept-domain.mdc`
+- Do not copy another product’s schema
+- After intake: list entities → then write migrations that match those entities
+- Seeds reflect demo data useful for **this** concept only
+
+## Workflow
+
+1. Concept / domain locked in `concept-domain.mdc`
+2. New numbered PHP migration
+3. Migrate up → seed if needed
+4. Document DB_* in `.env.example`
+
+Advanced (indexing, tenancy, audit tables): `database-advanced.mdc`.

@@ -1,0 +1,15 @@
+---
+description: Advanced planning — ADRs, risks, dependency order, DoD
+alwaysApply: false
+---
+
+# Planning — Advanced
+
+Enable when rule level includes `advanced`.
+
+- Short ADRs for non-obvious choices (auth, payments, storage)
+- Dependency order: concept/domain → PHP migrations → API → UI integration
+- Risk list early (PII, payments, multi-tenant, offline)
+- Definition of done: Profile rules + forms/validation defaults + authz + no secrets
+- Open questions written into `concept-domain.mdc` or Project Profile — not chat-only
+- Phase gates: do not start the next phase with unresolved blocking questions

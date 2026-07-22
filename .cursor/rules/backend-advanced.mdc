@@ -1,0 +1,16 @@
+---
+description: Advanced backend — idempotency, rate limits, audit, contracts
+alwaysApply: false
+---
+
+# Backend — Advanced
+
+Enable when rule level includes `advanced`. Defaults (`validation.mdc`, `database.mdc`) still apply.
+
+- Idempotent writes where retries are likely (payments, webhooks)
+- Rate-limit auth and expensive endpoints
+- Audit trail for admin / money / PII changes when domain requires it
+- Explicit pagination on list endpoints
+- Upload allowlists; store outside public tree when possible
+- Version or document API contracts before wide UI coupling
+- Background/queue jobs only when concept needs them — do not add for show

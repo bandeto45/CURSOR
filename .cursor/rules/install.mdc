@@ -1,0 +1,20 @@
+---
+description: Install = ask + fill Profile and concept-domain before building
+alwaysApply: true
+---
+
+# Install-time intake
+
+When installing this pack or Profile/`concept-domain` is still `TBD`:
+
+1. Ensure `CURSOR.md` + `.cursor/` exist in the project root.
+2. Interview the user (batched questions from `CURSOR.md`).
+3. Fill as answers arrive:
+   - `CURSOR.md` Project Profile
+   - `.cursor/rules/concept-domain.mdc` (**concept** → domain rules + entities)
+   - `.cursor/settings.json` project + seo
+   - `.cursor/skills/frontend-design/SKILL.md`
+4. Keep **default rules** intact (forms, ui-styling, validation, database engine).
+5. Summarize. Do not feature-build until required fields are filled (or explicitly deferred).
+
+DB schema and domain rules **follow the concept**. Defaults **never** go away.

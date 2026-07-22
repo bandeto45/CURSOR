@@ -1,0 +1,13 @@
+---
+description: Testing expectations for unit, integration, and critical paths
+globs: "**/*.{test,spec}.{js,jsx,ts,tsx},**/tests/**,**/__tests__/**"
+alwaysApply: false
+---
+
+# Testing
+
+- Add tests for new business logic and pricing/auth/payment-critical paths
+- Prefer fast unit tests for pure functions; integration tests for API + DB when available
+- Do not merge knowingly broken tests
+- Name tests by behavior, not implementation trivia
+- When the project has no runner yet, note it in intake and avoid fake coverage theater

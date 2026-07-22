@@ -1,0 +1,28 @@
+---
+description: Default validation — client UX + server enforcement (permanent)
+alwaysApply: true
+---
+
+# Validation (default — never remove)
+
+## Always
+
+- Validate on the **server** for every write/auth endpoint — UI checks are not enough
+- Mirror clear rules on the **client** for the unified form system (required, format, min/max)
+- Show field-level errors with the shared error chrome from `forms.mdc`
+- Reject empty required fields; validate email/tel/password/file constraints before submit when possible
+- Return structured `4xx` with field paths when the API supports it
+- Never trust hidden fields, disabled inputs, or client-only role flags
+
+## Minimum checks by control
+
+| Control | Default checks |
+|---------|----------------|
+| Email | Required (if marked) + format |
+| Tel | Required (if marked) + allowed pattern |
+| Password | Required (if marked) + min length (project policy) |
+| Upload | Type allowlist + max size |
+| Stepper / number | min, max, step |
+| Select / checkbox | Required membership when marked |
+
+Advanced (schemas, cross-field, async uniqueness): `validation-advanced.mdc`.

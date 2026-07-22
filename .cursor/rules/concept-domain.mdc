@@ -1,0 +1,45 @@
+---
+description: Concept/domain rules — filled at install from product concept (not generic)
+alwaysApply: true
+---
+
+# Concept / domain (fill at install)
+
+> **Status:** Template. Replace during install from **concept & features**. Do not leave generic forever.
+
+## Product
+
+| Field | Value |
+|-------|--------|
+| Name | TBD |
+| Pitch | TBD |
+| Roles | TBD |
+| v1 in scope | TBD |
+| v1 out of scope | TBD |
+
+## Domain rules (from concept)
+
+Write the real business rules here after intake. Examples of what to capture:
+
+- Who can do what (per role)
+- Core entities and lifecycles (statuses, transitions)
+- Pricing / quotas / limits if any
+- What is forbidden in this product
+
+```
+(TBD — AI fills during install from user answers)
+```
+
+## Entities → database
+
+| Entity | Purpose | Notes |
+|--------|---------|--------|
+| TBD | TBD | Maps to PHP migrations after intake |
+
+Schema **must** follow this table / concept — not a random boilerplate DB.
+
+## Do not
+
+- Invent domain rules that contradict intake
+- Add out-of-scope features into domain “just in case”
+- Change domain silently without updating this file first

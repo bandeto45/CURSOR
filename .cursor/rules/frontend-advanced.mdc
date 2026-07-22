@@ -1,0 +1,16 @@
+---
+description: Advanced frontend — baseline page, motion, performance, i18n, SEO hook
+alwaysApply: false
+---
+
+# Frontend — Advanced
+
+Enable when rule level includes `advanced`. Forms/UI/validation **defaults stay on**.
+
+- One UI baseline route owns the visual language; shells inherit it
+- Motion budget 2–3 intentional motions; honor `prefers-reduced-motion`
+- Performance: lazy heavy routes; optimize LCP; avoid layout thrash
+- i18n-ready copy when Profile lists multiple languages
+- If SEO = `on`, wire titles/meta/Schema.org per `seo.mdc`
+- Empty / loading / error states are first-class
+- Do not abandon custom form system for “speed”

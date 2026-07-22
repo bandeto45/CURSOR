@@ -1,0 +1,142 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "TBD",
+    "description": "Reusable Cursor setup — ask + fill during install; defaults locked; concept drives DB/domain."
+  },
+  "agents": {
+    "enabled": true,
+    "directory": ".cursor/agents"
+  },
+  "commands": {
+    "enabled": true,
+    "directory": ".cursor/commands"
+  },
+  "hooks": {
+    "enabled": true,
+    "pre_commit": ".cursor/hooks/pre-commit.sh",
+    "post_tool_use": ".cursor/hooks/lint-on-save.sh"
+  },
+  "rules": {
+    "enabled": true,
+    "directory": ".cursor/rules",
+    "lockedDefaults": [
+      "defaults.mdc",
+      "install.mdc",
+      "restrictions.mdc",
+      "forms.mdc",
+      "ui-styling.mdc",
+      "validation.mdc",
+      "database.mdc",
+      "concept-domain.mdc"
+    ],
+    "autoApply": {
+      "defaults.mdc": ["**/*"],
+      "install.mdc": ["**/*"],
+      "restrictions.mdc": ["**/*"],
+      "forms.mdc": ["**/*"],
+      "ui-styling.mdc": ["**/*"],
+      "validation.mdc": ["**/*"],
+      "database.mdc": ["**/*"],
+      "concept-domain.mdc": ["**/*"],
+      "planning-basic.mdc": ["**/*"],
+      "planning-advanced.mdc": ["**/*"],
+      "forms-advanced.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+      ],
+      "validation-advanced.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}",
+        "api/**",
+        "server/**",
+        "backend/**",
+        "**/*.php"
+      ],
+      "database-advanced.mdc": [
+        "migrations/**",
+        "seeds/**",
+        "**/migration.php",
+        "**/seed.php",
+        "**/Database.*"
+      ],
+      "frontend-basic.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+      ],
+      "frontend-advanced.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+      ],
+      "backend-basic.mdc": [
+        "api/**",
+        "server/**",
+        "backend/**",
+        "**/*.php"
+      ],
+      "backend-advanced.mdc": [
+        "api/**",
+        "server/**",
+        "backend/**",
+        "**/*.php"
+      ],
+      "seo.mdc": [
+        "**/*.{jsx,tsx,js,ts,html,php}",
+        "**/seo/**",
+        "**/meta/**"
+      ],
+      "security.mdc": [
+        "api/**",
+        "server/**",
+        "backend/**",
+        "**/services/**",
+        "**/*.php"
+      ],
+      "security-advanced.mdc": [
+        "api/**",
+        "server/**",
+        "backend/**",
+        "**/services/**",
+        "**/*.php"
+      ],
+      "testing.mdc": [
+        "**/*.{test,spec}.{js,jsx,ts,tsx}",
+        "**/tests/**",
+        "**/__tests__/**"
+      ],
+      "observability.mdc": [
+        "**/logger/**",
+        "**/Logger.*",
+        "**/logging/**"
+      ]
+    }
+  },
+  "skills": {
+    "enabled": true,
+    "directory": ".cursor/skills"
+  },
+  "behavior": {
+    "alwaysReadClaudeMd": true,
+    "claudeMdPath": "CURSOR.md",
+    "preferEditOverCreate": true,
+    "confirmDestructiveActions": true,
+    "autoRunLintOnSave": true,
+    "verbosity": "concise",
+    "requireProjectIntake": true,
+    "installMeansAskAndFill": true,
+    "blockFeatureWorkUntilProfileFilled": true,
+    "neverRemoveDefaultRules": true,
+    "conceptDrivesDomainAndSchema": true
+  },
+  "seo": {
+    "enabled": false,
+    "schemaOrg": true
+  },
+  "ignore": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    "vendor/**",
+    "*.lock",
+    ".env",
+    ".env.*",
+    "!.env.example"
+  ]
+}

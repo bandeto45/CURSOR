@@ -1,0 +1,34 @@
+---
+description: Hard bans for every project using this Cursor pack
+alwaysApply: true
+---
+
+# Restrictions
+
+## Never
+
+- Treat **install** as file-copy only — must **ask + fill** Profile in the same session
+- Skip **project intake** when Project Profile fields are `TBD`
+- Keep intake answers only in chat without writing them to `CURSOR.md` / settings / skill / `concept-domain.mdc`
+- Start feature work while required Profile fields are still `TBD` (unless user deferred a field)
+- **Remove or weaken default rules**: forms, custom UI styling, validation, PHP migrate/seed
+- Invent DB schema or domain rules that ignore the stated **concept**
+- Commit secrets, API keys, or filled `.env` files
+- Add `.sql` migrations or seeds — use PHP `migration` / `seed` only
+- Concatenate user input into SQL (SQL injection)
+- Return HTTP `200` with an error-only payload when a proper error status exists
+- Rely on UI hiding for authorization — enforce roles server-side
+- Hard-delete user-facing records when soft delete (`deleted_at`) is the project norm
+- Mix bare native form controls with the unified custom form system
+- Invent a second visual language when a UI baseline is defined
+- Enable SEO without Schema.org JSON-LD when Project Profile SEO = `on`
+- Copy third-party product brands, trademarks, or marketing copy into the project
+- Run destructive git/db commands without explicit user confirmation
+
+## Prefer
+
+- Edit existing files over creating parallel structures
+- Shared UI components and design tokens
+- Prepared statements / parameterized queries
+- Documented env in `.env.example` only
+- Concept → domain file → migrations → API → UI

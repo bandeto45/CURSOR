@@ -1,0 +1,12 @@
+---
+description: Logging and error observability defaults
+globs: "**/logger/**,**/Logger.*,**/logging/**"
+alwaysApply: false
+---
+
+# Observability
+
+- Structured logs where practical (level, message, request id)
+- Never log passwords, tokens, or full payment proof binaries
+- Surface user-safe error messages; keep stack details server-side
+- Correlate client error reports with server request ids when both exist

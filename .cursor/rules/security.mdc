@@ -1,0 +1,16 @@
+---
+description: Security defaults — auth, input, secrets, uploads
+globs: "api/**,server/**,backend/**,**/services/**,**/*.php"
+alwaysApply: false
+---
+
+# Security
+
+- Hash passwords with a strong algorithm (e.g. bcrypt/argon2); never store plaintext
+- JWT/session secrets only from env; rotate guidance in ops docs when relevant
+- CSRF strategy for cookie-based sessions; CORS allowlist — no `*` with credentials
+- Sanitize/escape output; parameterized SQL only
+- Upload allowlists (MIME + extension + size); serve with safe Content-Type
+- Rate-limit login and password-reset
+- Do not log secrets, payment proofs contents, or full card/OTP data
+- Principle of least privilege for admin/staff roles

@@ -1,0 +1,37 @@
+---
+description: Unified custom forms — permanent default (styling + control set)
+alwaysApply: true
+---
+
+# Forms (default — never remove)
+
+All forms use **one customized, unified** system. No bare browser defaults mixed into product UI.
+
+## Required controls
+
+| Control | Requirement |
+|---------|-------------|
+| Label | Tied to control; required marker consistent |
+| Text / textbox | Shared height, radius, border, focus |
+| Email | Same chrome + email validation UX |
+| Tel | Same chrome; optional shared formatting |
+| Password | **Show / hide** toggle; same chrome as text |
+| Search | Clear action when value present |
+| Select | Custom select matching input metrics |
+| Checkbox | Custom box + full label hit target |
+| Picker | Date/time — same tokens as inputs |
+| Stepper | − / value / + with min, max, step |
+| Editor | Multiline / rich — shared focus/error |
+| Upload | Photo/file — preview, remove, type/size errors |
+| Button | Primary / secondary / ghost; **with** and **without** icon |
+| Link `a` | Brand link tokens; not default browser blue |
+
+## Styling (locked with forms)
+
+- One token set: height, radius, border, focus ring, error, success, disabled, placeholder
+- Consistent error message placement and tone
+- Keyboard + screen-reader accessible
+- Shared `components/ui/` (or equivalent) — no one-off page skins
+- Icon-only buttons need `aria-label` (or visible text)
+
+See also: `ui-styling.mdc`, `validation.mdc`. Advanced: `forms-advanced.mdc`.

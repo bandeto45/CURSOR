@@ -1,0 +1,15 @@
+---
+description: Advanced validation — schemas, cross-field, i18n messages, reuse
+alwaysApply: false
+---
+
+# Validation — Advanced
+
+Enable when rule level includes `advanced`.
+
+- Single schema/source for rules shared by client + server when the stack allows
+- Cross-field rules (e.g. end ≥ start, password confirm match)
+- Uniqueness / existence checks via API with debounced client feedback
+- Localized validation messages when i18n is in Profile
+- Normalize before validate (trim, phone digits) consistently FE + BE
+- Document validation constants next to domain rules when limits are business-critical

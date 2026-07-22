@@ -1,0 +1,14 @@
+---
+description: Basic backend — validate, authz, errors; respects permanent validation default
+globs: "api/**,server/**,backend/**,**/*.php"
+alwaysApply: false
+---
+
+# Backend — Basic
+
+- Obey permanent defaults: `validation.mdc`, `database.mdc`, `restrictions.mdc`
+- Authenticate then **authorize** on every protected endpoint
+- No secrets in source — env + `.env.example`
+- Consistent JSON success/error shapes when building APIs
+- Log failures without passwords or tokens
+- Implement only endpoints required by **concept-domain.mdc**

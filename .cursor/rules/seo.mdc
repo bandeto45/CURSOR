@@ -1,0 +1,39 @@
+---
+description: SEO toggle — meta/OG when on; Schema.org JSON-LD required when enabled
+globs: "**/*.{jsx,tsx,js,ts,html,php}"
+alwaysApply: false
+---
+
+# SEO
+
+Read **Project Profile → SEO** in `CURSOR.md` and `settings.json` → `seo.enabled`.
+
+## When SEO = `off`
+
+- Do not add title/meta/OG/Twitter/JSON-LD pipelines
+- Do not prioritize sitemap/robots work unless the user turns SEO on
+- Marketing pages may still have a sensible document title for UX only
+
+## When SEO = `on`
+
+- Unique `<title>` and meta description per public route
+- Canonical URL where duplicates exist
+- Open Graph + Twitter cards for shareable pages
+- `robots.txt` / sitemap when the project has multiple public URLs
+- **Schema.org** JSON-LD on relevant pages (required)
+
+### Schema.org (required if SEO on)
+
+| Page kind | Example `@type` |
+|-----------|-----------------|
+| Site-wide | `Organization`, `WebSite` |
+| Article / blog | `Article` / `BlogPosting` |
+| Product / service | `Product` / `Service` |
+| FAQ | `FAQPage` |
+| Local business | `LocalBusiness` |
+
+- Emit valid JSON-LD (`application/ld+json`)
+- Keep IDs/URLs consistent with canonical
+- Do not invent fake ratings or reviews
+
+To disable later: set SEO to `off` in Project Profile + `settings.json` and stop extending SEO machinery.

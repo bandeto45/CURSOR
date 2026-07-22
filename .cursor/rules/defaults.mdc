@@ -1,0 +1,32 @@
+---
+description: Locked default rules — never remove from any project using this pack
+alwaysApply: true
+---
+
+# Default rules (permanent)
+
+These apply to **every** project. Do **not** delete, disable, or “skip for this feature.”
+
+| Default | File | Locked behavior |
+|---------|------|-----------------|
+| Install intake | `install.mdc` | Ask + fill Profile before building |
+| Restrictions | `restrictions.mdc` | Secrets, authz, no `.sql`, etc. |
+| Forms UI | `forms.mdc` | Unified **custom** form controls |
+| UI styling | `ui-styling.mdc` | Shared tokens / customized chrome |
+| Validation | `validation.mdc` | Client + server validation |
+| DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
+
+## Concept-driven (filled at install — not locked content)
+
+| Area | File | How it is set |
+|------|------|----------------|
+| Business / domain rules | `concept-domain.mdc` | From product **concept** + features |
+| Schema / entities | same + migrations | From **concept** (tables follow domain) |
+| SEO on/off | Profile + `seo.mdc` | From intake |
+| Advanced packs | `*-advanced.mdc` | From rule level choice |
+
+## Never
+
+- Remove or weaken forms / custom styling / validation defaults
+- Invent domain tables that ignore the stated concept
+- Treat advanced packs as a reason to drop defaults

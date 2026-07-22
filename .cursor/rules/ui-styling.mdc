@@ -1,0 +1,15 @@
+---
+description: Custom UI styling defaults — tokens, chrome, no mixed skins
+alwaysApply: true
+---
+
+# UI styling (default — never remove)
+
+- Product UI uses **customized** styling from design tokens (filled at install into `frontend-design` skill).
+- Forms, buttons, links, and inputs **share** the same chrome language.
+- Do not mix third-party default themes with the project skin on the same surface.
+- Prefer CSS variables / tokens over scattered hex values.
+- After intake, match `frontend-design/SKILL.md`; until then do not invent a second brand.
+- Focus states must be visible; do not remove outlines without an equal custom focus ring.
+
+Advanced motion/perf/baseline: `frontend-advanced.mdc`.

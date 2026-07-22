@@ -1,0 +1,16 @@
+---
+description: Advanced database — indexes, constraints, tenancy, audit, performance
+alwaysApply: false
+---
+
+# Database — Advanced
+
+Enable when rule level includes `advanced`. Schema still **follows concept**.
+
+- Indexes for real query paths from the concept (not speculative)
+- DB-level constraints (FK, unique, check) aligned with domain invariants
+- Multi-tenant / ownership columns when the concept requires isolation
+- Audit / history tables for money, permissions, or irreversible actions when domain needs them
+- Migration expand/contract for zero-downtime when deploy model requires it
+- Seed strategies: deterministic IDs for demos; never seed production secrets
+- Avoid N+1 in list endpoints; paginate large concept collections

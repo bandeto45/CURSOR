@@ -1,0 +1,13 @@
+---
+description: Basic planning — install ask/fill, concept first, scope lock
+alwaysApply: true
+---
+
+# Planning — Basic
+
+1. Install = ask + fill Profile + `concept-domain.mdc` before feature work.
+2. **DB and domain rules follow the concept** — update `concept-domain.mdc` first.
+3. **Never drop** default rules (forms, UI styling, validation, PHP migrate/seed).
+4. Lock v1 in/out of scope from Profile; do not expand silently.
+5. Work in agreed phases; prefer small vertical slices.
+6. Ask when requirements conflict; do not guess product decisions.
