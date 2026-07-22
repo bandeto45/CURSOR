@@ -12,6 +12,7 @@ alwaysApply: true
 - Keep intake answers only in chat without writing them to `CURSOR.md` / settings / skill / `concept-domain.mdc`
 - Start feature work while required Profile fields are still `TBD` (unless user deferred a field)
 - **Remove or weaken default rules**: forms, custom UI styling, validation, PHP migrate/seed
+- **Mix implementation phases** or skip `/phase-exit` gates
 - Invent DB schema or domain rules that ignore the stated **concept**
 - Commit secrets, API keys, or filled `.env` files
 - Add `.sql` migrations or seeds — use PHP `migration` / `seed` only

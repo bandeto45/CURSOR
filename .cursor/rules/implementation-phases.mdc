@@ -1,0 +1,139 @@
+---
+description: Default implementation phases P0–P4 with sub-tasks and exit gates
+alwaysApply: true
+---
+
+# Implementation phases (default)
+
+**Do not mix phases.** Finish the current phase exit gate before starting the next. Track status in `CURSOR.md` Project Profile → **Current phase**.
+
+| Phase | Name | Focus |
+|-------|------|--------|
+| **P0** | Foundation | Concept lock, tokens, folder skeleton, PHP migrations (+ seeds if needed) |
+| **P1** | Mock UI + mock data | All surfaces on mocks — no real API required |
+| **P2** | API backend | Real API on applied schema — UI may still use mocks |
+| **P3** | Integration | Wire UI → API; remove/replace mock data usage |
+| **P4** | Cleanup & ship | Dead code, docs, final testing |
+
+Customize sub-bullets from **concept** during install; keep phase order.
+
+---
+
+## Phase exit gate (every phase)
+
+At the **end** of each phase, run this gate **before** opening the next phase. Write leftovers into Profile / `concept-domain.mdc` / a short `PHASE_NOTES` section in `CURSOR.md`.
+
+### Exit checklist (copy per phase)
+
+- [ ] All **sub-tasks** for this phase done or explicitly deferred
+- [ ] **Defaults** still intact (forms, ui-styling, validation, PHP migrate/seed)
+- [ ] Smoke / manual **test** of this phase’s deliverables passed
+- [ ] Known bugs listed (fix now vs carry to next phase)
+- [ ] Gaps / adds for **next phase** written down (not chat-only)
+- [ ] Nothing from a **later** phase was half-started (or reverted / parked)
+- [ ] User/AI agree: **exit OK** → advance Current phase
+
+If anything fails: fix or document carry-over — do **not** silently advance.
+
+---
+
+## P0 — Foundation
+
+### Subs
+
+- [ ] P0.1 Intake complete — Profile + `concept-domain.mdc` filled
+- [ ] P0.2 Scope lock — v1 in/out of scope
+- [ ] P0.3 Design tokens + `frontend-design` skill filled
+- [ ] P0.4 Repo skeleton (web/api/migrations/seeds per stack)
+- [ ] P0.5 PHP migrations for concept entities (`up`/`down`) — **no `.sql`**
+- [ ] P0.6 Seed.php / seeds for baseline demo data (if needed)
+- [ ] P0.7 `.env.example` documented; app boots empty/skeleton
+- [ ] P0.8 Unified form primitives scaffold planned or stubbed
+
+### Exit (P0 → P1)
+
+Run **Phase exit gate**. Especially verify: schema matches concept; no feature UI pretending to be done; carry list for P1 screens.
+
+---
+
+## P1 — Mock UI + mock data
+
+### Subs
+
+- [ ] P1.1 Routing shells per role/surface from concept
+- [ ] P1.2 Marketing / baseline UI (if in scope)
+- [ ] P1.3 All v1 screens on **mock data** (happy paths)
+- [ ] P1.4 Unified **custom forms** on all inputs (defaults)
+- [ ] P1.5 Client validation UX wired to shared form errors
+- [ ] P1.6 Empty / loading / error states with mocks
+- [ ] P1.7 Responsive check on agreed breakpoints
+- [ ] P1.8 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
+
+### Exit (P1 → P2)
+
+Run **Phase exit gate**. Especially verify: no accidental real API coupling; mock modules listed for P3 removal; missing screens deferred with reason.
+
+---
+
+## P2 — API backend
+
+### Subs
+
+- [ ] P2.1 Migrations applied on local/empty DB
+- [ ] P2.2 Auth + role middleware
+- [ ] P2.3 CRUD/query endpoints for concept entities
+- [ ] P2.4 **Server validation** on all writes (default)
+- [ ] P2.5 Consistent JSON success/error shapes
+- [ ] P2.6 Upload/payment/etc. endpoints if in concept
+- [ ] P2.7 Seeds usable for API smoke tests
+- [ ] P2.8 API smoke tests / manual Postman-style checks
+
+### Exit (P2 → P3)
+
+Run **Phase exit gate**. Especially verify: UI still on mocks is OK; contract list (routes + payloads) ready for P3; authz covered.
+
+---
+
+## P3 — Integration (API ↔ UI) + mock cleanup
+
+### Subs
+
+- [ ] P3.1 API client / services replace mock adapters per feature
+- [ ] P3.2 Auth session/token wiring in UI
+- [ ] P3.3 Map API errors → form field errors
+- [ ] P3.4 Feature-by-feature cutover (do not big-bang if risky)
+- [ ] P3.5 **Remove or quarantine mock data** used in production paths
+- [ ] P3.6 Keep mocks only behind explicit dev flag (or delete)
+- [ ] P3.7 SEO meta + Schema.org if SEO = `on`
+- [ ] P3.8 End-to-end happy paths on real API
+
+### Exit (P3 → P4)
+
+Run **Phase exit gate**. Especially verify: no silent mock fallbacks in prod builds; leftover mocks listed for P4 delete; integration bugs triaged.
+
+---
+
+## P4 — Cleanup, documentation, final testing
+
+### Subs
+
+- [ ] P4.1 Delete dead code, unused routes, leftover mocks
+- [ ] P4.2 Docs: README / setup / env / migrate+seed commands
+- [ ] P4.3 Final regression pass (roles × critical flows)
+- [ ] P4.4 a11y spot-check on forms; security smoke (authz, uploads)
+- [ ] P4.5 Performance sanity (main pages)
+- [ ] P4.6 Deploy checklist from `/deploy` if shipping
+- [ ] P4.7 Phase notes closed; Profile Current phase = `done` / `P4 complete`
+
+### Exit (P4 → done)
+
+Run **Phase exit gate**. No open P0–P3 carry items unless accepted as known backlog. Ship only when exit OK.
+
+---
+
+## AI behavior
+
+1. Read **Current phase** before coding.
+2. Only implement sub-tasks for that phase (unless fixing a blocking bug).
+3. At phase end: run exit gate with the user; update carry-over list; then bump Current phase.
+4. Prefer `/phase-exit` command when finishing a phase.

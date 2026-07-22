@@ -1,5 +1,5 @@
 ---
-description: Basic planning — install ask/fill, concept first, scope lock
+description: Basic planning — install, concept, P0–P4 phases, exit gates
 alwaysApply: true
 ---
 
@@ -9,5 +9,7 @@ alwaysApply: true
 2. **DB and domain rules follow the concept** — update `concept-domain.mdc` first.
 3. **Never drop** default rules (forms, UI styling, validation, PHP migrate/seed).
 4. Lock v1 in/out of scope from Profile; do not expand silently.
-5. Work in agreed phases; prefer small vertical slices.
-6. Ask when requirements conflict; do not guess product decisions.
+5. Follow **P0→P4** in `implementation-phases.mdc` — do not mix phases.
+6. At phase end run **exit gate** (`/phase-exit`): tests, leftovers, fixes, carry-over.
+7. Prefer small vertical slices **within** the current phase.
+8. Ask when requirements conflict; do not guess product decisions.

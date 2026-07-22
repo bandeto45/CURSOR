@@ -15,6 +15,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | UI styling | `ui-styling.mdc` | Shared tokens / customized chrome |
 | Validation | `validation.mdc` | Client + server validation |
 | DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
+| Phases | `implementation-phases.mdc` | P0–P4 + subs + exit gates |
 
 ## Concept-driven (filled at install — not locked content)
 
@@ -30,3 +31,4 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 - Remove or weaken forms / custom styling / validation defaults
 - Invent domain tables that ignore the stated concept
 - Treat advanced packs as a reason to drop defaults
+- Mix or skip implementation phases / exit gates

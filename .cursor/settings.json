@@ -28,6 +28,7 @@
       "ui-styling.mdc",
       "validation.mdc",
       "database.mdc",
+      "implementation-phases.mdc",
       "concept-domain.mdc"
     ],
     "autoApply": {
@@ -38,6 +39,7 @@
       "ui-styling.mdc": ["**/*"],
       "validation.mdc": ["**/*"],
       "database.mdc": ["**/*"],
+      "implementation-phases.mdc": ["**/*"],
       "concept-domain.mdc": ["**/*"],
       "planning-basic.mdc": ["**/*"],
       "planning-advanced.mdc": ["**/*"],

@@ -43,6 +43,22 @@ Full detail: [`CURSOR.md`](./CURSOR.md)
 
 ---
 
+## Implementation phases (default)
+
+| Phase | Focus |
+|-------|--------|
+| **P0** Foundation | Concept, tokens, skeleton, PHP migrations/seeds |
+| **P1** Mock UI + mock data | All v1 screens on mocks; custom forms |
+| **P2** API backend | Real API; UI may still use mocks |
+| **P3** Integration + mock cleanup | Wire UI ↔ API; remove mocks from prod paths |
+| **P4** Cleanup, docs, final testing | Dead code, documentation, regression |
+
+Each phase has **sub-tasks**. At the end of every phase run **`/phase-exit`**: smoke/tests, leftovers, fixes, and carry-over into the next phase — required before advancing.
+
+Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
+
+---
+
 ## Rule layers
 
 | Layer | Behavior |
@@ -85,6 +101,7 @@ CURSOR.md                 # Project brain + intake + profile
 |---------|---------|
 | `/install-cursor-pack` | Install + interview + fill |
 | `/project-intake` | Same / refresh Profile |
+| `/phase-exit` | End-of-phase gate (tests, leftovers, next-phase carry) |
 | `/pr-review` | PR review |
 | `/fix-issue` | Diagnose a bug |
 | `/lint` | Lint |

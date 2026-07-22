@@ -45,7 +45,8 @@ If already inside the target project with this pack present, skip copy and go to
 - [ ] `concept-domain.mdc` filled from concept (entities + domain rules)
 - [ ] SEO `on`/`off` set; if `on`, Schema.org noted
 - [ ] Rule level `basic` or `basic+advanced` set
-- [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine)
+- [ ] **Current phase** set (usually `P0`); phases P0–P4 acknowledged
+- [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine, implementation-phases)
 - [ ] AI’s next steps reference Profile + concept (not guesses)
 
 ---
@@ -100,7 +101,9 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Add **Advanced** packs? (`basic` vs `basic+advanced`)
 - Extra hard bans / compliance (PII, payments, age gates)?
 
-### 8. Other
+### 8. Implementation & other
+- Confirm default phases **P0→P4** (foundation → mock UI → API → integration/mock cleanup → cleanup/docs/final test)?
+- Any phase to skip/merge for this project?
 - i18n languages?
 - Analytics / observability?
 - Testing expectations?
@@ -128,8 +131,37 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **SEO** | `off` \| `on` (default template: `off` until intake) |
 | **Schema.org** | Required when SEO = `on` |
 | **Rule level** | `basic` \| `basic+advanced` |
+| **Current phase** | `P0` \| `P1` \| `P2` \| `P3` \| `P4` \| `done` (default after install: `P0`) |
 | **v1 in scope** | TBD |
 | **v1 out of scope** | TBD |
+
+---
+
+## Implementation phases (default)
+
+**Do not mix phases.** Full sub-tasks + exit gates: `.cursor/rules/implementation-phases.mdc`. Use `/phase-exit` at the end of each phase.
+
+| Phase | Name | What you build |
+|-------|------|----------------|
+| **P0** | Foundation | Concept lock, tokens, skeleton, PHP migrations/seeds |
+| **P1** | Mock UI + mock data | All v1 screens on mocks; custom forms + client validation |
+| **P2** | API backend | Real API on applied schema; server validation; UI may stay on mocks |
+| **P3** | Integration + mock cleanup | Wire UI ↔ API; remove mock data from prod paths |
+| **P4** | Cleanup, docs, final testing | Dead code gone, documentation, regression, ship checks |
+
+### Every phase has
+
+1. **Subs** — numbered checklist under that phase (customize from concept at install)
+2. **Exit gate** — smoke/tests + leftovers + fixes + carry-over to next phase — **required** before advancing
+
+### Exit gate (summary)
+
+- [ ] Subs done or explicitly deferred  
+- [ ] Defaults intact  
+- [ ] Phase smoke/tests passed  
+- [ ] Bugs fixed or listed for next phase  
+- [ ] Next-phase adds written down  
+- [ ] Agree **exit OK** → then bump Current phase  
 
 ---
 
@@ -152,6 +184,7 @@ install · defaults
 | `ui-styling.mdc` | Shared tokens / customized styling |
 | `validation.mdc` | Client UX + **server** validation |
 | `database.mdc` | PHP migrate/seed only; prepared statements |
+| `implementation-phases.mdc` | P0–P4 order, subs, exit gates |
 | `install.mdc` / `restrictions.mdc` | Install ask+fill; hard bans |
 
 Controls covered by forms default: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, link `a`.
@@ -199,7 +232,7 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 | `.cursor/settings.json` | Metadata, globs, hooks |
 | `.cursor/rules/` | Always-apply and scoped `.mdc` rules |
 | `.cursor/agents/` | Review, debug, test, docs, security personas |
-| `.cursor/commands/` | `/install-cursor-pack`, `/project-intake`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint` |
+| `.cursor/commands/` | `/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint` |
 | `.cursor/hooks/` | Pre-commit, lint-on-save |
 | `.cursor/skills/frontend-design/` | Visual system — **fill during install** |
 
@@ -208,10 +241,10 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 ## Workflow
 
 1. **Install** = copy + ask + fill Profile / `concept-domain.mdc` / settings / skill
-2. Confirm Phase C — defaults still present; concept filled
-3. DB schema from **concept** via PHP migrations; domain rules in `concept-domain.mdc`
-4. SEO `on`/`off`; advanced packs if chosen
-5. Build: concept → migrations → API → UI; forms/validation/styling defaults always on
+2. Confirm Phase C — defaults present; concept filled; **Current phase = P0**
+3. Build **one phase at a time** (P0→P4); customize subs from concept
+4. At phase end: `/phase-exit` — test leftovers, fixes, carry-over — then advance
+5. DB from concept via PHP migrations; forms/validation/styling defaults always on
 6. Before commit: hooks / lint / secret scan
 
 ---
@@ -221,6 +254,10 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 - Finish install as copy-only without asking and filling Profile + concept-domain
 - Keep answers only in chat
 - Start feature work while required Profile fields are still `TBD`
+- **Mix phases** or skip exit gates
+- Start P1 UI before P0 foundation exit OK (unless user explicitly overrides)
+- Start P3 integration before P2 API exit OK
+- Leave mocks in prod paths after P3 without documenting
 - Remove default forms / custom styling / validation rules
 - Invent DB or domain rules that ignore the concept
 - Skip intake and guess brand, stack, or features

@@ -23,9 +23,10 @@ description: Install/customize — ask, fill Profile + concept-domain, keep defa
    - `CURSOR.md` Profile
    - `concept-domain.mdc` from **concept** (entities + business rules → DB)
    - `settings.json`, `frontend-design` skill
-4. Confirm defaults still on: forms, ui-styling, validation, PHP migrate/seed.
-5. If user chose advanced: note which `*-advanced.mdc` packs apply.
-6. Summarize “Install complete”, then continue the original request.
+4. Confirm defaults still on: forms, ui-styling, validation, PHP migrate/seed, **P0–P4 phases**.
+5. Set **Current phase** to `P0` unless user overrides.
+6. If user chose advanced: note which `*-advanced.mdc` packs apply.
+7. Summarize “Install complete”, then continue from **P0** (or stated phase).
 
 ## Do Not
 
