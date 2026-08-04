@@ -11,5 +11,6 @@ alwaysApply: true
 - Prefer CSS variables / tokens over scattered hex values.
 - After intake, match `frontend-design/SKILL.md`; until then do not invent a second brand.
 - Focus states must be visible; do not remove outlines without an equal custom focus ring.
+- Reference designs are re-expressed with project tokens; never keep the source's brand or naming (`references.mdc`).
 
 Advanced motion/perf/baseline: `frontend-advanced.mdc`.

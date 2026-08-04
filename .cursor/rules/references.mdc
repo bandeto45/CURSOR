@@ -1,0 +1,35 @@
+---
+description: How to use reference/inspiration material — take only what applies, keep the project fresh
+alwaysApply: true
+---
+
+# References / inspiration (default — never remove)
+
+When the user gives something to copy or follow (screenshot, link, another repo, competitor app, old project, design file):
+
+## Take
+
+- Only the parts that are **actually needed** for the requested surface or feature
+- Structure, layout, flow, spacing rhythm, interaction pattern, field order
+- Re-express everything using **this project's** tokens, components, naming, and concept
+
+## Do not carry over
+
+- The source's name, brand, logo, trademark, product wording, or marketing copy
+- Source URLs, file paths, repo names, or screenshots referenced in code or docs
+- Comments, commit messages, PR text, docs, or UI copy that say where it came from
+  (no "inspired by X", "same as Y", "ported from Z", "based on the reference")
+- Class names, variable names, or CSS custom properties that leak the source
+- Unused sections, dead options, or extra pages that came along with the reference
+
+## Treat the output as fresh
+
+- The project must read as if it was authored **only for this project**
+- Adapt names to the project concept (`concept-domain.mdc`) and tokens (`frontend-design`)
+- Defaults still apply: unified custom forms, project styling, validation, PHP migrate/seed
+- If the reference conflicts with a default rule or the concept, the **project wins** — say so and adapt
+
+## In chat vs in files
+
+- In chat, you may say what you took and how you adapted it
+- In **files** (code, comments, docs, README, commits), leave no trace of the source

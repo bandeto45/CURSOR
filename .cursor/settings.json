@@ -29,6 +29,7 @@
       "validation.mdc",
       "database.mdc",
       "implementation-phases.mdc",
+      "references.mdc",
       "concept-domain.mdc"
     ],
     "autoApply": {
@@ -40,6 +41,7 @@
       "validation.mdc": ["**/*"],
       "database.mdc": ["**/*"],
       "implementation-phases.mdc": ["**/*"],
+      "references.mdc": ["**/*"],
       "concept-domain.mdc": ["**/*"],
       "planning-basic.mdc": ["**/*"],
       "planning-advanced.mdc": ["**/*"],
@@ -124,7 +126,8 @@
     "installMeansAskAndFill": true,
     "blockFeatureWorkUntilProfileFilled": true,
     "neverRemoveDefaultRules": true,
-    "conceptDrivesDomainAndSchema": true
+    "conceptDrivesDomainAndSchema": true,
+    "referencesLeaveNoTraceInFiles": true
   },
   "seo": {
     "enabled": false,

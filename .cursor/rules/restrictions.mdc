@@ -24,6 +24,8 @@ alwaysApply: true
 - Invent a second visual language when a UI baseline is defined
 - Enable SEO without Schema.org JSON-LD when Project Profile SEO = `on`
 - Copy third-party product brands, trademarks, or marketing copy into the project
+- Copy a reference wholesale — take only the parts needed for the requested work
+- Write where a design or pattern came from inside files (code, comments, docs, commits, UI copy)
 - Run destructive git/db commands without explicit user confirmation
 
 ## Prefer

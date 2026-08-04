@@ -165,6 +165,21 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 
 ---
 
+## References / pinaggagayahan
+
+Kapag may binigay na reference (screenshot, link, ibang repo, lumang project, design file):
+
+| Do | Don't |
+|----|-------|
+| Kunin **lang** ang parts na kailangan para sa hinihiling na screen/feature | Kopyahin buo kasama ang hindi kailangan |
+| I-apply gamit ang **project tokens**, components, at concept naming | Dalhin ang brand, logo, copy, o naming ng source |
+| Sabihin sa chat kung ano ang kinuha at inangkop | Isulat sa files kung saan galing (comments, docs, commit, UI copy) |
+| Sundin ang defaults kapag nag-conflict ang reference | Sirain ang forms/styling/validation defaults para tumugma sa source |
+
+**Consider the project fresh** — dapat mukhang ginawa para lang sa project na ito. Detalye: `.cursor/rules/references.mdc`
+
+---
+
 ## Rule layers
 
 ```
@@ -172,7 +187,8 @@ DEFAULT (never remove)     CONCEPT (from intake)     ADVANCED (optional)
 forms · ui-styling         concept-domain.mdc        *-advanced.mdc
 validation · database      entities → migrations     planning/backend/frontend
 engine · restrictions      SEO on/off · scope        forms/validation/db/security
-install · defaults
+install · phases           references (fresh output)
+defaults
 ```
 
 ### Default rules (permanent — hindi mawawala)
@@ -185,6 +201,7 @@ install · defaults
 | `validation.mdc` | Client UX + **server** validation |
 | `database.mdc` | PHP migrate/seed only; prepared statements |
 | `implementation-phases.mdc` | P0–P4 order, subs, exit gates |
+| `references.mdc` | Take only what applies; no source traces in files |
 | `install.mdc` / `restrictions.mdc` | Install ask+fill; hard bans |
 
 Controls covered by forms default: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, link `a`.
@@ -267,3 +284,5 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 - Skip server-side authorization because the UI hides a control
 - Turn on SEO without Schema.org when SEO is enabled
 - Copy another product’s brand, copy, or trademarks into this project
+- Copy a reference wholesale instead of taking only what the task needs
+- Record the reference/source inside files — chat only; the project reads as fresh

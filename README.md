@@ -63,13 +63,17 @@ Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 
 | Layer | Behavior |
 |-------|----------|
-| **Default (never remove)** | Custom unified forms, UI styling, validation (client + server), PHP migrate/seed only, install + restrictions |
+| **Default (never remove)** | Custom unified forms, UI styling, validation (client + server), PHP migrate/seed only, phases, references, install + restrictions |
 | **Concept-driven** | Domain rules and DB schema follow the product concept (`concept-domain.mdc` → migrations) |
 | **Advanced (optional)** | Extra packs for planning, backend, frontend, forms, validation, database, security |
 
 ### Default forms (always)
 
 Custom styled, shared chrome for: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, and link `a`.
+
+### References / inspiration
+
+Give the agent a screenshot, link, or old project and it takes **only the parts the task needs**, re-expressed with this project's tokens and naming. No source name, URL, or "inspired by" note ever lands in code, comments, docs, or commits — the project reads as fresh.
 
 ### Database
 

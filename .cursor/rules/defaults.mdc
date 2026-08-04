@@ -16,6 +16,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | Validation | `validation.mdc` | Client + server validation |
 | DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
 | Phases | `implementation-phases.mdc` | P0–P4 + subs + exit gates |
+| References | `references.mdc` | Take only what applies; no source traces in files |
 
 ## Concept-driven (filled at install — not locked content)
 
@@ -32,3 +33,4 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 - Invent domain tables that ignore the stated concept
 - Treat advanced packs as a reason to drop defaults
 - Mix or skip implementation phases / exit gates
+- Leave reference/source attribution inside project files
