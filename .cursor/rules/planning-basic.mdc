@@ -7,7 +7,7 @@ alwaysApply: true
 
 1. Install = ask + fill Profile + `concept-domain.mdc` before feature work.
 2. **DB and domain rules follow the concept** — update `concept-domain.mdc` first.
-3. **Never drop** default rules (forms, UI styling, validation, PHP migrate/seed).
+3. **Never drop** default rules (forms, UI styling, validation, PHP migrate/seed, icons-states).
 4. Lock v1 in/out of scope from Profile; do not expand silently.
 5. Follow **P0→P4** in `implementation-phases.mdc` — do not mix phases.
 6. At phase end run **exit gate** (`/phase-exit`): tests, leftovers, fixes, carry-over.

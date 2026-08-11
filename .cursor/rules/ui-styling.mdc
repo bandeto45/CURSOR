@@ -12,5 +12,6 @@ alwaysApply: true
 - After intake, match `frontend-design/SKILL.md`; until then do not invent a second brand.
 - Focus states must be visible; do not remove outlines without an equal custom focus ring.
 - Reference designs are re-expressed with project tokens; never keep the source's brand or naming (`references.mdc`).
+- Icons, 404/error/empty screens, skeletons, and lazy load follow `icons-states.mdc` (locked).
 
 Advanced motion/perf/baseline: `frontend-advanced.mdc`.

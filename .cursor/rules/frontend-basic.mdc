@@ -1,13 +1,16 @@
 ---
-description: Basic frontend — tokens, permanent forms/UI/validation defaults, a11y
+description: Basic frontend — tokens, forms/UI/validation, icons-states locked defaults
 globs: "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
 alwaysApply: false
 ---
 
 # Frontend — Basic
 
-- Obey permanent defaults: `forms.mdc`, `ui-styling.mdc`, `validation.mdc`
+- Obey permanent defaults: `forms.mdc`, `ui-styling.mdc`, `validation.mdc`, `icons-states.mdc`
 - Design tokens from intake (`frontend-design` skill)
+- Icons: Profile choice — **Material Icons** or **Lottie** (web JSON); do not invent a third chrome set
+- Shared **404**, status-error, and **empty data** screens with animation when Lottie/chosen system allows
+- **Skeleton loaders** for async content; **lazy load** routes (and heavy media)
 - Semantic HTML; visible focus; labels on inputs
 - Responsive breakpoints (suggestion: 375 · 768 · 1024 · 1280)
 - Feature folders + shared `components/ui`

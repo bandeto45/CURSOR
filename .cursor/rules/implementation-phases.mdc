@@ -26,7 +26,7 @@ At the **end** of each phase, run this gate **before** opening the next phase. W
 ### Exit checklist (copy per phase)
 
 - [ ] All **sub-tasks** for this phase done or explicitly deferred
-- [ ] **Defaults** still intact (forms, ui-styling, validation, PHP migrate/seed)
+- [ ] **Defaults** still intact (forms, ui-styling, validation, PHP migrate/seed, icons-states)
 - [ ] Smoke / manual **test** of this phase’s deliverables passed
 - [ ] Known bugs listed (fix now vs carry to next phase)
 - [ ] Gaps / adds for **next phase** written down (not chat-only)
@@ -49,6 +49,7 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 - [ ] P0.6 Seed.php / seeds for baseline demo data (if needed)
 - [ ] P0.7 `.env.example` documented; app boots empty/skeleton
 - [ ] P0.8 Unified form primitives scaffold planned or stubbed
+- [ ] P0.9 Icon system recorded (`material` \| `lottie`); shared 404/error/empty + skeleton + lazy-load plan noted
 
 ### Exit (P0 → P1)
 
@@ -65,13 +66,15 @@ Run **Phase exit gate**. Especially verify: schema matches concept; no feature U
 - [ ] P1.3 All v1 screens on **mock data** (happy paths)
 - [ ] P1.4 Unified **custom forms** on all inputs (defaults)
 - [ ] P1.5 Client validation UX wired to shared form errors
-- [ ] P1.6 Empty / loading / error states with mocks
-- [ ] P1.7 Responsive check on agreed breakpoints
-- [ ] P1.8 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
+- [ ] P1.6 Shared **404**, status-error, and **empty data** screens (animated per `icons-states.mdc`)
+- [ ] P1.7 **Skeleton loaders** on async list/detail regions
+- [ ] P1.8 **Lazy-loaded** routes/chunks wired
+- [ ] P1.9 Responsive check on agreed breakpoints
+- [ ] P1.10 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
 
 ### Exit (P1 → P2)
 
-Run **Phase exit gate**. Especially verify: no accidental real API coupling; mock modules listed for P3 removal; missing screens deferred with reason.
+Run **Phase exit gate**. Especially verify: no accidental real API coupling; mock modules listed for P3 removal; missing screens deferred with reason; 404/empty/skeleton/lazy present.
 
 ---
 

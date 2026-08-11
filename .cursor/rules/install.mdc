@@ -14,7 +14,7 @@ When installing this pack or Profile/`concept-domain` is still `TBD`:
    - `.cursor/rules/concept-domain.mdc` (**concept** → domain rules + entities)
    - `.cursor/settings.json` project + seo
    - `.cursor/skills/frontend-design/SKILL.md`
-4. Keep **default rules** intact (forms, ui-styling, validation, database engine).
+4. Keep **default rules** intact (forms, ui-styling, validation, database engine, icons-states).
 5. Summarize. Do not feature-build until required fields are filled (or explicitly deferred).
 
-DB schema and domain rules **follow the concept**. Defaults **never** go away.
+DB schema and domain rules **follow the concept**. Defaults **never** go away (including Material/Lottie choice, 404/error/empty, skeleton, lazy load).

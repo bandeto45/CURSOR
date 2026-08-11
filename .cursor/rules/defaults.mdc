@@ -17,6 +17,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
 | Phases | `implementation-phases.mdc` | P0–P4 + subs + exit gates |
 | References | `references.mdc` | Take only what applies; no source traces in files |
+| Icons & states | `icons-states.mdc` | Material **or** Lottie; 404/error/empty; skeleton; lazy load |
 
 ## Concept-driven (filled at install — not locked content)
 
@@ -30,6 +31,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 ## Never
 
 - Remove or weaken forms / custom styling / validation defaults
+- Remove or weaken **icons-states** defaults (icon choice, 404/error/empty, skeleton, lazy load)
 - Invent domain tables that ignore the stated concept
 - Treat advanced packs as a reason to drop defaults
 - Mix or skip implementation phases / exit gates

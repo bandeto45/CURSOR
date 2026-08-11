@@ -1,0 +1,57 @@
+---
+description: Locked icons (Material or Lottie), state screens, skeleton loaders, lazy load
+alwaysApply: true
+---
+
+# Icons, states & loading (default — never remove)
+
+These are **locked general rules**. Do not delete, skip, or replace with one-off patterns.
+
+## Icon system (choose at install)
+
+At intake, set Project Profile **Icons** to exactly one primary system:
+
+| Choice | Use |
+|--------|-----|
+| **Material Icons** | Static Material Symbols / Material Icons for product chrome |
+| **Lottie** | Animated icons via **Lottie web** JSON (`.json` / `.lottie`) for chrome and state screens |
+
+Rules:
+
+- One primary system per project (record in Profile + `frontend-design` skill)
+- If **Lottie**: use official Lottie web player for the stack; store assets under a shared path (e.g. `public/lottie/` or `src/assets/lottie/`); prefer lightweight loops
+- If **Material**: do not mix a second static icon library for chrome (emoji is not product chrome)
+- Icon-only controls still need accessible names (`aria-label` / visible text)
+- Honor `prefers-reduced-motion`: pause/stop Lottie loops or show a static frame
+
+## Default state screens (required)
+
+Ship shared, reusable screens/components — not ad-hoc per page:
+
+| State | Required |
+|-------|----------|
+| **404** Not found | Animated/illustrated default page (route catch-all) |
+| **Other status errors** | Shared error page/panel for 403, 500, offline, generic failure (status + message + recovery CTA when useful) |
+| **Empty data** | Shared empty state for lists/tables/search with optional action |
+
+Prefer Lottie (or the chosen icon system) for these animations so they match brand motion. Copy and CTAs follow project tokens — not bare browser defaults.
+
+## Skeleton loaders (required)
+
+- List, detail, dashboard, and other async content regions use **skeleton loaders** while loading
+- Skeletons match layout shape (not a lone spinner unless the surface is tiny)
+- Shared skeleton primitives in `components/ui/` (or equivalent)
+
+## Lazy load (required)
+
+- Route-level **lazy loading** for feature screens/chunks
+- Lazy-load heavy media / below-fold images where the stack supports it
+- Lottie players and large animations load on demand when practical (do not block first paint)
+
+## Do not
+
+- Skip 404 / error / empty defaults “until later”
+- Replace skeletons with blank screens or only spinners for primary content
+- Eager-load every route/chunk when lazy load is available
+- Swap the locked icon system mid-project without updating Profile + skill
+- Mix Material + another static icon set for the same chrome layer (Lottie may animate states even when Material is primary chrome — note that in Profile if hybrid)

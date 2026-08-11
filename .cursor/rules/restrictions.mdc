@@ -11,7 +11,7 @@ alwaysApply: true
 - Skip **project intake** when Project Profile fields are `TBD`
 - Keep intake answers only in chat without writing them to `CURSOR.md` / settings / skill / `concept-domain.mdc`
 - Start feature work while required Profile fields are still `TBD` (unless user deferred a field)
-- **Remove or weaken default rules**: forms, custom UI styling, validation, PHP migrate/seed
+- **Remove or weaken default rules**: forms, custom UI styling, validation, PHP migrate/seed, icons-states
 - **Mix implementation phases** or skip `/phase-exit` gates
 - Invent DB schema or domain rules that ignore the stated **concept**
 - Commit secrets, API keys, or filled `.env` files
@@ -22,6 +22,8 @@ alwaysApply: true
 - Hard-delete user-facing records when soft delete (`deleted_at`) is the project norm
 - Mix bare native form controls with the unified custom form system
 - Invent a second visual language when a UI baseline is defined
+- Skip shared **404 / status-error / empty** screens, **skeleton loaders**, or **lazy load**
+- Replace the locked icon system without updating Profile (Material Icons **or** Lottie web)
 - Enable SEO without Schema.org JSON-LD when Project Profile SEO = `on`
 - Copy third-party product brands, trademarks, or marketing copy into the project
 - Copy a reference wholesale — take only the parts needed for the requested work

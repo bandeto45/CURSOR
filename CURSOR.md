@@ -46,7 +46,8 @@ If already inside the target project with this pack present, skip copy and go to
 - [ ] SEO `on`/`off` set; if `on`, Schema.org noted
 - [ ] Rule level `basic` or `basic+advanced` set
 - [ ] **Current phase** set (usually `P0`); phases P0–P4 acknowledged
-- [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine, implementation-phases)
+- [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine, implementation-phases, icons-states)
+- [ ] Icon system chosen (`material` \| `lottie`) in Profile
 - [ ] AI’s next steps reference Profile + concept (not guesses)
 
 ---
@@ -74,13 +75,14 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Brand name / wordmark rules?
 - Primary / secondary / text / surface colors (hex)?
 - Typography (font family + weights)?
-- Icon library (e.g. Phosphor only)?
+- **Icons:** **Material Icons** or **Lottie** (animated web JSON) — pick one primary system?
 - Light / dark / both? Default mode?
 - Visual direction (editorial, minimal, dashboard, etc.)?
 - Reference pages or “UI baseline” route?
 
 ### 4. Forms & components
 - Confirm unified custom form system (required by this pack — see Forms)?
+- Confirm locked **404 / status-error / empty** screens, **skeleton loaders**, and **lazy load** (`icons-states.mdc`)?
 - Any extra field types beyond the standard set?
 - Validation library or hand-rolled?
 
@@ -96,7 +98,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Confirm **Schema.org** JSON-LD when SEO is on?
 
 ### 7. Rules & restrictions
-- Confirm **default rules stay forever**: forms (custom styling), UI styling, validation, PHP migrate/seed
+- Confirm **default rules stay forever**: forms (custom styling), UI styling, validation, PHP migrate/seed, icons-states (Material/Lottie, 404/error/empty, skeleton, lazy load)
 - Concept-specific domain rules → write into `concept-domain.mdc`
 - Add **Advanced** packs? (`basic` vs `basic+advanced`)
 - Extra hard bans / compliance (PII, payments, age gates)?
@@ -127,7 +129,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **Auth** | TBD |
 | **Theme** | TBD |
 | **Typography** | TBD |
-| **Icons** | TBD |
+| **Icons** | `material` \| `lottie` (pick at intake; locked system) |
 | **SEO** | `off` \| `on` (default template: `off` until intake) |
 | **Schema.org** | Required when SEO = `on` |
 | **Rule level** | `basic` \| `basic+advanced` |
@@ -187,8 +189,8 @@ DEFAULT (never remove)     CONCEPT (from intake)     ADVANCED (optional)
 forms · ui-styling         concept-domain.mdc        *-advanced.mdc
 validation · database      entities → migrations     planning/backend/frontend
 engine · restrictions      SEO on/off · scope        forms/validation/db/security
-install · phases           references (fresh output)
-defaults
+install · phases           icons material|lottie
+defaults · references      icons-states (404/empty/skeleton/lazy)
 ```
 
 ### Default rules (permanent — hindi mawawala)
@@ -202,9 +204,12 @@ defaults
 | `database.mdc` | PHP migrate/seed only; prepared statements |
 | `implementation-phases.mdc` | P0–P4 order, subs, exit gates |
 | `references.mdc` | Take only what applies; no source traces in files |
+| `icons-states.mdc` | Material **or** Lottie; 404/error/empty; skeleton; lazy load |
 | `install.mdc` / `restrictions.mdc` | Install ask+fill; hard bans |
 
 Controls covered by forms default: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, link `a`.
+
+**Icons & states (locked):** choose Material Icons or Lottie web animations at install; shared animated **404**, other status-error, and **empty data** screens; **skeleton loaders** for async content; **lazy load** for routes/chunks (and heavy media). See `icons-states.mdc`.
 
 ### Concept-driven (magbabase sa concept)
 
@@ -275,7 +280,8 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 - Start P1 UI before P0 foundation exit OK (unless user explicitly overrides)
 - Start P3 integration before P2 API exit OK
 - Leave mocks in prod paths after P3 without documenting
-- Remove default forms / custom styling / validation rules
+- Remove default forms / custom styling / validation / icons-states rules
+- Skip shared 404, status-error, empty screens, skeleton loaders, or lazy load
 - Invent DB or domain rules that ignore the concept
 - Skip intake and guess brand, stack, or features
 - Commit secrets or filled `.env`

@@ -30,6 +30,7 @@
       "database.mdc",
       "implementation-phases.mdc",
       "references.mdc",
+      "icons-states.mdc",
       "concept-domain.mdc"
     ],
     "autoApply": {
@@ -42,6 +43,7 @@
       "database.mdc": ["**/*"],
       "implementation-phases.mdc": ["**/*"],
       "references.mdc": ["**/*"],
+      "icons-states.mdc": ["**/*"],
       "concept-domain.mdc": ["**/*"],
       "planning-basic.mdc": ["**/*"],
       "planning-advanced.mdc": ["**/*"],

@@ -63,13 +63,17 @@ Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 
 | Layer | Behavior |
 |-------|----------|
-| **Default (never remove)** | Custom unified forms, UI styling, validation (client + server), PHP migrate/seed only, phases, references, install + restrictions |
+| **Default (never remove)** | Custom unified forms, UI styling, validation, PHP migrate/seed, phases, references, icons-states (Material/Lottie, 404/error/empty, skeleton, lazy load), install + restrictions |
 | **Concept-driven** | Domain rules and DB schema follow the product concept (`concept-domain.mdc` → migrations) |
 | **Advanced (optional)** | Extra packs for planning, backend, frontend, forms, validation, database, security |
 
 ### Default forms (always)
 
 Custom styled, shared chrome for: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, and link `a`.
+
+### Icons, states & loading (locked)
+
+At install, choose **Material Icons** or **Lottie** (animated web JSON) as the primary icon system. Every project must ship shared animated **404**, other **status-error**, and **empty data** screens, plus **skeleton loaders** and **lazy-loaded** routes/chunks. These cannot be skipped or replaced with one-offs — see `.cursor/rules/icons-states.mdc`.
 
 ### References / inspiration
 

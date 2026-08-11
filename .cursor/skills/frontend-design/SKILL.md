@@ -49,7 +49,8 @@ triggers:
 
 | Item | Choice |
 |------|--------|
-| Icon library | TBD (prefer one library only) |
+| Icon system | TBD — `material` \| `lottie` (one primary; locked after intake) |
+| Lottie asset path | TBD if `lottie` (e.g. `public/lottie/`) |
 | Logo / mark | TBD |
 | Wordmark rules | TBD |
 
@@ -57,13 +58,22 @@ triggers:
 
 Must match `.cursor/rules/forms.mdc`: shared height, radius, border, focus, error — for text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons (± icon), and `a` links.
 
+## States & loading (locked — `icons-states.mdc`)
+
+- Shared animated **404**, other status-error, and **empty data** screens
+- **Skeleton loaders** for primary async content
+- **Lazy load** routes/chunks (and heavy media)
+- If Lottie: use web JSON animations; respect `prefers-reduced-motion`
+
 ## Motion
 
 - Intentional motions only (budget 2–3 on marketing)
-- Respect `prefers-reduced-motion`
+- Respect `prefers-reduced-motion` (pause/stop Lottie or static frame)
 
 ## Do not
 
 - Ship a second unrelated visual language for product shells
-- Mix icon libraries or use emoji as product chrome
+- Mix icon systems for chrome without documenting in Profile
+- Skip 404 / error / empty / skeleton / lazy-load defaults
+- Use emoji as product chrome
 - Use default unstyled browser form controls in product UI
