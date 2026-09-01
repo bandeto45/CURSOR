@@ -28,6 +28,7 @@ Cross-check changes against `.cursor/rules/security.mdc`, `.cursor/rules/api.mdc
 - Raw SQL string concatenation
 - `dangerouslySetInnerHTML` without sanitization
 - Secrets in source code or `.env` committed to git
+- Production FTP, DB, or API hosts missing from GitHub Secrets (or hardcoded in web/mobile)
 - Missing rate limiting on auth endpoints
 - Overly permissive CORS (`*`)
 - JWT verified without checking `alg` header

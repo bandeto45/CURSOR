@@ -26,6 +26,7 @@ Conduct a full code review of the current branch diff or a specified PR.
 ### 2. Security
 - Consult `security-auditor` agent for any auth, input, or data handling changes
 - Check for secrets, unsafe patterns, or injection vectors
+- New env keys: `.env.example` updated **and** GitHub Secrets called out (FTP/DB/API hosts; web + mobile if split) — `/deploy`
 
 ### 3. Tests
 - Are new code paths covered by tests?

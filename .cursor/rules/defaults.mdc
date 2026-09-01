@@ -10,7 +10,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | Default | File | Locked behavior |
 |---------|------|-----------------|
 | Install intake | `install.mdc` | Ask + fill Profile before building |
-| Restrictions | `restrictions.mdc` | Secrets, authz, no `.sql`, etc. |
+| Restrictions | `restrictions.mdc` | Secrets, GitHub Secrets for live env, authz, no `.sql`, etc. |
 | Forms UI | `forms.mdc` | Unified **custom** form controls |
 | UI styling | `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · locked components |
 | Validation | `validation.mdc` | Client + server validation |

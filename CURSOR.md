@@ -47,6 +47,7 @@ If already inside the target project with this pack present, skip copy and go to
 - [ ] Rule level `basic` or `basic+advanced` set
 - [ ] **Current phase** set (usually `P0`); phases P0–P4 acknowledged
 - [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine, implementation-phases, icons-states)
+- [ ] Production/live env path confirmed: **GitHub Secrets** (FTP, DB, API hosts; `/deploy`)
 - [ ] Icon system chosen (`material` \| `lottie`) in Profile
 - [ ] AI’s next steps reference Profile + concept (not guesses)
 
@@ -69,6 +70,8 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Database (MySQL/MariaDB, Postgres, etc.)?
 - Auth model (JWT, sessions, OAuth)?
 - Hosting / deploy target?
+- Confirm **production/live**: `.env` values, FTP/SSH, database, and API/app hosts live in **GitHub Secrets** (never git)?
+- If frontend and backend are **separate** (web and/or mobile): where does each client call the API? That host goes in GitHub Secrets.
 - Package managers allowed or forbidden (e.g. no Composer)?
 
 ### 3. Theme & UI styling
@@ -139,6 +142,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **Schema.org** | Required when SEO = `on` |
 | **Rule level** | `basic` \| `basic+advanced` |
 | **Current phase** | `P0` \| `P1` \| `P2` \| `P3` \| `P4` \| `done` (default after install: `P0`) |
+| **Deploy / live env** | **GitHub Secrets** — production `.env`, FTP/SSH, DB, API/app hosts (web + mobile when split) |
 | **v1 in scope** | TBD |
 | **v1 out of scope** | TBD |
 
@@ -276,6 +280,22 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 4. At phase end: `/phase-exit` — test leftovers, fixes, carry-over — then advance
 5. DB from concept via PHP migrations; forms/validation/styling defaults always on
 6. Before commit: hooks / lint / secret scan
+7. Production: `/deploy` — live values in **GitHub Secrets** (FTP, DB, API hosts). Every new env key → `.env.example` **and** GitHub Secret (web + mobile API hosts if split)
+
+---
+
+## Production / live (GitHub Secrets)
+
+Live environment is **GitHub Secrets**, not git. Local `.env` is local-only.
+
+| Put in GitHub Secrets | Includes |
+|----------------------|----------|
+| FTP / SSH | host, user, password/key, deploy path |
+| Database | host, name, user, password |
+| App / API hosts | `APP_URL`, the URL **web** and **mobile** call when backend is separate, CORS origins |
+| Every new env key | same key as `.env.example`, wired into CI in the same change |
+
+Do not hardcode production API hosts in frontend (web or mobile). Full checklist: `.cursor/commands/deploy.md` (`/deploy`).
 
 ---
 
@@ -294,6 +314,9 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 - Invent DB or domain rules that ignore the concept
 - Skip intake and guess brand, stack, or features
 - Commit secrets or filled `.env`
+- Deploy to production without **GitHub Secrets** for FTP, DB, and API/app hosts
+- Add a production env key without the matching GitHub Secret (including the host the frontend calls)
+- Hardcode the live API host in web or mobile source when backend is separate
 - Ship `.sql` migrations or seeds
 - Mix bare native form controls with the custom form system
 - Skip server-side authorization because the UI hides a control

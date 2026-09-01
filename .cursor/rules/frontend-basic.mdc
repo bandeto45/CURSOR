@@ -15,3 +15,5 @@ alwaysApply: false
 - 404 / status-error / empty · skeleton · lazy-loaded routes
 - Semantic HTML; visible focus; responsive (375 · 768 · 1024 · 1280)
 - `components/ui/` — compose utilities; no orphan page skins
+- API base URL / host from env — never hardcode production hosts (web **and** mobile)
+- When backend is separate: the URL each client calls (`VITE_*` / `NEXT_PUBLIC_*` / `EXPO_PUBLIC_*` or stack equivalent) lives in env + **GitHub Secrets** (`/deploy`)

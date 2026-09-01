@@ -47,7 +47,7 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 - [ ] P0.4 Repo skeleton (web/api/migrations/seeds per stack)
 - [ ] P0.5 PHP migrations for concept entities (`up`/`down`) — **no `.sql`**
 - [ ] P0.6 Seed.php / seeds for baseline demo data (if needed)
-- [ ] P0.7 `.env.example` documented; app boots empty/skeleton
+- [ ] P0.7 `.env.example` documented (keys only); app boots empty/skeleton; production values go in **GitHub Secrets** (`/deploy`)
 - [ ] P0.8 Unified **Tailwind** form + ui primitives scaffold (`components/ui/`)
 - [ ] P0.9 Icon system recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
 
@@ -123,11 +123,11 @@ Run **Phase exit gate**. Especially verify: no silent mock fallbacks in prod bui
 ### Subs
 
 - [ ] P4.1 Delete dead code, unused routes, leftover mocks
-- [ ] P4.2 Docs: README / setup / env / migrate+seed commands
+- [ ] P4.2 Docs: README / setup / env / migrate+seed commands; GitHub Secret **names** (not values) for live FTP, DB, API hosts
 - [ ] P4.3 Final regression pass (roles × critical flows)
 - [ ] P4.4 a11y spot-check on forms; security smoke (authz, uploads)
 - [ ] P4.5 Performance sanity (main pages)
-- [ ] P4.6 Deploy checklist from `/deploy` if shipping
+- [ ] P4.6 Deploy checklist from `/deploy` if shipping — GitHub Secrets complete (FTP, DB, API/app hosts, all env keys; web + mobile if split)
 - [ ] P4.7 Phase notes closed; Profile Current phase = `done` / `P4 complete`
 
 ### Exit (P4 → done)

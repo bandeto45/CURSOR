@@ -13,3 +13,4 @@ Enable when rule level includes `advanced`. Base `security.mdc` still applies.
 - Privilege checks on every object (IDOR): user can only access own resources unless role allows
 - Dependency/audit cadence when the project has a package lockfile
 - Secrets scanning in CI/hooks; never commit proof files or dumps
+- Production secrets (FTP, DB, API/app hosts, new env keys) live in **GitHub Secrets** — `/deploy`

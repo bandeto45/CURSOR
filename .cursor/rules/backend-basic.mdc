@@ -8,7 +8,8 @@ alwaysApply: false
 
 - Obey permanent defaults: `validation.mdc`, `database.mdc`, `restrictions.mdc`
 - Authenticate then **authorize** on every protected endpoint
-- No secrets in source — env + `.env.example`
+- No secrets in source — env + `.env.example`; **production** values in **GitHub Secrets**
+- New env keys: add to `.env.example` **and** GitHub Secrets in the same change (`/deploy`)
 - Consistent JSON success/error shapes when building APIs
 - Log failures without passwords or tokens
 - Implement only endpoints required by **concept-domain.mdc**

@@ -26,6 +26,7 @@ alwaysApply: true
 1. Concept / domain locked in `concept-domain.mdc`
 2. New numbered PHP migration
 3. Migrate up → seed if needed
-4. Document DB_* in `.env.example`
+4. Document DB_* in `.env.example` (keys only)
+5. Production DB_* live in **GitHub Secrets** (never git) — `/deploy`
 
 Advanced (indexing, tenancy, audit tables): `database-advanced.mdc`.

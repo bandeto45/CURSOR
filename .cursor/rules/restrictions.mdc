@@ -16,6 +16,9 @@ alwaysApply: true
 - **Mix implementation phases** or skip `/phase-exit` gates
 - Invent DB schema or domain rules that ignore the stated **concept**
 - Commit secrets, API keys, or filled `.env` files
+- Hardcode production API hosts, FTP, or DB credentials in source
+- Add a new env key used in production without adding the same key to **GitHub Secrets**
+- Deploy to production/live with secrets only on a local `.env` and not in GitHub Secrets
 - Add `.sql` migrations or seeds — use PHP `migration` / `seed` only
 - Concatenate user input into SQL (SQL injection)
 - Return HTTP `200` with an error-only payload when a proper error status exists
@@ -37,5 +40,6 @@ alwaysApply: true
 - Edit existing files over creating parallel structures
 - Shared UI components and design tokens
 - Prepared statements / parameterized queries
-- Documented env in `.env.example` only
+- Documented env in `.env.example` only (keys + placeholders — never live values)
+- Production/live values in **GitHub Secrets**: FTP/SSH, database, `APP_URL` / API hosts (web **and** mobile when split), and every new env key — CI injects at deploy (`/deploy`)
 - Concept → domain file → migrations → API → UI

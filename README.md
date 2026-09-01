@@ -118,7 +118,7 @@ CURSOR.md                 # Project brain + intake + profile
 | `/fix-issue` | Diagnose a bug |
 | `/lint` | Lint |
 | `/test` | Tests |
-| `/deploy` | Deploy using intake host/stack |
+| `/deploy` | Deploy using intake host/stack — live `.env`, FTP, DB, and API hosts in **GitHub Secrets** |
 
 ---
 

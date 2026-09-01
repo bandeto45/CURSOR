@@ -10,6 +10,6 @@ Enable when rule level includes `advanced`.
 - Short ADRs for non-obvious choices (auth, payments, storage)
 - Dependency order: concept/domain → **P0** migrations → **P1** mock UI → **P2** API → **P3** integration → **P4** cleanup
 - Risk list early (PII, payments, multi-tenant, offline)
-- Definition of done: Profile rules + forms/validation defaults + authz + no secrets + **phase exit OK**
+- Definition of done: Profile rules + forms/validation defaults + authz + no secrets in git + production env in **GitHub Secrets** + **phase exit OK**
 - Open questions written into `concept-domain.mdc` or Project Profile — not chat-only
 - Phase gates: do not start the next phase with unresolved blocking exit items
