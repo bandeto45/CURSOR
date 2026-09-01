@@ -1,17 +1,175 @@
 ---
-description: Custom UI styling defaults — tokens, chrome, no mixed skins
+description: Locked Tailwind UI system — Modern, Premium, Professional; extensible, not replaceable
 alwaysApply: true
 ---
 
 # UI styling (default — never remove)
 
-- Product UI uses **customized** styling from design tokens (filled at install into `frontend-design` skill).
-- Forms, buttons, links, and inputs **share** the same chrome language.
-- Do not mix third-party default themes with the project skin on the same surface.
-- Prefer CSS variables / tokens over scattered hex values.
-- After intake, match `frontend-design/SKILL.md`; until then do not invent a second brand.
-- Focus states must be visible; do not remove outlines without an equal custom focus ring.
-- Reference designs are re-expressed with project tokens; never keep the source's brand or naming (`references.mdc`).
-- Icons, 404/error/empty screens, skeletons, and lazy load follow `icons-states.mdc` (locked).
+## Lock policy
 
-Advanced motion/perf/baseline: `frontend-advanced.mdc`.
+- **Stack:** **Tailwind CSS** is the styling engine for product UI (locked).
+- **Direction:** **Modern · Premium · Professional** — calm spacing, clear hierarchy, refined surfaces, no noisy clutter.
+- **UI + UX (locked):** **Simplified, beautiful, easy to use** — see UX principles below.
+- **Cannot replace** this base system with another CSS framework, bare browser chrome, or per-page one-off skins.
+- **Can extend:** add project tokens in `tailwind.config` / `@theme`, CSS variables, and **additive** utility layers or component variants — never delete or bypass the locked primitives below.
+- All surfaces inherit **one** chrome language from `frontend-design/SKILL.md` + shared `components/ui/`.
+- Reference work is re-expressed with project tokens (`references.mdc`). Icons/states/skeleton/lazy load: `icons-states.mdc`.
+
+---
+
+## Tailwind setup (required)
+
+- Tailwind v3+ (or project stack equivalent) with `@tailwind base/components/utilities`
+- Extend theme — do not scatter raw hex in JSX/HTML:
+  - `colors` (primary, surface, border, muted, danger, success)
+  - `fontSize` scale (see Typography)
+  - `spacing` / `borderRadius` / `boxShadow` / `maxWidth`
+- `@apply` only inside shared component files — prefer utility classes in markup for layout
+- `prefers-reduced-motion` respected for transitions, parallax, slideshow autoplay
+
+---
+
+## UI & UX principles (locked)
+
+Design must be **simple, beautiful, and easy to use**. Pretty means clear — not busy.
+
+| Principle | Apply |
+|-----------|--------|
+| **Simplify** | One primary job per screen; remove elements that do not serve the task |
+| **Hierarchy** | Obvious title → supporting text → one main CTA; scannable sections |
+| **Consistency** | Same patterns for nav, forms, cards, empty states — user learns once |
+| **Clarity** | Plain language; visible labels; no mystery icons without tooltips/`aria-label` |
+| **Feedback** | Loading, success, error, empty — user always knows system state |
+| **Flow** | Short paths to goals; back/escape always available; no dead ends |
+| **Touch & click** | Comfortable targets (min ~44px touch); spacing that prevents mis-taps |
+| **Calm beauty** | Whitespace, type rhythm, subtle borders/shadows — not decoration overload |
+| **Accessible** | Contrast, focus, keyboard — beauty includes usability |
+| **Mobile-first** | Layouts that work on small screens first; progressive enhancement |
+
+**Do not:** cram dashboards, stack 5+ CTAs, hide core actions, or ship “pretty but confusing” UI.
+
+---
+
+## Layout & spacing (locked primitives)
+
+| Primitive | Rule |
+|-----------|------|
+| **Grid** | Use CSS Grid / Tailwind `grid` for dashboards, cards, galleries; consistent column gaps |
+| **Flex** | `flex` + `items-*` / `justify-*` for toolbars, rows, nav; avoid float hacks |
+| **Gap** | Prefer `gap-*` over manual margins between siblings |
+| **Margin / padding** | Use spacing scale only (`p-*`, `m-*`, `px-*`, `py-*`); page shell: consistent horizontal padding |
+| **Position** | `relative` / `absolute` / `fixed` with z-index scale documented in theme |
+| **Sticky** | `sticky top-*` for headers, section titles, table heads — define `--header-height` or token |
+| **Sections** | Vertical rhythm: section padding + optional subtle border/background band |
+| **Page shell** | Max-width container + safe areas; new pages reuse shell — no orphan layouts |
+
+---
+
+## Typography (locked)
+
+| Element | Rule |
+|---------|------|
+| **Font sizes** | Theme scale only: `text-xs` … `text-4xl+`; no arbitrary `text-[13px]` except one-off marketing with token |
+| **Headings** | `h1`–`h6` mapped to display scale; one H1 per view |
+| **Paragraph** | `text-base` / `leading-relaxed`; muted body via `text-muted` token |
+| **Links** | Brand link color + underline/offset on hover; not default blue |
+| **Labels** | `text-sm font-medium`; required marker consistent |
+| **Buttons (text)** | `text-sm` / `font-medium`; label contrast AA on fills |
+
+---
+
+## Buttons (locked variants)
+
+Shared `Button` primitive — same height, radius, focus ring, disabled state.
+
+| Variant | Use |
+|---------|-----|
+| **Text only** | Primary / secondary / ghost / danger |
+| **Icon only** | Square hit target; `aria-label` required |
+| **Icon + text** | Icon leading or trailing; consistent gap (`gap-2`) |
+| **Back** | Dedicated back control in headers/toolbars — icon + optional “Back” label; predictable `history.back()` or route |
+
+Focus: visible ring (`ring-2 ring-offset-2`). Loading: inline spinner/skeleton on button, do not double-submit.
+
+---
+
+## Navigation & pages (locked)
+
+| Surface | Rule |
+|---------|------|
+| **Navbar (top)** | Logo, primary nav, actions; sticky optional; mobile → drawer/sheet |
+| **Toolbar (bottom)** | Fixed bottom bar for mobile primary actions; safe-area padding |
+| **Tab page** | Shared tab component — active indicator, keyboard roving focus |
+| **New pages** | Reuse page template: header + optional toolbar + content + consistent back |
+| **Page transition** | Subtle enter/exit (fade/slide) via shared layout wrapper; honor reduced motion |
+| **Back behavior** | Header back + browser back aligned; no dead-end stacks without escape |
+
+---
+
+## Overlays (locked)
+
+| Component | Rule |
+|-----------|------|
+| **Modal** | Centered panel, backdrop, focus trap, Esc close, `role="dialog"` |
+| **Popup** | Smaller anchored surface; click-outside dismiss where appropriate |
+| **Popover** | Anchored to trigger; arrow optional; same border/radius/shadow tokens |
+| **Alert (custom)** | Inline / banner / toast variants — success/warn/error/info tokens; not `window.alert` |
+
+Same overlay tokens: radius, shadow, border, padding, z-index layer (`z-modal`, `z-popover`).
+
+---
+
+## Cards, headers, media (locked)
+
+| Component | Rule |
+|-----------|------|
+| **Card** | Surface token, radius, border or shadow, inner padding; optional header/footer slots |
+| **Header (page)** | Title, subtitle, actions row; sticky variant shares height token |
+| **Images** | Rounded where brand says; lazy load; aspect-ratio boxes; alt required |
+| **Slideshow** | Shared carousel — arrows, dots, swipe; autoplay off or reduced-motion safe |
+| **Parallax** | Marketing only; subtle; disable when `prefers-reduced-motion` |
+
+---
+
+## Data & motion (locked)
+
+| Pattern | Rule |
+|---------|------|
+| **Infinite scroll** | Sentinel + loading row/skeleton; preserve scroll on back nav when possible |
+| **Loaders** | Skeleton for content regions; spinner only for tiny/button contexts |
+| **Graph / chart** | Shared chart wrapper — axis/legend colors from theme; responsive container |
+| **DOM structure** | Semantic landmarks: `header`, `main`, `nav`, `section`, `footer`; logical heading order |
+
+Forms-specific controls: `forms.mdc` (input, text, editor, checkbox, **radio**, **slider**, stepper, picker, upload, search, password, select, links).
+
+---
+
+## Aesthetic — Modern · Premium · Professional · Simplified
+
+- Generous whitespace; limited font weights; restrained color (primary + neutrals)
+- Soft shadows / hairline borders — not heavy skeuomorphism
+- Consistent 8px (or 4px) spacing rhythm
+- **Less on screen, better on screen** — every block earns its place
+- No emoji as chrome; no clutter badge soup
+- Dark mode: if enabled at intake, mirror tokens — do not bolt on un-themed surfaces
+
+---
+
+## Extension (allowed)
+
+Add without replacing locked base:
+
+- Extra Tailwind theme keys (brand accent, marketing gradients) in config
+- New `components/ui/*` variants that **compose** locked primitives
+- Page-specific **layout** classes inside the shared shell only
+- Marketing-only sections (hero, parallax, slideshow) that still use typography/color tokens
+
+## Do not
+
+- Swap Tailwind for another utility system mid-project without updating Profile + this rule
+- Mix Bootstrap/MUI default theme with product Tailwind skin on same surface
+- Inline styles for colors/spacing that bypass tokens (except rare dynamic values)
+- Skip shared components for modals, alerts, nav, buttons, forms
+- Remove focus rings or back affordances for aesthetics
+
+Advanced: `ui-styling-advanced.mdc`. Forms detail: `forms.mdc`.

@@ -72,18 +72,21 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Package managers allowed or forbidden (e.g. no Composer)?
 
 ### 3. Theme & UI styling
+- Confirm **Tailwind CSS** as styling engine (locked) and **Modern · Premium · Professional · Simplified** direction?
+- Confirm **UI + UX goal:** beautiful, easy-to-use interfaces — clear hierarchy, simple flows, not cluttered?
 - Brand name / wordmark rules?
-- Primary / secondary / text / surface colors (hex)?
-- Typography (font family + weights)?
+- Primary / secondary / text / surface colors (hex → Tailwind theme)?
+- Typography (font family + weights + size scale)?
 - **Icons:** **Material Icons** or **Lottie** (animated web JSON) — pick one primary system?
 - Light / dark / both? Default mode?
-- Visual direction (editorial, minimal, dashboard, etc.)?
 - Reference pages or “UI baseline” route?
+- Any **extra** styles/tokens to add on top of locked UI system (extensions only)?
 
-### 4. Forms & components
-- Confirm unified custom form system (required by this pack — see Forms)?
-- Confirm locked **404 / status-error / empty** screens, **skeleton loaders**, and **lazy load** (`icons-states.mdc`)?
-- Any extra field types beyond the standard set?
+### 4. Forms & UI components
+- Confirm locked **Tailwind ui-styling** primitives: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons (text/icon/both), layout (grid/flex/gap), typography, images, slideshow/parallax (if marketing)?
+- Confirm unified **custom forms** (input, text, editor, checkbox, radio, slider, stepper, picker, upload, search, password, select, links)?
+- Confirm locked **404 / status-error / empty**, **skeleton**, **lazy load**, **page transitions**, **infinite scroll** where lists need it?
+- Any extra field types or component variants beyond the standard set?
 - Validation library or hand-rolled?
 
 ### 5. Database & data
@@ -127,6 +130,8 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **Stack — Backend** | TBD |
 | **Stack — Database** | TBD |
 | **Auth** | TBD |
+| **CSS / UI** | **Tailwind CSS** (locked) · Modern · Premium · Professional · **Simplified** |
+| **UI / UX** | Beautiful, easy to use — locked principles in `ui-styling.mdc` |
 | **Theme** | TBD |
 | **Typography** | TBD |
 | **Icons** | `material` \| `lottie` (pick at intake; locked system) |
@@ -199,7 +204,7 @@ defaults · references      icons-states (404/empty/skeleton/lazy)
 |------|-----------------|
 | `defaults.mdc` | Index of what must stay |
 | `forms.mdc` | Unified **custom** form controls + chrome |
-| `ui-styling.mdc` | Shared tokens / customized styling |
+| `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · modals/nav/forms/layout |
 | `validation.mdc` | Client UX + **server** validation |
 | `database.mdc` | PHP migrate/seed only; prepared statements |
 | `implementation-phases.mdc` | P0–P4 order, subs, exit gates |
@@ -209,7 +214,9 @@ defaults · references      icons-states (404/empty/skeleton/lazy)
 
 Controls covered by forms default: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, link `a`.
 
-**Icons & states (locked):** choose Material Icons or Lottie web animations at install; shared animated **404**, other status-error, and **empty data** screens; **skeleton loaders** for async content; **lazy load** for routes/chunks (and heavy media). See `icons-states.mdc`.
+**Icons & states (locked):** Material or Lottie; 404/error/empty; skeleton; lazy load — `icons-states.mdc`.
+
+**UI styling (locked):** Tailwind-based shared components — modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transition, infinite scroll, images, slideshow/parallax (marketing). **Can add** theme variants; **cannot replace** base system — `ui-styling.mdc`.
 
 ### Concept-driven (magbabase sa concept)
 
@@ -229,6 +236,7 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 | Planning | `planning-advanced.mdc` |
 | Backend | `backend-advanced.mdc` |
 | Frontend | `frontend-advanced.mdc` |
+| UI styling | `ui-styling-advanced.mdc` |
 | Forms | `forms-advanced.mdc` |
 | Validation | `validation-advanced.mdc` |
 | Database | `database-advanced.mdc` |
@@ -280,7 +288,8 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 - Start P1 UI before P0 foundation exit OK (unless user explicitly overrides)
 - Start P3 integration before P2 API exit OK
 - Leave mocks in prod paths after P3 without documenting
-- Remove default forms / custom styling / validation / icons-states rules
+- Remove default forms / custom styling / validation / icons-states / **Tailwind ui-styling base**
+- Replace locked UI system with another CSS framework or one-off page skins (extensions OK)
 - Skip shared 404, status-error, empty screens, skeleton loaders, or lazy load
 - Invent DB or domain rules that ignore the concept
 - Skip intake and guess brand, stack, or features

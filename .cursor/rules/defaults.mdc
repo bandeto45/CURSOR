@@ -12,7 +12,7 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | Install intake | `install.mdc` | Ask + fill Profile before building |
 | Restrictions | `restrictions.mdc` | Secrets, authz, no `.sql`, etc. |
 | Forms UI | `forms.mdc` | Unified **custom** form controls |
-| UI styling | `ui-styling.mdc` | Shared tokens / customized chrome |
+| UI styling | `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · locked components |
 | Validation | `validation.mdc` | Client + server validation |
 | DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
 | Phases | `implementation-phases.mdc` | P0–P4 + subs + exit gates |
@@ -30,7 +30,8 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 
 ## Never
 
-- Remove or weaken forms / custom styling / validation defaults
+- Remove or weaken forms / validation defaults
+- Remove or weaken **ui-styling** base (Tailwind system, shared components) — **extensions OK, replacement not**
 - Remove or weaken **icons-states** defaults (icon choice, 404/error/empty, skeleton, lazy load)
 - Invent domain tables that ignore the stated concept
 - Treat advanced packs as a reason to drop defaults

@@ -1,0 +1,60 @@
+---
+description: Advanced UI styling extensions — motion, scroll, charts, marketing layers
+alwaysApply: false
+---
+
+# UI styling — Advanced
+
+Enable when rule level includes `advanced`. **Locked base (`ui-styling.mdc`) stays** — extensions only.
+
+## Page transitions
+
+- Route-level transition wrapper (fade/slide 150–250ms)
+- Shared `transition-*` tokens; stagger lists sparingly
+- Exit animation before unmount when router supports it
+- `prefers-reduced-motion: reduce` → instant or opacity-only
+
+## Infinite scroll
+
+- Intersection Observer sentinel at list foot
+- Append skeleton rows while fetching next page
+- Dedupe requests; show inline error + retry on failure
+- Optional “Load more” button fallback for a11y
+
+## Slideshow / carousel
+
+- Keyboard: arrows, focusable controls
+- Touch swipe on mobile
+- Pause autoplay on hover/focus and reduced motion
+- Lazy-load off-screen slides/images
+
+## Parallax
+
+- Marketing/hero only — not product forms or dashboards
+- Transform-based; disable entirely under reduced motion
+- Do not harm scroll performance (avoid heavy repaints)
+
+## Charts / graphs
+
+- One chart library per project (record in Profile if chosen)
+- Colors from theme tokens only
+- Responsive `aspect-video` or min-height container
+- Accessible labels / table fallback when feasible
+
+## Bottom toolbar & tabs (mobile)
+
+- Safe-area `pb-safe` for iOS home indicator
+- Max 5 primary tab items; badge counts from tokens
+- Active state matches primary brand — not random accent per tab
+
+## Premium polish (optional adds)
+
+- Subtle glass/backdrop-blur on marketing panels only
+- Micro-interactions on primary CTA (scale/opacity, not bounce spam)
+- Section reveal on scroll — once per section, reduced-motion safe
+
+## Do not
+
+- Replace locked Button/Modal/Form primitives with ad-hoc copies
+- Add parallax or heavy animation to admin/data tables
+- Introduce a second spacing or type scale outside Tailwind theme

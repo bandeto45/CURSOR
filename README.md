@@ -63,13 +63,17 @@ Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 
 | Layer | Behavior |
 |-------|----------|
-| **Default (never remove)** | Custom unified forms, UI styling, validation, PHP migrate/seed, phases, references, icons-states (Material/Lottie, 404/error/empty, skeleton, lazy load), install + restrictions |
+| **Default (never remove)** | Tailwind ui-styling (Modern/Premium/Pro/**Simplified**, beautiful UX), forms, validation, PHP migrate/seed, phases, references, icons-states, install + restrictions |
 | **Concept-driven** | Domain rules and DB schema follow the product concept (`concept-domain.mdc` → migrations) |
 | **Advanced (optional)** | Extra packs for planning, backend, frontend, forms, validation, database, security |
 
+### UI styling (locked — Tailwind)
+
+**Tailwind CSS** + **Modern · Premium · Professional · Simplified** aesthetic. **UI + UX locked:** design must be **beautiful and easy to use** — clear hierarchy, simple flows, consistent patterns, visible feedback; not cluttered or confusing. Shared components: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transitions, infinite scroll, images, slideshow/parallax (marketing). **Can extend** theme/variants; **cannot replace** the base system — `.cursor/rules/ui-styling.mdc`.
+
 ### Default forms (always)
 
-Custom styled, shared chrome for: label, text, email, tel, password (show/hide), search, select, checkbox, picker, stepper, editor, upload, buttons ± icon, and link `a`.
+Custom Tailwind-styled chrome for: label, text, email, tel, password (show/hide), search, select, checkbox, **radio**, **slider**, picker, stepper, editor, upload, buttons ± icon, and link `a`.
 
 ### Icons, states & loading (locked)
 

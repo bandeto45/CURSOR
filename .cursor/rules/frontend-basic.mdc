@@ -1,17 +1,17 @@
 ---
-description: Basic frontend — tokens, forms/UI/validation, icons-states locked defaults
+description: Basic frontend — Tailwind ui-styling, forms, icons-states locked defaults
 globs: "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
 alwaysApply: false
 ---
 
 # Frontend — Basic
 
-- Obey permanent defaults: `forms.mdc`, `ui-styling.mdc`, `validation.mdc`, `icons-states.mdc`
-- Design tokens from intake (`frontend-design` skill)
-- Icons: Profile choice — **Material Icons** or **Lottie** (web JSON); do not invent a third chrome set
-- Shared **404**, status-error, and **empty data** screens with animation when Lottie/chosen system allows
-- **Skeleton loaders** for async content; **lazy load** routes (and heavy media)
-- Semantic HTML; visible focus; labels on inputs
-- Responsive breakpoints (suggestion: 375 · 768 · 1024 · 1280)
-- Feature folders + shared `components/ui`
-- Build screens that match **concept** roles and flows — not generic demos
+- Obey permanent defaults: `ui-styling.mdc`, `forms.mdc`, `validation.mdc`, `icons-states.mdc`
+- **Tailwind CSS** for all product UI; theme from `frontend-design` skill / `tailwind.config`
+- Aesthetic: **Modern · Premium · Professional · Simplified**
+- **UI + UX:** beautiful **and** easy — clear hierarchy, simple flows, consistent patterns, visible feedback
+- Shared primitives: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, forms, skeleton
+- Icons: Profile — **Material** or **Lottie**
+- 404 / status-error / empty · skeleton · lazy-loaded routes
+- Semantic HTML; visible focus; responsive (375 · 768 · 1024 · 1280)
+- `components/ui/` — compose utilities; no orphan page skins

@@ -70,6 +70,9 @@
       "frontend-advanced.mdc": [
         "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
       ],
+      "ui-styling-advanced.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+      ],
       "backend-basic.mdc": [
         "api/**",
         "server/**",

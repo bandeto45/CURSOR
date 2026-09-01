@@ -1,37 +1,45 @@
 ---
-description: Unified custom forms — permanent default (styling + control set)
+description: Unified custom forms — permanent default; styled via locked Tailwind ui-styling
 alwaysApply: true
 ---
 
 # Forms (default — never remove)
 
-All forms use **one customized, unified** system. No bare browser defaults mixed into product UI.
+All forms use **one customized, unified** Tailwind-styled system (`ui-styling.mdc`). No bare browser defaults.
 
 ## Required controls
 
 | Control | Requirement |
 |---------|-------------|
-| Label | Tied to control; required marker consistent |
-| Text / textbox | Shared height, radius, border, focus |
+| Label | Tied to control; `text-sm font-medium`; required marker consistent |
+| Text / textbox | Shared h-10 (or token), radius, border, focus ring |
 | Email | Same chrome + email validation UX |
 | Tel | Same chrome; optional shared formatting |
 | Password | **Show / hide** toggle; same chrome as text |
 | Search | Clear action when value present |
 | Select | Custom select matching input metrics |
 | Checkbox | Custom box + full label hit target |
-| Picker | Date/time — same tokens as inputs |
+| **Radio** | Custom radio group; one selection; keyboard navigable |
+| **Slider / slide** | Range input styled to theme; min/max/step; value label optional |
+| Picker | Date/time/datetime — same tokens as inputs; popover calendar ok |
 | Stepper | − / value / + with min, max, step |
-| Editor | Multiline / rich — shared focus/error |
+| Editor | Multiline / rich text — shared border, focus, error |
 | Upload | Photo/file — preview, remove, type/size errors |
-| Button | Primary / secondary / ghost; **with** and **without** icon |
+| Button | Primary / secondary / ghost / danger; **text**, **icon**, **icon+text** |
 | Link `a` | Brand link tokens; not default browser blue |
 
-## Styling (locked with forms)
+## Styling (locked with ui-styling)
 
 - One token set: height, radius, border, focus ring, error, success, disabled, placeholder
-- Consistent error message placement and tone
+- Error text: `text-sm text-danger` below field; `aria-invalid` + describedby
 - Keyboard + screen-reader accessible
-- Shared `components/ui/` (or equivalent) — no one-off page skins
-- Icon-only buttons need `aria-label` (or visible text)
+- Shared `components/ui/` — compose Tailwind utilities into primitives
+- Icon-only buttons: `aria-label` required
 
-See also: `ui-styling.mdc`, `validation.mdc`. Advanced: `forms-advanced.mdc`.
+## Do not
+
+- Mix native unstyled inputs with custom form chrome on the same form
+- One-off field heights or colors outside theme
+- Skip radio/slider when the concept needs them — still use shared styling
+
+See also: `ui-styling.mdc`, `validation.mdc`. Advanced: `forms-advanced.mdc`, `ui-styling-advanced.mdc`.
