@@ -14,3 +14,4 @@ alwaysApply: true
 7. Prefer small vertical slices **within** the current phase.
 8. Ask when requirements conflict; do not guess product decisions.
 9. New production env keys → `.env.example` **and** GitHub Secrets (FTP, DB, API hosts for web + mobile) — `/deploy`.
+10. Layout: **web + mobile** → **adaptive** (single codebase). **Web** only → ask **responsive** (default) vs **adaptive** (distinct mobile/tablet); record in Profile.

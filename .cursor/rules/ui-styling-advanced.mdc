@@ -41,11 +41,19 @@ Enable when rule level includes `advanced`. **Locked base (`ui-styling.mdc`) sta
 - Responsive `aspect-video` or min-height container
 - Accessible labels / table fallback when feasible
 
+## Adaptive shells (when Layout strategy = adaptive)
+
+- Prefer shared layout switchers (breakpoint or platform) over duplicated feature trees
+- Tablet is its own shell — not “desktop squeezed” or “phone stretched”
+- Keep forms/tokens identical across shells; only composition/nav density changes
+- On mobile adaptive shell: bottom toolbar / tabs; tablet/desktop use their own nav chrome
+
 ## Bottom toolbar & tabs (mobile)
 
 - Safe-area `pb-safe` for iOS home indicator
 - Max 5 primary tab items; badge counts from tokens
 - Active state matches primary brand — not random accent per tab
+- Use for adaptive mobile shells (and mobile-only surfaces); not required on responsive web-only if nav collapses differently
 
 ## Premium polish (optional adds)
 

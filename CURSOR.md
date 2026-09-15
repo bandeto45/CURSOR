@@ -8,7 +8,7 @@ Primary instruction set for AI assistants. This repo is a **portable Cursor setu
 
 A ready-to-install `.cursor/` + `CURSOR.md` pack. It is **not** tied to one product.
 
-**Critical rule:** Kapag ini-install ito ng AI, **hindi sapat ang pag-copy ng files.** Habang nag-i-install, **magtatanong** ang AI, **hihintayin ang sagot**, at **agad ifi-fill-upan** ang `CURSOR.md` / `.cursor/settings.json` / `frontend-design` skill. Tapos na ang install **lang** kapag wala nang `TBD` sa Project Profile (maliban sa items na explicitly deferred ng user).
+**Critical rule:** Copying files alone is **not** a complete install. During install the AI must **ask questions**, **wait for answers**, and **immediately write** them into `CURSOR.md`, `.cursor/settings.json`, and the `frontend-design` skill. Install is complete **only** when required Project Profile fields are no longer `TBD` (except items the user explicitly deferred).
 
 ---
 
@@ -69,9 +69,12 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Backend (e.g. plain PHP, Node, Laravel — confirm constraints)?
 - Database (MySQL/MariaDB, Postgres, etc.)?
 - Auth model (JWT, sessions, OAuth)?
+- **Clients / surfaces:** `web` only, `mobile` only, or **`web + mobile`**?
+- If **`web + mobile`:** confirm **adaptive layouts** (distinct layouts for mobile · tablet · desktop) in **one single project/codebase** — not fluid-only responsive, and not separate mobile vs web projects.
+- If **`web` only:** default is **responsive** (mobile-first, same layout that reflows). **Ask:** do you also want **adaptive** layouts (distinct structure for mobile and tablet), or stay responsive?
 - Hosting / deploy target?
 - Confirm **production/live**: `.env` values, FTP/SSH, database, and API/app hosts live in **GitHub Secrets** (never git)?
-- If frontend and backend are **separate** (web and/or mobile): where does each client call the API? That host goes in GitHub Secrets.
+- If frontend and backend are **separate**: where does each client call the API? That host goes in GitHub Secrets.
 - Package managers allowed or forbidden (e.g. no Composer)?
 
 ### 3. Theme & UI styling
@@ -89,6 +92,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Confirm locked **Tailwind ui-styling** primitives: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons (text/icon/both), layout (grid/flex/gap), typography, images, slideshow/parallax (if marketing)?
 - Confirm unified **custom forms** (input, text, editor, checkbox, radio, slider, stepper, picker, upload, search, password, select, links)?
 - Confirm locked **404 / status-error / empty**, **skeleton**, **lazy load**, **page transitions**, **infinite scroll** where lists need it?
+- Layout: if **web + mobile** → **adaptive** required; if **web** only → use Profile (**responsive** default, or **adaptive** if user chose it at intake)?
 - Any extra field types or component variants beyond the standard set?
 - Validation library or hand-rolled?
 
@@ -133,6 +137,8 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **Stack — Backend** | TBD |
 | **Stack — Database** | TBD |
 | **Auth** | TBD |
+| **Clients / surfaces** | `web` \| `mobile` \| `web + mobile` (pick at intake) |
+| **Layout strategy** | `responsive` \| `adaptive` — **web + mobile** → `adaptive` (required) · **web** only → ask at intake (default `responsive`; optional `adaptive` for distinct mobile/tablet shells) · always **single codebase** when adaptive |
 | **CSS / UI** | **Tailwind CSS** (locked) · Modern · Premium · Professional · **Simplified** |
 | **UI / UX** | Beautiful, easy to use — locked principles in `ui-styling.mdc` |
 | **Theme** | TBD |
@@ -176,18 +182,18 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 
 ---
 
-## References / pinaggagayahan
+## References / inspiration
 
-Kapag may binigay na reference (screenshot, link, ibang repo, lumang project, design file):
+When the user provides a reference (screenshot, link, another repo, old project, design file):
 
 | Do | Don't |
 |----|-------|
-| Kunin **lang** ang parts na kailangan para sa hinihiling na screen/feature | Kopyahin buo kasama ang hindi kailangan |
-| I-apply gamit ang **project tokens**, components, at concept naming | Dalhin ang brand, logo, copy, o naming ng source |
-| Sabihin sa chat kung ano ang kinuha at inangkop | Isulat sa files kung saan galing (comments, docs, commit, UI copy) |
-| Sundin ang defaults kapag nag-conflict ang reference | Sirain ang forms/styling/validation defaults para tumugma sa source |
+| Take **only** the parts needed for the requested screen/feature | Copy the whole thing, including unused pieces |
+| Re-express with **this project's** tokens, components, and concept naming | Carry over the source brand, logo, copy, or naming |
+| Say in chat what was taken and how it was adapted | Write the source into files (comments, docs, commits, UI copy) |
+| Keep defaults when a reference conflicts with them | Break forms/styling/validation defaults to match the source |
 
-**Consider the project fresh** — dapat mukhang ginawa para lang sa project na ito. Detalye: `.cursor/rules/references.mdc`
+**Treat the project as fresh** — it should read as authored only for this product. Details: `.cursor/rules/references.mdc`
 
 ---
 
@@ -202,7 +208,7 @@ install · phases           icons material|lottie
 defaults · references      icons-states (404/empty/skeleton/lazy)
 ```
 
-### Default rules (permanent — hindi mawawala)
+### Default rules (permanent — never remove)
 
 | File | Locked behavior |
 |------|-----------------|
@@ -220,9 +226,9 @@ Controls covered by forms default: label, text, email, tel, password (show/hide)
 
 **Icons & states (locked):** Material or Lottie; 404/error/empty; skeleton; lazy load — `icons-states.mdc`.
 
-**UI styling (locked):** Tailwind-based shared components — modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transition, infinite scroll, images, slideshow/parallax (marketing). **Can add** theme variants; **cannot replace** base system — `ui-styling.mdc`.
+**UI styling (locked):** Tailwind-based shared components — modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transition, infinite scroll, images, slideshow/parallax (marketing). **Layout:** `web + mobile` → **adaptive** required; **web** only → **responsive** by default, or **adaptive** if chosen at intake. **Can add** theme variants; **cannot replace** base system — `ui-styling.mdc`.
 
-### Concept-driven (magbabase sa concept)
+### Concept-driven (from the product concept)
 
 | Area | Where | Behavior |
 |------|--------|----------|
@@ -317,6 +323,10 @@ Do not hardcode production API hosts in frontend (web or mobile). Full checklist
 - Deploy to production without **GitHub Secrets** for FTP, DB, and API/app hosts
 - Add a production env key without the matching GitHub Secret (including the host the frontend calls)
 - Hardcode the live API host in web or mobile source when backend is separate
+- For **web + mobile**: ship fluid-only responsive (same layout stretched) instead of **adaptive** layouts per mobile · tablet · desktop
+- For **web + mobile**: split into separate mobile and web projects/repos when Profile requires a **single codebase**
+- For **web** only with Layout strategy = **adaptive**: ship fluid-only responsive instead of distinct mobile/tablet shells
+- Ignore a web-only user’s intake choice of **responsive** vs **adaptive**
 - Ship `.sql` migrations or seeds
 - Mix bare native form controls with the custom form system
 - Skip server-side authorization because the UI hides a control

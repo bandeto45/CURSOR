@@ -71,7 +71,7 @@ Run **Phase exit gate**. Especially verify: schema matches concept; Tailwind the
 - [ ] P1.8 **Skeleton loaders** on async list/detail regions
 - [ ] P1.9 **Lazy-loaded** routes/chunks wired
 - [ ] P1.10 Page shell: navbar/toolbar/back + tab pages where concept needs
-- [ ] P1.11 Responsive check on agreed breakpoints
+- [ ] P1.11 Layout check per Profile: **adaptive** → distinct shells at mobile · tablet · desktop; **responsive** → progressive reflow on agreed breakpoints
 - [ ] P1.12 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
 
 ### Exit (P1 → P2)

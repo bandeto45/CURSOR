@@ -13,7 +13,11 @@ alwaysApply: false
 - Shared primitives: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, forms, skeleton
 - Icons: Profile — **Material** or **Lottie**
 - 404 / status-error / empty · skeleton · lazy-loaded routes
-- Semantic HTML; visible focus; responsive (375 · 768 · 1024 · 1280)
+- Semantic HTML; visible focus
+- **Layout:** follow Profile **Layout strategy** (see `ui-styling.mdc`)
+  - `web + mobile` → **adaptive** required (distinct mobile · tablet · desktop); **single codebase**
+  - `web` only + **responsive** (default) → mobile-first reflow; breakpoints ~375 · 768 · 1024 · 1280
+  - `web` only + **adaptive** (intake choice) → distinct mobile · tablet · desktop shells in one project
 - `components/ui/` — compose utilities; no orphan page skins
 - API base URL / host from env — never hardcode production hosts (web **and** mobile)
 - When backend is separate: the URL each client calls (`VITE_*` / `NEXT_PUBLIC_*` / `EXPO_PUBLIC_*` or stack equivalent) lives in env + **GitHub Secrets** (`/deploy`)

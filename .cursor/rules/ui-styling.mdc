@@ -44,9 +44,49 @@ Design must be **simple, beautiful, and easy to use**. Pretty means clear — no
 | **Touch & click** | Comfortable targets (min ~44px touch); spacing that prevents mis-taps |
 | **Calm beauty** | Whitespace, type rhythm, subtle borders/shadows — not decoration overload |
 | **Accessible** | Contrast, focus, keyboard — beauty includes usability |
-| **Mobile-first** | Layouts that work on small screens first; progressive enhancement |
+| **Layout strategy** | Follow Profile: **adaptive** when required or chosen; **responsive** when web-only default — see Layout strategy below |
+| **Mobile-first** | When Layout = **responsive**: small screens first; progressive enhancement |
 
 **Do not:** cram dashboards, stack 5+ CTAs, hide core actions, or ship “pretty but confusing” UI.
+
+---
+
+## Layout strategy (from Project Profile)
+
+| Clients | Layout strategy | Behavior |
+|---------|-----------------|----------|
+| **web + mobile** | **`adaptive` (required)** | Distinct shells for mobile · tablet · desktop; **single codebase** — not fluid-only responsive; not separate projects |
+| **web** only | **`responsive` (default)** | One layout that reflows to mobile/tablet; mobile-first progressive enhancement |
+| **web** only | **`adaptive` (optional)** | Ask at intake; if chosen, distinct mobile · tablet · desktop shells in the same web project |
+| **mobile** only | Platform-native / single surface | Progressive within that surface |
+
+### Adaptive layout (when Layout strategy = `adaptive`)
+
+Applies when Clients = **web + mobile** (always), or Clients = **web** and the user chose **adaptive** at intake:
+
+| Rule | Apply |
+|------|--------|
+| **Strategy** | **Adaptive** — different layout structure per class, not the same layout scaled |
+| **Breakpoints** | Mobile (~375), tablet (~768), desktop (~1024 / 1280+) — map to Tailwind screens |
+| **Mobile layout** | Touch-first: bottom toolbar / tabs, stacked content, drawer nav when needed |
+| **Tablet layout** | Mid density: optional side nav or split panes; not a stretched phone UI |
+| **Desktop / web layout** | Full chrome: top navbar, multi-column where useful, hover-friendly targets |
+| **Codebase** | **One single project** — shared tokens, forms, components; layout shells switch by breakpoint/platform. Do **not** create separate mobile and web apps/repos for the same product unless Profile explicitly says so |
+| **Shared** | Same design tokens, form chrome, icons-states; only **shell / composition** differ |
+
+**Do not (when adaptive):**
+
+- Treat “responsive” as enough (same DOM stretched with only `w-full` / flex wrap)
+- Duplicate the product into two projects (“mobile app” + “web app”) when Profile requires one codebase
+- Ship phone layout on desktop or desktop chrome on phone without an adaptive shell
+
+### Responsive layout (when Layout strategy = `responsive`)
+
+Default for **web-only** projects (unless the user opted into adaptive):
+
+- Mobile-first reflow of one composition; breakpoints for spacing/columns/nav collapse
+- Shared primitives still required; no orphan page skins
+- At intake the AI **must ask** whether to upgrade to **adaptive** (distinct mobile/tablet layouts) or keep responsive
 
 ---
 
@@ -171,5 +211,8 @@ Add without replacing locked base:
 - Inline styles for colors/spacing that bypass tokens (except rare dynamic values)
 - Skip shared components for modals, alerts, nav, buttons, forms
 - Remove focus rings or back affordances for aesthetics
+- When Layout strategy = **adaptive**: ship fluid-only responsive instead of adaptive mobile · tablet · desktop shells
+- When Clients = **web + mobile**: split into separate mobile/web projects contrary to **single codebase**
+- Skip asking web-only projects whether they want **responsive** (default) or **adaptive**
 
 Advanced: `ui-styling-advanced.mdc`. Forms detail: `forms.mdc`.

@@ -31,7 +31,7 @@ or tell the agent: *“Install this Cursor pack and run intake.”*
 ### What the AI does
 
 1. Places `CURSOR.md` + `.cursor/` (if missing)
-2. Asks about concept, stack, theme, forms, DB, SEO, rules, etc.
+2. Asks about concept, stack (including web / mobile / web+mobile), theme, forms, DB, SEO, rules, etc.
 3. Writes answers into:
    - `CURSOR.md` — Project Profile
    - `.cursor/rules/concept-domain.mdc` — business rules + entities
@@ -70,6 +70,8 @@ Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 ### UI styling (locked — Tailwind)
 
 **Tailwind CSS** + **Modern · Premium · Professional · Simplified** aesthetic. **UI + UX locked:** design must be **beautiful and easy to use** — clear hierarchy, simple flows, consistent patterns, visible feedback; not cluttered or confusing. Shared components: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transitions, infinite scroll, images, slideshow/parallax (marketing). **Can extend** theme/variants; **cannot replace** the base system — `.cursor/rules/ui-styling.mdc`.
+
+**Layout:** **web + mobile** → **adaptive** (distinct mobile · tablet · desktop) in a **single codebase**. **Web only** → **responsive** by default; at intake ask if they want optional **adaptive** layouts for mobile and tablet.
 
 ### Default forms (always)
 

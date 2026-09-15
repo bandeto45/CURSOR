@@ -25,9 +25,12 @@ description: Install/customize — ask, fill Profile + concept-domain, keep defa
    - `settings.json`, `frontend-design` skill
 4. Confirm defaults still on: forms, ui-styling, validation, PHP migrate/seed, **P0–P4 phases**.
 5. Confirm production/live: `.env`, FTP, DB, and API hosts (web + mobile if split) live in **GitHub Secrets** (`/deploy`).
-6. Set **Current phase** to `P0` unless user overrides.
-7. If user chose advanced: note which `*-advanced.mdc` packs apply.
-8. Summarize “Install complete”, then continue from **P0** (or stated phase).
+6. Layout strategy:
+   - **web + mobile** → **adaptive** + **single codebase**
+   - **web** only → ask **responsive** (default) vs **adaptive** (distinct mobile/tablet); write into Profile
+7. Set **Current phase** to `P0` unless user overrides.
+8. If user chose advanced: note which `*-advanced.mdc` packs apply.
+9. Summarize “Install complete”, then continue from **P0** (or stated phase).
 
 ## Do Not
 
@@ -36,3 +39,5 @@ description: Install/customize — ask, fill Profile + concept-domain, keep defa
 - Guess schema without concept
 - Leave Profile/concept `TBD` after answers
 - Skip GitHub Secrets for live `.env` / FTP / DB / API hosts
+- For web + mobile: treat fluid responsive as enough, or split into separate mobile/web projects
+- For web only: skip asking responsive vs adaptive, or ignore the chosen Layout strategy

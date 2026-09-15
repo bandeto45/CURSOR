@@ -69,6 +69,11 @@ triggers:
 - Page max-width: TBD (e.g. `max-w-7xl mx-auto px-4`)
 - Header height token: TBD (e.g. `h-14` / `--header-height`)
 - Grid/flex/gap: per `ui-styling.mdc`
+- **Clients / surfaces:** TBD — `web` \| `mobile` \| `web + mobile`
+- **Layout strategy:** TBD — `responsive` \| `adaptive`
+  - `web + mobile` → `adaptive` required; single codebase
+  - `web` only → default `responsive`; optional `adaptive` if chosen at intake (distinct mobile · tablet · desktop shells)
+- See `ui-styling.mdc` Layout strategy
 
 ## Icons & brand
 
@@ -104,3 +109,5 @@ Add brand-specific Tailwind theme keys, marketing gradients, extra component var
 - Skip shared modal/nav/form/button primitives
 - Emoji as product chrome
 - Unstyled native form controls
+- When Layout strategy = **adaptive**: fluid-only responsive or separate mobile/web projects against Profile
+- When web-only: ignore intake choice of responsive vs adaptive
