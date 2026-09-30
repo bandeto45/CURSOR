@@ -16,6 +16,7 @@ alwaysApply: true
 5. **End of session:** append one row to the **AI Handoff Log** — date, tool, phase, what changed, open/next.
 6. **Same standards for every AI.** Files on disk win over memory; re-read before editing a file another AI may have touched.
 7. Never write which AI/model made a choice into code, comments, or UI copy.
+8. Speak to the dev in the language they use; files stay English.
 
 ## If the tool lacks a Cursor feature
 

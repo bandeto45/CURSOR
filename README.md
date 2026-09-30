@@ -21,6 +21,10 @@ Then tell any AI: *"Install this pack and run intake"* (or `/install-cursor-pack
 | Kimi · Grok · Codex · others | `AGENTS.md` → `CURSOR.md` |
 | Gemini · Copilot · Windsurf | `GEMINI.md` · `.github/copilot-instructions.md` · `.windsurfrules` |
 
+## After install: the AI guides you
+
+When the install finishes, the AI shows a short **Getting Started guide** in your language: what to do next, copy-paste prompts, and **token-saving tips** — all optional. Re-open it any time with `/guide` (`/guide prompts`, `/guide tokens`, `/guide save` → `docs/USING-THE-PACK.md`). Full text: `.cursor/reference/usage-guide.md`.
+
 ## What the AI does at install
 
 1. **Concept** — asks what you are building; recommends features, roles, entities, domain rules
@@ -78,6 +82,7 @@ AGENTS.md · CLAUDE.md      # Tiny pointers
 | Command | Purpose |
 |---------|---------|
 | `/install-cursor-pack` · `/project-intake` | Install / update (`--update`) |
+| `/guide` | How to prompt, save tokens, work faster |
 | `/phase-exit` | End-of-phase gate |
 | `/pr-review` · `/fix-issue` · `/lint` · `/test` | Review, diagnose, lint, test |
 | `/deploy` | `setup` · `staging` · `production` · `rollback` — FTP or SSH, **GitHub Environments + Secrets** per environment, approval gate on production |

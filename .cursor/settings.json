@@ -154,7 +154,10 @@
     ],
     "webPlusMobileLayout": "layout",
     "proposalPageSize": "letter",
-    "proposalPackageInP1": true
+    "proposalPackageInP1": true,
+    "showGuideAfterInstall": true,
+    "guideTips": "on",
+    "guideCommand": "/guide"
   },
   "seo": {
     "enabled": false,
@@ -199,7 +202,7 @@
   },
   "reference": {
     "directory": ".cursor/reference",
-    "note": "Read on demand: components/<group>.md, phases/<P#>.md, layout-patterns.md, migrations.md"
+    "note": "Read on demand: components/<group>.md, phases/<P#>.md, layout-patterns.md, migrations.md · usage-guide.md (/guide)"
   },
   "environments": {
     "list": [
