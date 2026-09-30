@@ -138,7 +138,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/adapters/help.sh` (token-free shortcuts/commands/tips in a terminal) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 

@@ -7,7 +7,7 @@ description: Show the Getting Started guide — how to prompt, save tokens, and 
 
 ```
 /guide             # short version (next steps + 3 prompts + token tips)
-/guide keys        # shortcuts (same as .?)
+/guide keys        # shortcuts (same as .?) — or in a terminal, free: bash .cursor/adapters/help.sh
 /guide prompts     # full prompt cookbook
 /guide tokens      # token-saving tips
 /guide save        # write docs/USING-THE-PACK.md from the full guide
@@ -17,4 +17,5 @@ description: Show the Getting Started guide — how to prompt, save tokens, and 
 1. Read `.cursor/reference/usage-guide.md`.
 2. Answer in the **dev's language**, as a short, scannable message (≤ 15 lines for the default view); tailor "next steps" to the Profile's **Current phase**.
 3. `save`: copy the guide to `docs/USING-THE-PACK.md`.
+   Terminal alternative (no AI, 0 tokens): `bash .cursor/adapters/help.sh [keys|cmds|prompts|tokens|all]`.
 4. It is advice only — never block work on it. Toggle: Profile → **Guide tips** `on` \| `off`.

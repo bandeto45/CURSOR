@@ -30,7 +30,7 @@ alwaysApply: true
 | `.rev` | `[ID]` | Review the current diff for bugs |
 | `.brief` · `.full` | — | Reply style: short (no recap, changed files only) · detailed |
 | `.g` | `[keys\|tokens\|prompts\|save]` | `/guide` |
-| `.?` | — | List these shortcuts |
+| `.?` | — | List these shortcuts (or run `bash .cursor/adapters/help.sh` in a terminal — **0 tokens**) |
 
 - **Modifier** `+plan`: plan only, no code (`.b R-07 +plan`).
 - **Chain** with `;` or new lines (`.b R-01; .b R-02`): run in order, stop at the first failure.

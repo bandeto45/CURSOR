@@ -27,7 +27,7 @@ When the install finishes, the AI shows a short **Getting Started guide** in you
 
 ## Shortcuts & any language
 
-Write short prompts with shortcuts — `.go` continue · `.b R-07` build a screen · `.e E-12` build an endpoint · `.fix` · `.chg` · `.add` · `.yd` (you decide) · `.px` (phase exit) · `.dep s|p` (deploy) — plus any words in **any language** (Tagalog, Taglish, English, …). The AI replies in your language; files and code stay English. Deploy/delete/push always ask for confirmation. `.?` lists everything (`.cursor/rules/shortcuts.mdc`).
+Write short prompts with shortcuts — `.go` continue · `.b R-07` build a screen · `.e E-12` build an endpoint · `.fix` · `.chg` · `.add` · `.yd` (you decide) · `.px` (phase exit) · `.dep s|p` (deploy) — plus any words in **any language** (Tagalog, Taglish, English, …). The AI replies in your language; files and code stay English. Deploy/delete/push always ask for confirmation. `.?` lists everything (`.cursor/rules/shortcuts.mdc`). **Free help, no AI:** `bash .cursor/adapters/help.sh` (`keys` · `cmds` · `prompts` · `tokens` · `all`).
 
 ## What the AI does at install
 

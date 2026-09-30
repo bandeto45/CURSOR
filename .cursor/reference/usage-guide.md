@@ -25,6 +25,8 @@ Start a message with `.key`; add an ID and, if you like, a few words in **any la
 | `.brief` · `.full` | short replies · detailed |
 | `+plan` | `.b R-07 +plan` = plan only, no code |
 
+**Prefer not to spend tokens on help?** Run `bash .cursor/adapters/help.sh` in a terminal (`keys` · `cmds` · `prompts` · `tokens` · `all`) — it prints straight from the pack files.
+
 Chain with `;`: `.b R-01; .b R-02`. Deploy/delete/push always ask you to confirm. Aliases in other languages: `.cursor/reference/shortcuts-i18n.md`.
 
 ## 3. Prompts you can copy (long form)
