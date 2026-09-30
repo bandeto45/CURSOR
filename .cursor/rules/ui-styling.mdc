@@ -45,7 +45,7 @@ Theme scale only (`text-xs`…`text-4xl+`); `h1`–`h6` map to the display scale
 Every component (button, alert, forms, picker, modal, popover, slides, card, navbar, tabs, loader, list, chart, …) follows the catalog and Component Spec in `ui-components.mdc` and lives in `components/ui/<group>/`. Behaviors that apply everywhere: Button never double-submits; Alert is never `window.alert`; Modal traps focus and closes on Esc; skeletons for content, spinners only for tiny contexts; charts use theme colors and a table fallback.
 
 ### Motion & scroll
-- Page transitions: shared wrapper, fade/slide 150–250ms, instant/opacity-only under reduced motion
+- Page and element transitions (push/pop, sheets, fades, gestures, tokens, reduced motion): `transitions.mdc`
 - Infinite scroll: intersection sentinel + skeleton rows, dedupe requests, inline error + retry, "Load more" fallback for a11y, keep scroll on back-nav
 - Slideshow/carousel: arrows, dots, swipe, keyboard; autoplay off or reduced-motion safe; lazy off-screen slides
 - Parallax / glass / scroll reveal: **marketing only**, subtle, disabled under reduced motion; never on forms, dashboards, or tables

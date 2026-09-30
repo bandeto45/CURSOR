@@ -43,7 +43,7 @@ Nav by class (`layout`): mobile bottom tabs/drawer · tablet nav rail/collapsibl
 2. **Recommend** as `REC-layout-1` (strategy) — with reasons from the signals above.
 3. **Decide → Write** Profile: Layout strategy, Layout resolved, one-line reason.
 4. **Derive routes** `R-nn` from the concept (every v1 screen, per role).
-5. **Recommend per route** (`REC-route-n`): choose the best pattern from the catalog, then write its mobile · tablet · desktop layout into `route-layouts.mdc`. `normal` → one composition + reflow notes; `layout` → three explicit layouts; `mixed` → each group follows its mode.
+5. **Recommend per route** (`REC-route-n`): choose the best pattern from the catalog, then write its mobile · tablet · desktop layout **and its transition** (`transitions.mdc` §2) into `route-layouts.mdc`. `normal` → one composition + reflow notes; `layout` → three explicit layouts; `mixed` → each group follows its mode.
 6. **Confirm** — dev approves the map (`APPROVED`) before P2. Later layout changes: edit `route-layouts.mdc` first.
 
 ## Pattern catalog (AI picks the best fit per route)

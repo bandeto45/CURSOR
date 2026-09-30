@@ -34,8 +34,9 @@ alwaysApply: true
 - Tablet (768–1023): <columns/panes · nav · what appears that mobile hid>
 - Desktop (≥1024): <columns/panes · sidebar/top bar · density · hover/keyboard extras>
 - Table / list:    <mobile card list · tablet condensed table + drawer · desktop full table>
+- Transition:      <mobile push|sheet|fade|none · tablet … · desktop …  (transitions.mdc §2; entering + leaving/back)>
 - States:          <loading skeleton shape · empty · error>
-- Notes:           <sticky elements · infinite scroll vs pagination · safe-area · motion>
+- Notes:           <sticky elements · infinite scroll vs pagination · safe-area · gestures (edge-swipe back, pull-to-refresh)>
 ```
 
 ### Route block — `normal` mode
@@ -44,6 +45,7 @@ alwaysApply: true
 - Role / access · Purpose · Layout concept: <as above, single composition>
 - Reflow:          <columns at base / md / lg · what stacks · what hides/collapses>
 - Nav:             <navbar → menu button at what width>
+- Transition:      <fade (normal mode: crossfade only)>
 - Table / list:    <horizontal scroll with sticky first column, or stacked rows>
 - States:          <loading skeleton shape · empty · error>
 ```

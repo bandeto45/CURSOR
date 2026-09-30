@@ -1,0 +1,79 @@
+---
+description: Page and element transitions — native-feel on mobile, restrained on tablet/desktop; tokens, per-route map, gestures, reduced motion
+alwaysApply: false
+globs: "**/*.{jsx,tsx,js,ts,vue,html,css}"
+---
+
+# Transitions
+
+> Purpose: every page change and overlay has a defined, orienting motion — push/pop on mobile, quiet crossfades on desktop — that never blocks, janks, or ignores reduced motion. Tokens live in the Tailwind theme; the per-route map lives in `route-layouts.mdc`.
+
+## Rules
+
+### 1. Motion tokens (theme; no ad-hoc values)
+| Token | Value | Use |
+|-------|-------|-----|
+| `--dur-fast` | 120ms | press/hover, tooltip, popover |
+| `--dur-base` | 200ms | fades, list item enter/exit, tab crossfade |
+| `--dur-page` | 280ms | page push/pop, drawer |
+| `--dur-sheet` | 320ms | bottom sheet, modal (mobile) |
+| `--dur-slow` | 400ms | rare: hero/shared-element only — hard ceiling |
+| `--ease-enter` | `cubic-bezier(0.2, 0, 0, 1)` | things entering (decelerate) |
+| `--ease-exit` | `cubic-bezier(0.4, 0, 1, 1)` | things leaving (accelerate) |
+| `--ease-sheet` | `cubic-bezier(0.32, 0.72, 0, 1)` | sheets/drawers, gesture release |
+
+Exit ≈ 75% of enter. Animate **only `transform` and `opacity`** (never width/height/top/left); `will-change` only while animating.
+
+### 2. Which transition? (by navigation model)
+| Navigation | Mobile | Tablet | Desktop |
+|------------|--------|--------|---------|
+| **Drill-in** (list → detail, deeper) | **Push**: new page slides in from the right (100% → 0), previous shifts left 30% and dims; **back = reverse** | Detail pane crossfade + 16px slide (split view) | Crossfade 150ms / pane swap, no slide |
+| **Peer** (tab bar, sidebar, top tabs) | Crossfade 150–200ms, no slide; slide horizontally only for swipeable tabs, direction = tab order | Crossfade | Crossfade / instant |
+| **Modal task** (create, edit, filter) | **Sheet**: slides up from bottom + scrim fade; dismiss slides down; swipe-down to dismiss | Centered fade + scale 0.96 → 1 | Centered fade + scale 0.96 → 1 |
+| **Drawer / side panel** | Slides from its edge + scrim; swipe to close | Slide from edge (push or overlay) | Slide/expand (docked panes don't animate) |
+| **Popover / dropdown** | Becomes bottom/action sheet | Fade + scale 0.98 from anchor origin (120ms) | Same |
+| **Root switch** (login → app, onboarding → home) | **Fade-through**: out 90ms, in 210ms | Same | Same |
+| **Shared element** (thumbnail/card → detail hero) | Morph (FLIP) 300ms when the same media appears; else Push | Same | Crossfade (morph optional) |
+| **Replace / redirect** | none or fade | none | none |
+| **Content ready** (skeleton → content) | Crossfade 150ms, no layout shift | Same | Same |
+| **List changes** (insert/remove/reorder) | Height collapse + fade 200ms; reorder via FLIP | Same | Same |
+| **First paint** | Fade + rise 8px, stagger ≤ 3 items × 40ms | Same | Same |
+
+Under `normal` (Normal Responsive) layout mode: crossfade only (`--dur-base`); no push/sheet patterns.
+
+### 3. Mobile behavior (Layout Responsive)
+- **The shell stays put:** navbar, tab bar, and bottom toolbar do not animate between pages of the same shell — only the content area does. Header title crossfades.
+- **Direction-aware:** forward = push, back = pop, tab/root = crossfade. Direction comes from history (`useNavDirection()` → `forward | back | replace`) and is written to `data-nav="forward|back|replace"` on `<html>` for CSS.
+- **Edge-swipe back:** drag from the left ~20px edge; the page follows the finger (interactive), commits past ~35% width or a fast flick, otherwise springs back with `--ease-sheet`. Disabled on the root page and in horizontally scrolling regions.
+- **Sheets:** drag handle; snap points (peek · half · full); swipe-down dismiss with velocity; scrim opacity tracks position; inner scroll doesn't drag the sheet until scrolled to top.
+- **Pull-to-refresh:** only at scroll top; elastic indicator; reduced motion → refresh button.
+- **Scroll:** back restores previous scroll position; forward starts at top; per-tab scroll is preserved; use `overscroll-behavior: contain` on inner scrollers.
+- **Safe areas** respected during motion (notch, home indicator); keyboard open/close doesn't animate layout.
+- **Feedback first:** if data isn't ready within ~150ms, show the top progress bar (or skeleton for data-critical pages); keep the previous page visible until then. Never freeze the UI while a transition waits.
+- **Interruptible:** a second tap/back during a transition cancels or reverses cleanly — no stuck or half-mounted pages.
+
+### 4. Implementation pattern
+- **One wrapper:** `PageTransition` in `app/` around the route outlet (`Presence` handles enter/exit mounting). Native flavor: `router.js` → `transitionTo(route, direction)`.
+- **Route table declares** the transition per route and class: `transition: { mobile: 'push' | 'sheet' | 'fade' | 'none', tablet: …, desktop: … }`, copied from `route-layouts.mdc`.
+- Prefer the **View Transitions API** (`document.startViewTransition`, `view-transition-name` for shared elements) with a CSS-class fallback (`.page-enter`, `.page-exit`, `.sheet-enter` …) where unsupported.
+- Both pages are mounted only during the transition; unmount the old one at `transitionend`/timeout (safety timeout = duration + 50ms).
+- **Focus & a11y:** on route change move focus to the page `<h1>` (or `main`), update `document.title`, and announce via a polite live region; overlays trap focus and restore it. Motion never carries meaning alone.
+
+### 5. Reduced motion
+`prefers-reduced-motion: reduce` → replace slides/scales/morphs with opacity ≤ 100ms (or none); no parallax, springs, or autoplay; keep progress and state feedback; gestures still work without animation.
+
+### 6. Performance budget
+Transition ≤ 320ms (hard ceiling 400ms); 60fps on a mid-range phone; no layout thrash (measure with the performance panel); lazy chunks are preloaded on intent (hover/touchstart/visible link) so the transition never waits for a network fetch; no heavy JS on the animation frame.
+
+## Flow (`format.mdc`)
+1. **Recommend** per route (`REC-route-n` addendum): the transition for mobile · tablet · desktop from the table in §2 — written to the route's `Transition:` line in `route-layouts.mdc`.
+2. **Build** tokens + `PageTransition`/`Presence`/`useNavDirection` in P1.13; apply per route in P2.
+3. **Verify** each route: forward · back · deep link · refresh · rapid back-tap · reduced motion · low-end device.
+
+## Do not
+- Animate layout properties, or exceed the duration tokens
+- Slide pages on desktop, or push/pop between peer tabs
+- Animate the fixed shell (navbar/tab bar) with the page
+- Block input or hide feedback while waiting for data
+- Ship a route without a defined `Transition:` in `route-layouts.mdc`
+- Rely on motion alone to convey state or hierarchy

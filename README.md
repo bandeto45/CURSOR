@@ -30,7 +30,7 @@ Then tell any AI: *"Install this pack and run intake"* (or `/install-cursor-pack
 5. **Plan** — writes a function-by-function plan for P1–P5
 6. **Proposal (P1)** — builds the proposal package from ready templates: a **presentation** (React.js or Native), a **US Letter proposal document** (print → PDF), and a **guide**
 
-UI: a **component catalog** (`ui-components.mdc`) — ~60 components (buttons, alerts, forms, pickers, modal/popover, slides, player, camera, charts, lists, feeds, ticket cards, navbars/tabs/toolbars, panels, network trees for unilevel/binary/affiliate, hooks…), each with a spec and a mobile · tablet · desktop layout, shown on a dev-only component page.
+UI: a **component catalog** (`ui-components.mdc`) — 100+ components (buttons, alerts, forms, pickers, modal/popover, slides, player, camera, charts, lists, feeds, ticket cards, navbars/tabs/toolbars, panels, network trees for unilevel/binary/affiliate, hooks…), each with a spec and a mobile · tablet · desktop layout, shown on a dev-only component page — plus a **transition system** (`transitions.mdc`): native-feel push/pop, sheets and swipe-back gestures on mobile, quiet crossfades on desktop, reduced-motion safe, one transition defined per route.
 
 Surfaces: **web**, **mobile**, or **web + mobile** — always **one project**; `web + mobile` uses **Layout Responsive** (a layout per screen class, never one stretched layout). Ready folder/shell structure for each: `.cursor/rules/project-structure.mdc`.
 
@@ -60,7 +60,7 @@ AGENTS.md · CLAUDE.md      # Tiny pointers
 .cursor/
   rules/                   # One file per topic (see the rule map in CURSOR.md)
     format.mdc restrictions.mdc multi-ai.mdc references.mdc
-    design-direction.mdc layout-strategy.mdc ui-styling.mdc ui-components.mdc forms.mdc icons-states.mdc
+    design-direction.mdc layout-strategy.mdc ui-styling.mdc ui-components.mdc transitions.mdc forms.mdc icons-states.mdc
     validation.mdc database.mdc implementation-phases.mdc
     project-structure.mdc proposal.mdc                  # ready structure per surface · P1 proposal package
     backend.mdc security.mdc testing.mdc seo.mdc        # scoped by globs

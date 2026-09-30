@@ -112,6 +112,9 @@
       ],
       "ui-components.mdc": [
         "**/*.{jsx,tsx,js,ts,vue,html,css}"
+      ],
+      "transitions.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,html,css}"
       ]
     },
     "projectFiles": [
