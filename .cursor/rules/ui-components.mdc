@@ -1,0 +1,203 @@
+---
+description: UI component catalog — the one spec every shared component follows (foundations, layout, navigation, actions, overlays, inputs, lists, media, network/marketing, hooks)
+alwaysApply: false
+globs: "**/*.{jsx,tsx,js,ts,vue,html,css}"
+---
+
+# UI components
+
+> Purpose: every screen is assembled from this catalog. Build each component once in `components/ui/<group>/`, show it on the **component page**, then reuse it. Tokens and principles: `ui-styling.mdc`. Form chrome: `forms.mdc`. States and icons: `icons-states.mdc`.
+
+## Rules
+
+### 1. Component Spec (the signature for every component)
+```
+### <Name> — <purpose in one line>
+- Anatomy:     <parts / slots: e.g. header · body · footer · leading icon · action>
+- Variants:    <visual/size/tone variants — from tokens only>
+- States:      default · hover · focus-visible · active · disabled · loading · error · empty (only those that apply)
+- Props/API:   <name: type = default — keep small; a11y props required where noted>
+- Layout:      Mobile <…> · Tablet <…> · Desktop <…>   (Layout Responsive) — or reflow note (Normal)
+- A11y:        <role · keyboard · label · focus behavior>
+- Tokens:      <color · radius · shadow · spacing it uses>
+```
+The catalog below is the *minimum* each component must cover; the full spec goes in the component's file header or on the component page.
+
+### 2. Organization
+```
+components/ui/
+├─ foundations/  Text, Heading, Paragraph, Icon, Link, Surface, Block, Stack, Divider
+├─ layout/       Page, PageContent, Section, Grid, Panel(Left|Right), Footer
+├─ nav/          Navbar, SubNavbar, Toolbar, BottomToolbar, Tabs, TabBar, TabPage, Breadcrumb
+├─ actions/      Button, IconButton, Alert, Toast, Loader, Skeleton, Progress, StepperProgress
+├─ overlays/     Modal, Popup, Popover, DropdownMenu, Overlay, Tooltip
+├─ inputs/       (forms.mdc controls) + DatePicker, TimePicker, Search, Autocomplete, Select(Dropdown), SelectionPage, CheckboxPage, SelectionList, CheckboxList
+├─ lists/        List, MediaList, BlogList, ProductList, Feed, Card, TicketCard
+├─ media/        Image, Slides, Player, Camera, Chart
+└─ network/      (only when the concept has it) NetworkTree, LegSummary, ReferralLink, CommissionTable, EarningsSummary, RankBadge, TeamList
+components/states/   NotFound, ErrorState, EmptyState
+lib/hooks/           useViewClass, useDisclosure, useClickOutside, useFocusTrap, useDebounce, useInfiniteScroll, useToast, useForm, usePagination
+```
+Each file exports one component + its types; variants are props, never copies.
+
+### 3. Component page (required, dev builds only)
+Route `/_components` (excluded from production builds and SEO): every component × variant × state, in light **and** dark, at mobile · tablet · desktop widths. It is the visual contract — a component is `done` when it appears here.
+
+### 4. Universal requirements
+- Tailwind utilities + theme tokens only; no raw hex, no inline styles for spacing/color
+- Touch target ≥ 44px; `focus-visible` ring on every interactive element; hover never the only affordance
+- Keyboard: Tab order logical; Esc closes overlays; arrows for menus/tabs/lists/calendars; Enter/Space activate
+- Loading → skeleton/loader; empty → `EmptyState`; error → inline message + retry
+- Respect `prefers-reduced-motion`; dark mode via tokens
+- `aria-label` for icon-only; live regions for alerts/toasts/progress; correct `role`s (below)
+- Lazy-load heavy components (`Chart`, `Player`, `Camera`, `Slides`, pickers, `NetworkTree`)
+
+---
+
+## Catalog
+
+### A. Foundations (utilities & tokens — `ui-styling.mdc` owns the scales)
+
+| Item | Rules |
+|------|-------|
+| **Colors** | Roles only: `primary` · `primary-pressed` · `surface` · `card` · `border` · `foreground` · `muted-foreground` · `ring` · `success` · `warning` · `danger` · `info`. Status never by color alone (add icon/text). Text pairs meet AA |
+| **Themes** | `light` · `dark` · `system` via CSS variables on `:root` / `[data-theme]`; persisted preference; no un-themed surface; theme toggle is a shared component |
+| **Backgrounds** | Page = `background`; bands alternate `background`/`card`; image backgrounds get an overlay gradient guaranteeing text contrast; no busy pattern behind text; hero/marketing only for gradients |
+| **Typography** | Scale in `ui-styling.mdc`. `Heading` (h1–h6 mapped to display scale, one H1) · `Text` (sizes, weights, tones) · `Paragraph` |
+| **Paragraph** | `text-base leading-relaxed`, measure 60–75ch (`max-w-prose`), `mt-3` between paragraphs, muted variant, lead variant (`text-lg`), truncation via `line-clamp-n` with expand |
+| **Text alignment** | Start-aligned by default (`text-start`); centered only for hero, empty states, short titles; never justified; numbers in tables end-aligned (`tabular-nums`); use logical props (`ms-`/`me-`/`ps-`/`pe-`, `text-start`) so RTL works |
+| **Alignment (layout)** | `flex`/`grid` with `items-*`/`justify-*`/`place-*`; one alignment axis per row; icon + text `items-center gap-2`; form labels start-aligned |
+| **Margin & padding** | Scale only (4/8px rhythm). **Padding inside a component, gap between siblings, margin only for outer separation.** Page gutter `px-4` mobile · `px-6` tablet · `px-8` desktop; section `py-10 md:py-14 lg:py-20`; card padding `p-4 md:p-5`; never negative margins for layout |
+| **Positioning** | `static` default; `relative` for anchors; `absolute` only inside a `relative` parent; `fixed` for shells (navbar, toolbar, overlays); `sticky` for headers, table heads, section titles, aside (`top-[var(--header-h)]`). Use logical offsets (`inset-*`) |
+| **Z-index scale** | `base 0 · raised 10 · sticky 20 · header 30 · drawer 40 · overlay 50 · modal 60 · popover 70 · toast 80 · tooltip 90` — tokens only, no ad-hoc numbers |
+| **Overflow** | `overflow-hidden` only with a reason (rounded clip); scrollable regions get `overflow-auto` + `overscroll-contain` + visible focus; tables/wide content scroll in their own wrapper (`overflow-x-auto`), never the page; no horizontal page scroll at 375px; `truncate` needs `min-w-0` on flex children |
+| **Overlay** | One `Overlay` primitive (scrim `bg-black/40`, blur optional), locks body scroll, traps focus when modal, restores focus on close; stacking by z-index scale |
+| **Shadows** | Elevation tokens: `shadow-xs` (inputs) · `sm` (cards) · `md` (dropdowns/popovers) · `lg` (modals/drawers) · `xl` (rare). Soft, low-opacity; dark mode uses lighter surface + border instead of heavy shadow |
+| **Blocks** | `Block` (display:block, full width) · `Inline` / `InlineBlock` (chips, badges, inline icons; align baseline/center) · **Outer block** = the wrapper that owns margin/width/position; **inner block** owns padding/content. Outer never carries content styling; inner never carries margin |
+| **Icons** | System per Profile (`icons-states.mdc`). `Icon` sizes 16 · 20 · 24 · 32; inherits `currentColor`; decorative → `aria-hidden`; meaningful → label; one stroke/fill style |
+| **Links** | `Link` variants: inline (underline offset, brand color) · nav (no underline, active state) · standalone (icon + text). External → `rel="noopener noreferrer"` + indicator; visited/hover/focus states from tokens |
+
+### B. Layout
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **Page** | Shell + `Navbar` + `PageContent` + optional `Footer`/`BottomToolbar` | Page transition; scroll restore; safe areas | Shell per class (`project-structure.mdc`) |
+| **PageContent** | Max-width container + gutters; `narrow` (prose) · `default` · `wide` · `full` | Reserves header/toolbar height; sticky offsets | gutters 16 · 24 · 32; max-w `prose` / `7xl` |
+| **Section** | Eyebrow · title · description · body · actions; bands (`plain` · `tint` · `contrast`) | One H2 per section; anchor id | `py-10` · `py-14` · `py-20` |
+| **Grid layout** | `Grid` with `cols` per class, `gap`, `auto-fit minmax`; `Stack` (vertical) · `Row` (horizontal) · `Cluster` (wrap) | Items equal height option; masonry for feeds | 1–2 cols · 2–3 · 3–4 (per pattern catalog) |
+| **Panels (left/right)** | `Panel side="left|right"`; fixed · collapsible · resizable; header + scroll body + footer | Persist open/closed; focus moves in/out; `Esc` closes overlay mode | Mobile: sheet/drawer overlay · Tablet: collapsible push panel · Desktop: docked pane |
+| **Footers** | `Footer` (site: link columns, legal, social) · `ActionFooter` (sticky form actions) · `PageFooter` | Sticky variant respects safe area | Mobile: stacked/accordion columns · Tablet: 2 cols · Desktop: 4 cols + bottom bar |
+| **Component page** | `/_components` (see rule 3) | Theme + width switcher | — |
+
+### C. Navigation
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **Navbar** | Logo · primary nav · search · actions · profile; sticky/transparent-on-hero | Active item, scroll shadow, `nav` landmark | Mobile: title + back + menu button → drawer · Tablet: rail or condensed bar · Desktop: full bar/sidebar |
+| **SubNavbar** | Secondary bar under navbar: section links, filters, breadcrumbs, or page tabs | Sticky below navbar (`top-[var(--header-h)]`); horizontal scroll with fade edges | Mobile: scrollable chips · Tablet/Desktop: inline links + actions |
+| **Toolbar** | Row of actions (icon/text buttons), selection count, bulk actions, overflow menu | Contextual (appears on selection); disabled states | Mobile: bottom toolbar (≤5 actions, safe area) · Tablet: top bar · Desktop: top bar with labels |
+| **Tabs** | `Tabs` + `TabList` + `Tab` + `TabPanel`; underline · pill · segmented | Roving focus, arrows/Home/End, controlled/uncontrolled, lazy panels | Mobile: scrollable · Tablet/Desktop: fixed |
+| **TabBar** | Bottom app tab bar: 3–5 items, icon + label, badge | Active = primary; hides on scroll optional; safe area | Mobile only (app shell); tablet → rail; desktop → sidebar |
+| **TabPage** | A routed page whose sections are tabs; URL reflects active tab | Deep-linkable; preserves scroll per tab; skeleton per panel | Mobile: tabs sticky under header · Desktop: tabs left or top |
+| **Breadcrumb** | Path with current page last | Collapses middle items | Mobile: back link only · Desktop: full path |
+| **Back** | Icon + optional label | `history.back()` or explicit route | Mobile header-left · others in page header |
+
+### D. Actions & feedback
+
+| Component | Anatomy / variants | Behavior & states | Layout |
+|-----------|--------------------|-------------------|--------|
+| **Button** | Sizes `sm` `md` `lg`; variants primary · secondary · ghost · danger · link; text · icon-only · icon+text; full-width | loading (inline spinner, width locked), disabled, no double-submit | Mobile: full-width primary in sticky footer · Desktop: auto width, right-aligned group |
+| **Alert** | Inline · banner · toast; tones success/warning/danger/info; title + body + action + dismiss | `role="status"` (polite) / `role="alert"` (errors); auto-dismiss only for success toasts (≥5s, pausable) | Mobile: top/bottom toast full-width · Desktop: corner stack (max 3) |
+| **Loader** | `Spinner` (button/tiny) · `Skeleton` (content-shaped) · `TopBar` progress (route change) · `Overlay` loader (blocking, rare) | `aria-busy`, min display time to avoid flash; skeleton matches final layout | Same all classes |
+| **Progress** | Linear (determinate/indeterminate) · circular · segmented; label + value | `role="progressbar"` + `aria-valuenow/min/max`; announces at milestones | Mobile: thin bar top · Desktop: inline with label |
+| **Stepper progress** | Horizontal/vertical steps: done · current · upcoming · error; optional labels | Clickable only for completed steps; `aria-current="step"` | Mobile: compact "Step 2 of 5" + bar · Tablet/Desktop: full stepper (vertical in side aside on wizards) |
+
+### E. Overlays
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **Modal** | Header · body (scrolls) · footer actions; sizes `sm md lg full` | `role="dialog"` `aria-modal`, focus trap, Esc, scrim click optional, restores focus, locks scroll | Mobile: bottom sheet or full-screen · Tablet: centered · Desktop: centered (max-w by size) |
+| **Popup** | Small anchored/centered confirm or info surface; confirm (destructive) variant | Click-outside dismiss (non-destructive), primary action right | Mobile: bottom sheet · Desktop: centered small |
+| **Popover** | Anchored to trigger; arrow optional; placement auto-flip | `aria-expanded`, `Esc`, click-outside, focus returns; no essential content only here | Mobile: converts to bottom sheet if tall · Desktop: anchored |
+| **Dropdown menu** | Trigger + menu: items, groups, dividers, icons, shortcuts, checkable items, submenu | `role="menu"`/`menuitem`; arrows, typeahead, Esc; disabled items skipped | Mobile: action sheet · Desktop: anchored menu (shadow-md) |
+| **Overlay / Drawer** | Side sheet (left/right/bottom) | Same as Modal + swipe to close on touch | Mobile: full/bottom · Desktop: 360–480px side |
+
+### F. Inputs & selection (base controls: `forms.mdc`)
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **Forms** | `Form` + `FormField` (label, control, help, error) + `FormActions` | Validation per `validation.mdc`; dirty guard; submit loading | Mobile: one column, sticky actions · Tablet: 1–2 cols · Desktop: 2 cols + aside |
+| **Calendar picker UI** | Input + popover month grid; single date · range · multi; min/max, disabled dates, today, week start; presets (Today, Last 7 days) | Grid `role="grid"`; arrows move day, PgUp/PgDn month, Home/End week; typed entry parsed; locale formats | Mobile: full-screen/bottom-sheet calendar · Desktop: popover (range shows 2 months) |
+| **Time picker UI** | Input + list/wheel; 12h/24h by locale; minute step (5/15/30); range from–to | Arrow keys change segment; typed entry; validates ordering | Mobile: wheel or scroll list in sheet · Desktop: dropdown list or segmented input |
+| **Date-time** | Calendar + time in one popover/sheet | Timezone shown when relevant | as above |
+| **Search** | Input + icon + clear; scopes; recent searches; results page/live panel | Debounced (250–300ms), min chars, Enter submits, `role="search"` | Mobile: expands full-width in header/overlay · Desktop: inline in navbar with `/` shortcut |
+| **Autocomplete** | `combobox` + listbox; async source; highlight match; empty + loading + error rows; free-text or must-select | `role="combobox"`, `aria-activedescendant`, arrows/Enter/Esc; debounced; cancels stale requests | Mobile: opens full-screen search sheet · Desktop: anchored listbox (max 8 rows, scroll) |
+| **Dropdown selection** | Custom select: single/multi, search-in-list, groups, clear; chips for multi | `role="listbox"`; typeahead; matches input height | Mobile: bottom sheet list · Desktop: anchored menu |
+| **Selection page** | Full page/sheet to choose one option (long lists, countries, categories): search on top, grouped rows, check on selected, sticky "Done" | Returns to caller with value; back keeps previous | Mobile: full page · Tablet/Desktop: modal or side panel |
+| **Checkbox page** | Same as selection page but multi-select; "Select all", count in header, sticky Apply/Clear | Indeterminate state for groups | as above |
+| **Selection list** | Inline list, single choice (radio-like rows: title + description + trailing check) | `role="radiogroup"`; arrows move & select | Mobile: full-width rows · Desktop: bordered card list |
+| **Checkbox list** | Inline list, multi choice (rows with checkbox; optional select-all) | `role="group"`; Space toggles; count summary | as above |
+| **Stepper (numeric)** | − / value / + with min/max/step (`forms.mdc`) | Hold to repeat; clamps | Same all classes |
+| **Upload / Camera** | see Media | — | — |
+
+### G. Lists & content
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **List** | Rows: leading (icon/avatar) · title · subtitle · meta · trailing (chevron/switch/action); dividers/inset; grouped with sticky headers | Row hover/press, selected, swipe actions (mobile), skeleton rows, empty | Mobile: full-bleed rows · Tablet: rows in card · Desktop: rows or table |
+| **Media list** | List row with thumbnail (square/16:9), title, meta, trailing action; duration/badge overlay | Lazy thumbnails, fixed aspect, skeleton | Mobile: thumb left 64–96px · Desktop: larger thumb, meta inline |
+| **Blog list** | Post card/row: cover, category chip, title, excerpt (2–3 lines), author, date, read time | Pagination or infinite scroll; category filter; `Article` schema when SEO on | Mobile: single column · Tablet: 2 cols · Desktop: featured + 3-col grid or list + sidebar |
+| **Product list** | Product card: image, name, price (+ compare-at), rating, badges, quick action | Grid/list toggle, filters (sheet on mobile), sort, pagination/infinite, out-of-stock state | Mobile: 2-col grid, filter sheet · Tablet: 3-col · Desktop: 4-col + filter sidebar |
+| **Feeds layout** | Vertical stream of posts/activity: author row, content, media, actions (like/comment/share), timestamps | Infinite scroll with skeleton, new-items pill, optimistic actions, virtualized when long | Mobile: single column full-bleed · Tablet: centered column · Desktop: feed center + left nav + right aside |
+| **Card** | Slots: media · header · body · footer/actions; `elevated` · `outlined` · `interactive` (whole card is link/button) | Hover lift only if interactive; focus ring on the interactive element | Grid item; consistent height option |
+| **Ticket card** | Event/booking/support ticket: header (title, status chip), key details (date/time, place/seat, code), tear line, QR/barcode, action | Statuses (valid · used · expired · cancelled); copy/share/add-to-wallet; QR contrast-safe | Mobile: full-width vertical ticket, QR large · Tablet/Desktop: horizontal ticket with side stub |
+| **Chip / Badge / Avatar** | Status/tag/count/person markers | Color + text, never color only | Same |
+| **Table** | See catalog pattern in `layout-strategy.mdc` (card list → condensed → full) | Sticky head, sort, select, bulk actions, pagination | per pattern |
+
+### H. Media
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **Image** | `Image` with `aspect` (1:1, 4:3, 16:9), `fit` (cover/contain), radius, lazy + `srcset/sizes`, blur/skeleton placeholder, error fallback, `alt` required | Lightbox optional; no layout shift | Sizes per class |
+| **Slides** | Carousel/slideshow: slides, arrows, dots, thumbnails, swipe, loop; hero variant | Keyboard, focus-visible controls, autoplay off (or paused on hover/focus/reduced motion), lazy off-screen slides, `aria-roledescription="carousel"` | Mobile: 1 slide + swipe + dots · Tablet: 2 peek · Desktop: arrows + multi-slide |
+| **Player (play)** | Video/audio: play/pause, seek, time, volume, speed, captions, fullscreen, picture-in-picture, poster; playlist optional | Buffering/error states, remembers position, never autoplays with sound, keyboard (Space, ←/→, M, F) | Mobile: tap controls, native fullscreen · Desktop: hover controls, keyboard |
+| **Camera** | Capture photo/video via `getUserMedia`/`input capture`; preview, retake, flip camera, flash, crop; permission + denied + no-camera states; file-picker fallback | Explicit permission prompt copy; stops tracks on unmount; size/type limits (`validation.mdc`); upload progress | Mobile: full-screen capture with bottom controls · Desktop: modal with webcam or file picker |
+| **Chart (graph)** | Line · bar · area · pie/donut · sparkline; legend, tooltip, axis; theme colors; one library per project | Responsive container, skeleton, empty, table fallback, `aria-label` + data summary, colors distinguishable without hue alone | Mobile: simplified, one chart per view, horizontal scroll for many points · Desktop: full with legend/hover |
+| **Upload** | see `forms.mdc` | — | — |
+
+### I. Networking / marketing (only when the concept includes it — plans live in `concept-domain.mdc`)
+
+Plan types: **unilevel** (unlimited width, levels deep), **binary** (2 legs: left/right, pairing), **matrix** (fixed width × depth, e.g. 3×7), **generation/breakaway**, **affiliate/referral** (flat or multi-tier commissions), **hybrid**. Money and identity data → server-side authz on every node access (IDOR rules in `security.mdc`).
+
+| Component | Anatomy / variants | Behavior & states | Mobile · Tablet · Desktop |
+|-----------|--------------------|-------------------|---------------------------|
+| **NetworkTree** | Node = avatar · name · rank badge · volume/status · child count; modes `unilevel` · `binary` · `matrix` · `generation` | Lazy-load children per node (depth 2–3 at a time), expand/collapse, search-in-tree, "go to me/upline", zoom/pan, highlight empty slots (binary), `role="tree"` + arrows | Mobile: **indented collapsible list / drill-down** (one level per screen) · Tablet: horizontal scroll tree with zoom controls · Desktop: full canvas, pan/zoom, minimap, node popover |
+| **LegSummary** | Binary left vs right: volume, carry-over, members, pairing status; balance bar | Updates per period; tooltips explain formulas | Mobile: stacked two cards · Desktop: side-by-side with balance meter |
+| **TeamList** | Downline as table/list: level, member, join date, rank, volume, status; filters by level/status/date; export | Pagination, sort, per-level grouping, skeleton | Mobile: cards grouped by level · Tablet: condensed table · Desktop: full table + filters |
+| **ReferralLink** | Personal link/code, copy, share sheet, QR, campaign tags, stats (clicks/signups/conversions) | Copy feedback, native share on mobile, link regeneration confirm | Mobile: native share · Desktop: copy + QR modal |
+| **CommissionTable** | Rows: date, source (member/order), type (direct/level/pairing/bonus), level, amount, status (pending/approved/paid/reversed) | Filters by period/type/status, totals footer, export, empty state, immutable history | Mobile: card list with amount emphasized · Desktop: full table with totals |
+| **EarningsSummary** | KPI cards (today/period/lifetime, pending, paid), trend sparkline, payout schedule, wallet balance + payout action | Period switcher, currency format, skeleton, "as of" timestamp | Mobile: swipeable KPI cards · Desktop: 4-col KPI grid + chart |
+| **RankBadge / Progress** | Rank icon/name, progress to next rank (requirements checklist + `Progress`) | Locked/unlocked states | Same all classes |
+| **Compensation plan page** | Plan explainer: tiers, percentages, examples, calculator | Static content; calculator validated server-side | Mobile: accordion · Desktop: table + calculator |
+
+### J. Functional components & hooks (`lib/hooks`, `lib/`)
+
+| Name | Job |
+|------|-----|
+| `useViewClass()` | Returns `mobile \| tablet \| desktop` from breakpoints (`layout-strategy.mdc`); SSR-safe |
+| `useDisclosure()` | open/close/toggle state for modal, popover, drawer, menu |
+| `useClickOutside()` / `useFocusTrap()` / `useEscape()` | Overlay behavior |
+| `useDebounce()` / `useThrottle()` | Search, autocomplete, resize |
+| `useInfiniteScroll()` | Sentinel + fetch-next + dedupe + error/retry |
+| `usePagination()` | Page/size/total, URL-synced |
+| `useToast()` | Queue + dismiss for `Alert` toasts |
+| `useForm()` / `validators` | Field state, errors mapped from API (`validation.mdc`) |
+| `useLocalPref()` | Persist theme/filters/last view (try/catch storage) |
+| `cn()` | Class merge helper; `formatDate/Number/Currency` locale helpers |
+
+## Do not
+- Build a component outside this organization, or a second copy of one that exists (add a variant)
+- Ship a component without states, keyboard support, and its entry on the component page
+- Use `position: absolute` without a `relative` parent, ad-hoc z-index numbers, or page-level horizontal scroll
+- Show a wide table or full tree on mobile — use the mobile layout in the catalog
+- Build the `network/` group when the concept has no networking/marketing plan

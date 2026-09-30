@@ -10,7 +10,7 @@ alwaysApply: true
 ## Rules
 
 ### Stack & tokens
-1. **Tailwind CSS** is the only styling engine. Theme via `tailwind.config` / `@theme`: colors (primary, surface, border, muted, danger, success), `fontSize`, spacing, radius, shadow, maxWidth, z-index layers (`z-modal`, `z-popover`). No raw hex in markup; `@apply` only inside shared component files.
+1. **Tailwind CSS** is the only styling engine. Theme via `tailwind.config` / `@theme`: colors (primary, surface, border, muted, danger, success), `fontSize`, spacing, radius, shadow, maxWidth, z-index scale (`ui-components.mdc`). No raw hex in markup; `@apply` only inside shared component files.
 2. **Look & feel** (palette, type, mood) comes from the approved direction in `design-direction.mdc` → `frontend-design/SKILL.md`. **Layout** comes from `layout-strategy.mdc` → `route-layouts.mdc`.
 3. **Extend, don't replace:** add theme keys, marketing gradients, and `components/ui/*` variants that compose the primitives below.
 4. Respect `prefers-reduced-motion` and `prefers-color-scheme`. Dark mode mirrors tokens — no un-themed surfaces.
@@ -41,22 +41,8 @@ Layout *strategy* (normal / layout / auto), breakpoints, and per-route layouts: 
 ### Typography
 Theme scale only (`text-xs`…`text-4xl+`); `h1`–`h6` map to the display scale; body `text-base leading-relaxed`; muted via token; links use brand color + underline-offset on hover; labels `text-sm font-medium`.
 
-### Shared components (`components/ui/`)
-| Component | Rule |
-|-----------|------|
-| **Button** | Same height/radius/focus ring/disabled; variants text · icon-only (`aria-label`) · icon+text · back; loading state inline, no double-submit |
-| **Navbar / rail / sidebar** | Per layout class; mobile → drawer/sheet |
-| **Bottom toolbar / tabs** | Mobile primary actions; safe-area padding; ≤ 5 items; active state uses primary |
-| **Tabs** | Shared component, roving keyboard focus |
-| **Page header** | Title, subtitle, actions, back; sticky variant shares header token |
-| **Modal** | Centered, backdrop, focus trap, Esc, `role="dialog"` |
-| **Popup / Popover** | Anchored; click-outside dismiss; same radius/shadow/border tokens |
-| **Alert** | Inline · banner · toast with status tokens — never `window.alert` |
-| **Card** | Surface token, radius, border/shadow, header/footer slots |
-| **Images** | Lazy, aspect-ratio boxes, `alt` required |
-| **Skeleton / loaders** | Skeleton for content regions; spinner only for tiny/button contexts (`icons-states.mdc`) |
-| **Chart** | One shared wrapper; colors from theme; responsive container; table fallback when feasible |
-| **Forms** | `forms.mdc` |
+### Shared components
+Every component (button, alert, forms, picker, modal, popover, slides, card, navbar, tabs, loader, list, chart, …) follows the catalog and Component Spec in `ui-components.mdc` and lives in `components/ui/<group>/`. Behaviors that apply everywhere: Button never double-submits; Alert is never `window.alert`; Modal traps focus and closes on Esc; skeletons for content, spinners only for tiny contexts; charts use theme colors and a table fallback.
 
 ### Motion & scroll
 - Page transitions: shared wrapper, fade/slide 150–250ms, instant/opacity-only under reduced motion

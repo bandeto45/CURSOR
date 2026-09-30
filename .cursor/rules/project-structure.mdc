@@ -42,8 +42,9 @@ Everything below is written in `react` names; `native` uses the mapping above wi
 │     ├─ routes/       ONE folder per R-nn (see §4)
 │     ├─ features/     <feature>/ components · hooks · services · types   (F-nn, shared by all shells)
 │     ├─ components/
-│     │  ├─ ui/        Button, Input… (forms.mdc), Modal, Popover, Alert, Card, Tabs, Navbar, BottomToolbar, PageHeader
-│     │  └─ states/    NotFound, ErrorState, EmptyState, Skeleton (icons-states.mdc)
+│     │  ├─ ui/        grouped per `ui-components.mdc`: foundations · layout · nav · actions · overlays · inputs · lists · media · network
+│     │  └─ states/    NotFound, ErrorState, EmptyState (icons-states.mdc)
+│     ├─ routes/_components/   component page (dev only) — every component × variant × state
 │     ├─ lib/          apiClient, env, useViewClass, validators, format
 │     ├─ mocks/        <entity>.mock + mockApi   (P2; removed in P4/P5)
 │     ├─ styles/       theme tokens, globals

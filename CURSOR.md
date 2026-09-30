@@ -111,6 +111,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
 | Deliverable | `proposal.mdc` | P1 proposal deck (React/native), Letter-size document, guide |
 | UI | `ui-styling.mdc` | Tailwind system, shared components, motion, frontend conventions |
+| UI | `ui-components.mdc` | Component catalog + Component Spec: foundations, layout, nav, actions, overlays, inputs/pickers, lists, media, network/marketing, hooks |
 | UI | `forms.mdc` | Custom form controls + patterns |
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
 | Logic | `validation.mdc` | Client + server validation |

@@ -87,7 +87,7 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 - [ ] P1.9 **Migration runner** — `migrate()`, `rollback()`, `status()`; verified up → down → up on an empty DB
 - [ ] P1.10 **Seeds** — `Seeder::run()` per entity, idempotent, demo data only from concept (if needed)
 - [ ] P1.11 **`.env.example`** (keys only) + config loader `env()`; app boots empty; production values in **GitHub Secrets** (`/deploy`)
-- [ ] P1.12 **UI primitives scaffold** in `components/ui/`: `Button`, `Input` (+ all form controls), `Modal`, `Popover`, `Alert/Toast`, `Card`, `Tabs`, `Navbar`, `BottomToolbar`, `PageHeader`, `BackButton`, `Skeleton`, `EmptyState`, `ErrorState`, `NotFound` — stubs with props + story/preview
+- [ ] P1.12 **UI scaffold** from `ui-components.mdc`: `components/ui/` groups + `lib/hooks/`, one stub per catalog component the concept needs (props + Component Spec header), plus the **component page** `/_components`; the `network/` group only if the concept has a networking/marketing plan
 - [ ] P1.13 **Layout shells scaffold** per strategy: `normal` → one `AppShell`; `layout` → `MobileShell`, `TabletShell`, `DesktopShell` + `ShellSwitcher`/`useViewClass()`; route folders (container + Mobile/Tablet/Desktop views) per `project-structure.mdc`
 - [ ] P1.14 **Icon system** recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
 - [ ] P1.15 **Tooling**: lint, format, test runner, hooks working (`/lint`, `/test`)
@@ -106,7 +106,7 @@ Run **Phase exit gate**. Verify: schema matches concept; migrate up/down/up pass
 
 - [ ] P2.1 **Mock data layer** — `mocks/<entity>.ts` fixtures + `mockApi.<entity>.list()/get()/create()/update()/remove()` matching the *future real contract* (same shapes, same error format); simulated latency + error toggles
 - [ ] P2.2 **Contracts/types** — request/response types per endpoint (single source reused in P3/P4)
-- [ ] P2.3 **Primitives finished** — every `components/ui/` item implemented, themed, keyboard + focus + a11y
+- [ ] P2.3 **Components finished** — every catalog component the routes use is implemented, themed, keyboard + focus + a11y, with all states and its entry on the component page (light + dark, three widths)
 - [ ] P2.4 **Form system** — every control in `forms.mdc`; `FormField` error slots; client validators as named functions (`validateEmail()`, `validateRequired()`, … or schema per form)
 - [ ] P2.5 **Routing shells** — router, guards (`RequireAuth`, `RequireRole` on mock session), lazy-loaded route chunks, page-transition wrapper
 - [ ] P2.6 **Route-by-route build** — for each route in `route-layouts.mdc`, in plan order:

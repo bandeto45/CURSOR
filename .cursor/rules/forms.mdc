@@ -21,7 +21,7 @@ alwaysApply: true
 | Checkbox | Custom box + full label hit target |
 | Radio | Custom group; one selection; keyboard navigable |
 | Slider | Range styled to theme; min/max/step; optional value label |
-| Picker | Date/time/datetime with input tokens; popover calendar OK |
+| Picker | Date/time/datetime with input tokens — full spec (calendar, time, range) in `ui-components.mdc` |
 | Stepper | − / value / +, with min/max/step |
 | Editor | Multiline / rich text — shared border, focus, error |
 | Upload | Preview, remove, type/size errors; progress + retry; multiple files *(when the concept needs it)* |

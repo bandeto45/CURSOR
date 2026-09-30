@@ -109,6 +109,9 @@
       ],
       "project-structure.mdc": [
         "**/*.{jsx,tsx,js,ts,vue,html,css}"
+      ],
+      "ui-components.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,html,css}"
       ]
     },
     "projectFiles": [
