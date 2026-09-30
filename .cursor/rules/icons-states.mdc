@@ -3,13 +3,13 @@ description: Locked icons (Material or Lottie), state screens, skeleton loaders,
 alwaysApply: true
 ---
 
-# Icons, states & loading (default — never remove)
+# Icons, states & loading
 
-These are **locked general rules**. Do not delete, skip, or replace with one-off patterns.
+> Purpose: locked icon system, shared state screens, skeletons, lazy load. Never skipped or replaced with one-offs.
 
-## Icon system (choose at install)
+## Icon system
 
-At intake, set Project Profile **Icons** to exactly one primary system:
+The AI recommends one primary system inside the design proposal (`design-direction.mdc`); the dev confirms; Profile **Icons** records it:
 
 | Choice | Use |
 |--------|-----|
@@ -18,7 +18,7 @@ At intake, set Project Profile **Icons** to exactly one primary system:
 
 Rules:
 
-- One primary system per project (record in Profile + `frontend-design` skill)
+- One primary system per project (Profile + `frontend-design` skill)
 - If **Lottie**: use official Lottie web player for the stack; store assets under a shared path (e.g. `public/lottie/` or `src/assets/lottie/`); prefer lightweight loops
 - If **Material**: do not mix a second static icon library for chrome (emoji is not product chrome)
 - Icon-only controls still need accessible names (`aria-label` / visible text)
@@ -50,8 +50,7 @@ Prefer Lottie (or the chosen icon system) for these animations so they match bra
 
 ## Do not
 
-- Skip 404 / error / empty defaults “until later”
 - Replace skeletons with blank screens or only spinners for primary content
 - Eager-load every route/chunk when lazy load is available
-- Swap the locked icon system mid-project without updating Profile + skill
-- Mix Material + another static icon set for the same chrome layer (Lottie may animate states even when Material is primary chrome — note that in Profile if hybrid)
+- Swap the icon system mid-project without updating Profile + skill
+- Mix two static icon sets for the same chrome layer (Lottie may animate states over Material chrome — note the hybrid in Profile)

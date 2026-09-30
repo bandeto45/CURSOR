@@ -1,81 +1,66 @@
 ---
-description: Layout strategy choice — Normal Responsive, Layout Responsive, or Auto (AI recommends); drives per-route layouts
+description: Layout strategy — Normal Responsive, Layout Responsive, or Auto (AI recommends); drives per-route layouts
 alwaysApply: true
 ---
 
-# Layout strategy (default — chosen at intake)
+# Layout strategy
 
-Asked for **every** project (web, mobile, or web + mobile). The dev picks one of three; the choice is written to Profile → **Layout strategy** (and **Layout resolved**).
+> Purpose: pick how layouts behave across mobile · tablet · desktop, then give **every route** its own layout in `route-layouts.mdc`.
 
-## The three options
+## Rules
 
-| Option | Profile value | Meaning | Best for | Not for |
-|--------|---------------|---------|----------|---------|
-| **Normal Responsive** | `normal` | One composition that **reflows** on small screens. Mobile-friendly website — **not** mobile-app-ready. Same structure everywhere; columns collapse, nav folds into a menu. | Marketing sites, blogs, simple forms, content-first, SEO-first | Installable/PWA/app-like UX, data-heavy dashboards, tablet-specific workflows |
-| **Layout Responsive** | `layout` | **Different layout per view class** — mobile, tablet, and desktop each get their own composition (nav, panes, density). Mobile is app-like (bottom nav, sheets); tablet mid-density (split panes); desktop full chrome. Single codebase, shared tokens/forms/components. | Web apps, dashboards/admin, `web + mobile`, mobile-app-ready, role-based tools | Tiny throwaway pages where the extra shells add no value |
-| **Auto** | `auto` | The **AI recommends** the ideal layouting from the concept, then the dev confirms. Recorded as the concrete result in **Layout resolved**. | Dev is unsure | — |
+### The three options (asked for every project)
+| Option | Value | Meaning | Best for | Not for |
+|--------|-------|---------|----------|---------|
+| **Normal Responsive** | `normal` | One composition that reflows: columns collapse, nav folds. Mobile-friendly website — **not** mobile-app-ready | Marketing, blogs, simple forms, content/SEO-first | App-like/PWA UX, data-heavy dashboards, tablet workflows |
+| **Layout Responsive** | `layout` | A different layout per class: mobile app-like (bottom nav, sheets) · tablet mid-density (rail, split panes) · desktop full chrome. One codebase | Web apps, dashboards/admin, `web + mobile`, role-based tools | Tiny throwaway pages |
+| **Auto** | `auto` | AI recommends from the concept; dev confirms; result recorded as **Layout resolved** = `normal` \| `layout` \| `mixed` (route groups differ, e.g. marketing `normal` + app `layout`) | Dev is unsure | — |
 
-Profile fields: **Layout strategy** = `normal` \| `layout` \| `auto` · **Layout resolved** = `normal` \| `layout` \| `mixed` (only when Auto; `mixed` = named route groups use different modes, e.g. marketing `normal` + app `layout`).
+### Auto — how the AI recommends
+| Signal in the concept | Leans |
+|-----------------------|-------|
+| Mobile / installable / PWA / app-like | `layout` |
+| Data-heavy: tables, dashboards, admin, multi-pane, filters, bulk actions | `layout` |
+| Roles on different devices (field staff phone, back-office desktop) | `layout` |
+| Frequent daily, task-oriented use | `layout` |
+| Mostly content/marketing/docs, few routes, SEO-first | `normal` |
+| Simple forms, read-only pages | `normal` |
+| Public site **and** an app area | `mixed` |
 
-## Selection flow
+`web + mobile` → strongly recommend `layout`; if the dev still picks `normal`, record it as an accepted trade-off (not app-ready), don't refuse.
 
-1. **Ask** with the three options above (plain-language, with the "best for" line). Ask even when the dev already stated Clients.
-2. **If `auto`** — the AI reads the concept and **recommends** with reasons, using this guide, then the dev confirms or overrides:
-
-   | Signal in the concept | Leans |
-   |-----------------------|-------|
-   | Clients include mobile / installable / PWA / "app-like" | `layout` |
-   | Data-heavy: tables, dashboards, admin, multi-pane, filters, bulk actions | `layout` |
-   | Roles use different devices (field staff on phone, back-office on desktop) | `layout` |
-   | Frequent daily use, task-oriented, in-flow actions | `layout` |
-   | Mostly content/marketing/blog/docs, few routes, SEO-first | `normal` |
-   | Simple forms and read-only pages, low interaction | `normal` |
-   | Both a public site and an app area | `mixed` (marketing `normal`, app `layout`) |
-
-3. **Guardrail:** Clients = `web + mobile` → strongly recommend `layout`. If the dev still picks `normal`, record it as an accepted trade-off (not app-ready) in Profile; do not refuse.
-4. **Write to Profile** immediately: strategy, resolved value, one-line reason.
-5. **Then generate the per-route layouts** (below). The strategy is not "done" until `route-layouts.mdc` is filled and the dev approved it.
-
-## Breakpoints (Tailwind screens)
-
+### Breakpoints
 | Class | Range | Design at | Tailwind |
 |-------|-------|-----------|----------|
-| Mobile | < 768px | 375 | base |
-| Tablet | 768–1023px | 768 / 820 | `md:` |
-| Desktop | ≥ 1024px | 1280+ | `lg:` / `xl:` |
+| Mobile | < 768 | 375 | base |
+| Tablet | 768–1023 | 768 / 820 | `md:` |
+| Desktop | ≥ 1024 | 1280+ | `lg:` / `xl:` |
 
-## Per-route layout instructions (generated after the choice)
+Nav by class (`layout`): mobile bottom tabs/drawer · tablet nav rail/collapsible side nav · desktop sidebar or top navbar.
 
-1. **Derive the route list** from the concept (per role/surface): every screen the v1 scope needs.
-2. For each route the AI proposes **its most recommended layout** — pick a pattern from the catalog, then write mobile · tablet · desktop for it — into `.cursor/rules/route-layouts.mdc` using that file's template.
-3. Dev reviews/edits the map; **approved** map is the build contract for P2. Layout changes later → edit `route-layouts.mdc` first.
-4. `normal` → each route gets **one composition + reflow notes** (what stacks, what hides, nav collapse, table handling).
-   `layout` → each route gets **three explicit layouts** (mobile · tablet · desktop).
-   `mixed` → route groups are tagged `normal` or `layout`; each route follows its group's mode.
+## Flow (`format.mdc`)
+1. **Ask** the three-way choice in plain language (even if Clients is already known).
+2. **Recommend** as `REC-layout-1` (strategy) — with reasons from the signals above.
+3. **Decide → Write** Profile: Layout strategy, Layout resolved, one-line reason.
+4. **Derive routes** `R-nn` from the concept (every v1 screen, per role).
+5. **Recommend per route** (`REC-route-n`): choose the best pattern from the catalog, then write its mobile · tablet · desktop layout into `route-layouts.mdc`. `normal` → one composition + reflow notes; `layout` → three explicit layouts; `mixed` → each group follows its mode.
+6. **Confirm** — dev approves the map (`APPROVED`) before P2. Later layout changes: edit `route-layouts.mdc` first.
 
 ## Pattern catalog (AI picks the best fit per route)
-
 | Pattern | Mobile | Tablet | Desktop |
 |---------|--------|--------|---------|
-| **Dashboard** | Stacked KPI cards, one chart at a time, bottom tabs | 2-column grid, side nav (rail) | 3–4 column grid, sidebar + top bar, dense widgets |
-| **List → Detail** | List page; detail opens as a new page (back) | Split pane: list left, detail right | Split pane or table + right drawer, keyboard nav |
+| **Dashboard** | Stacked KPI cards, one chart at a time, bottom tabs | 2-col grid, nav rail | 3–4-col grid, sidebar + top bar, dense widgets |
+| **List → Detail** | List page; detail as new page (back) | Split pane | Split pane or table + right drawer, keyboard nav |
 | **Data table** | **Card list** (key fields, tap to expand), filter sheet, sticky search | **Condensed table** (priority columns), row → side drawer, filter bar | **Full table**: sticky head, column controls, filter toolbar/sidebar, bulk actions, pagination |
-| **Form / wizard** | One column, one step per screen, sticky bottom CTA | Centered card, 1–2 columns, stepper on top | Centered/two-column with live summary aside |
-| **Settings / profile** | Grouped list → sub-page per group | Left section list + content | Left nav sections + content pane |
-| **Auth** | Full-screen single form, big targets | Centered card | Split screen (form + brand panel) or centered card |
-| **Landing / marketing** | Single column, sticky CTA | 2-column sections | Full-width sections, max-width container |
-| **Feed / gallery** | Single column / 2-col grid, infinite scroll | 2–3 column grid | 3–4 column masonry/grid, hover previews |
-| **Detail / article** | Single column, sticky action bar | Comfortable reading width + optional aside | Reading column + sticky aside/toc |
-| **Checkout / confirm** | Stepped, order summary collapsible, sticky pay CTA | Two-column (form + summary) | Two-column with sticky summary |
-
-Nav by class (Layout Responsive): mobile → bottom tabs / drawer; tablet → nav rail or collapsible side nav; desktop → full sidebar or top navbar.
+| **Form / wizard** | One column, one step per screen, sticky bottom CTA | Centered card, 1–2 cols, stepper on top | Centered/two-col with live summary aside |
+| **Settings / profile** | Grouped list → sub-page per group | Section list left + content | Left nav + content pane |
+| **Auth** | Full-screen form, big targets | Centered card | Split screen (form + brand) or centered card |
+| **Landing** | Single column, sticky CTA | 2-col sections | Full-width sections, max-width container |
+| **Feed / gallery** | Single col / 2-col grid, infinite scroll | 2–3-col grid | 3–4-col grid/masonry, hover previews |
+| **Detail / article** | Single column, sticky action bar | Reading width + optional aside | Reading column + sticky aside/TOC |
+| **Checkout / confirm** | Stepped, collapsible summary, sticky pay CTA | Two-col (form + summary) | Two-col, sticky summary |
 
 ## Do not
-
-- Skip asking the three-way choice, or infer it silently
-- Build P2 screens before `route-layouts.mdc` is filled and approved
-- Under `layout`: ship the same DOM merely stretched for all classes
-- Under `layout`: split into separate mobile and web projects — **single codebase**, shared tokens/forms/components; only composition and nav change
+- Infer the choice silently, or build P2 screens before `route-layouts.mdc` is `APPROVED`
 - Under `normal`: claim the result is mobile-app-ready
-- Let route layouts drift from the recorded strategy — change the file first
-- Show a wide desktop table on mobile (use the table pattern above)
+- Show a wide desktop table on mobile

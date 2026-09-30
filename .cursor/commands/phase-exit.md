@@ -18,16 +18,16 @@ Close the **current** implementation phase before starting the next.
 ## Steps
 
 1. Read `CURSOR.md` → **Current phase** and `.cursor/rules/implementation-phases.mdc`.
-2. List this phase’s **sub-tasks** — done / deferred / missing.
+2. Open `phase-plan.mdc`: list this phase’s units (`U-nn`) — done / deferred / missing.
 3. Run the shared **Phase exit gate**:
-   - Defaults still on (forms, ui-styling, validation, PHP migrate/seed)
+   - Default rules intact (`CURSOR.md` → Rule map)
    - Smoke/tests for this phase’s deliverables
    - Bugs: fix now vs carry
-   - Gaps/adds for **next** phase — write into Profile / concept-domain / PHASE notes
+   - Gaps/adds for **next** phase — write into `phase-plan.mdc` (carry-over) / Profile / `concept-domain.mdc`
    - No half-started later-phase work
 4. Ask user to confirm **exit OK**.
 5. If OK and `--next` (or user agrees): bump **Current phase** in `CURSOR.md`.
-6. Summarize carry-over for the next phase.
+6. Append an **AI Handoff Log** row; summarize carry-over for the next phase.
 
 ## Do Not
 

@@ -1,0 +1,91 @@
+---
+description: The pack signature — one file anatomy, one recommendation block, one flow, one ID scheme for every rule and every AI-filled file
+alwaysApply: true
+---
+
+# Format (the pack signature)
+
+> Purpose: every rule and every AI-written project file looks and behaves the same, whichever AI writes it.
+
+## 1. The flow (every decision, every time)
+
+**Ask → Recommend → Decide → Write → Confirm**
+
+| Step | What the AI does |
+|------|------------------|
+| **Ask** | Ask the dev in plain language; one short batch per topic. The dev may answer, skip, or say **"you decide"** |
+| **Recommend** | Propose options as a **Recommendation Block** (below) — exactly **one Recommended**, others as alternatives with trade-offs |
+| **Decide** | Dev accepts, changes, or delegates. "You decide" = the Recommended option, recorded as AI-chosen |
+| **Write** | Immediately write the decision into its file (never chat-only), with status and date |
+| **Confirm** | Show a 2–4 line summary of what was written and where |
+
+Applies to: stack, design direction, layout strategy, per-route layouts, phase plan, scope, anything the dev is unsure about.
+
+## 2. Recommendation Block (how the AI proposes)
+
+Use this exact shape in chat **and** when recording it in a file:
+
+```
+### REC-<area>-<n> — <decision title>
+- Question:     <what is being decided>
+- Recommended:  <option> — <why it fits THIS concept, max 3 bullets>
+- Alternatives: <option B> (<trade-off>) · <option C> (<trade-off>)
+- Decision:     pending | accepted | changed to <option> | AI-chosen — <who>, <date>
+- Written to:   <file → section>
+```
+
+`<area>` ∈ `stack` · `design` · `layout` · `route` · `scope` · `data` · `plan`. Max 3 options. Always one Recommended.
+
+## 3. Rule file anatomy (pack rules in `.cursor/rules/`)
+
+```
+---
+description: <one line>
+alwaysApply: true | false
+globs: <only when scoped>
+---
+# <Title>
+> Purpose: <one line>
+
+## Rules          ← numbered or table; imperative; no repeats of other files
+## Flow           ← only if the rule has steps
+## Do not         ← only bans specific to THIS file (global bans live in restrictions.mdc)
+```
+
+- One topic per file. **No basic/advanced split** — everything a topic needs is in its one file; optional parts are marked *(when the concept needs it)*.
+- Say a thing **once**, in the file that owns it; elsewhere link by filename.
+
+## 4. Project file anatomy (AI-filled files: `concept-domain.mdc`, `route-layouts.mdc`, `phase-plan.mdc`, `frontend-design/SKILL.md`)
+
+```
+# <Title>
+> Status: TEMPLATE | DRAFT | APPROVED — filled by <AI/tool>, <date>; approved by <dev|—>
+
+## Decisions      ← Recommendation Blocks (accepted ones)
+## Content        ← the actual spec, using the ID scheme below
+## Change log     ← one line per change: date · AI · what · why
+```
+
+- `TEMPLATE` → nothing filled. `DRAFT` → AI filled, awaiting dev. `APPROVED` → dev accepted; changes need dev ask + log line.
+- Edit the file **first**, then the code. Bump status back to `DRAFT` when a change needs re-approval.
+
+## 5. ID scheme (use everywhere)
+
+| ID | Meaning | Example |
+|----|---------|---------|
+| `F-nn` | Feature | `F-03` Checkout |
+| `R-nn` | Route/page | `R-07` `/orders/:id` |
+| `E-nn` | API endpoint | `E-12` `POST /orders` |
+| `T-nn` | Table/entity | `T-02` `orders` |
+| `U-nn` | Function / unit / component (plan item) | `U-041` `OrderService.create()` |
+| `REC-<area>-<n>` | Recommendation | `REC-layout-1` |
+
+Plan items reference these IDs (`U-041 → F-03, E-12, T-02`). No item without a feature.
+
+## 6. Status words (only these)
+
+Plan items: `todo` · `doing` · `done` · `deferred (reason)`. Files: `TEMPLATE` · `DRAFT` · `APPROVED`. Decisions: `pending` · `accepted` · `changed` · `AI-chosen`.
+
+## 7. Writing style
+
+Imperative, present tense, concrete (name regions, functions, values). Tables for options and specs; short bullets for rules. No filler, no "should probably".

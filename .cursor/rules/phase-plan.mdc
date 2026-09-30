@@ -1,51 +1,51 @@
 ---
-description: Project-specific phase plan — features, routes, endpoints, and functions per phase (generated at install, kept current)
+description: Project-specific plan — features, endpoints, and function-level units per phase (AI-filled, kept current)
 alwaysApply: true
 ---
 
-# Phase plan (generated at install — living file)
+# Phase plan
 
-> **Status:** Template. After concept, routes, and layouts are known (end of intake / P1.6) the AI fills this file. It is the **project-specific, function-by-function** version of `implementation-phases.mdc`. Update statuses as work happens; add newly discovered items **here first**.
+> Status: TEMPLATE — filled by —, —; approved by —
+> Purpose: the function-by-function version of `implementation-phases.mdc` for this project. Read it to know what is done; add new units **here first**.
 
+## Decisions
 | Field | Value |
 |-------|--------|
 | Current phase | TBD (mirror of Profile) |
-| Last updated by | TBD (AI/tool · date) |
+| Build order | TBD — `REC-plan-1` accepted here (which features first, why) |
 
-## Feature list (from scope lock)
+## Content
 
-| ID | Feature | Roles | Routes | Entities | Endpoints |
-|----|---------|-------|--------|----------|-----------|
-| F-01 | TBD | TBD | TBD | TBD | TBD |
+### Features → routes → endpoints → tables
+| F-ID | Feature | Routes (R) | Endpoints (E) | Tables (T) | Roles |
+|------|---------|------------|---------------|------------|-------|
+| F-01 | TBD | R-01 | E-01 | T-01 | TBD |
 
-## Endpoint inventory (from P1.5)
-
-| ID | Method + path | Purpose | Auth / role | Request | Response | Errors |
-|----|---------------|---------|-------------|---------|----------|--------|
+### Endpoint inventory
+| E-ID | Method + path | Purpose | Auth / role | Request | Response | Errors |
+|------|---------------|---------|-------------|---------|----------|--------|
 | E-01 | TBD | TBD | TBD | TBD | TBD | TBD |
 
-## Function inventory & plan
+### Units (function / component) — ordered by dependency
+| U-ID | Phase | F / R / E / T | Unit | File | Depends on | Done when | Status |
+|------|-------|---------------|------|------|------------|-----------|--------|
+| U-001 | P1 | F-00 · T-01 | `create_<table>.up()/down()` | migrations/… | — | up→down→up passes | todo |
+| U-002 | P2 | F-01 · R-01 | `mockApi.<entity>.list()` | mocks/… | contracts | same shape as real contract | todo |
+| U-003 | P3 | F-01 · E-01 | `<Entity>Controller.list()` | api/… | U-001 | 200 paginated; 401/403 tested | todo |
+| U-004 | P4 | F-01 · R-01 | `use<Entity>List()` → real service | web/… | U-002, U-003 | mock usage removed | todo |
 
-One row per function/unit. Full **Function Spec** (see `implementation-phases.mdc`) goes below the table for critical-path items; simple items may stay one row if *Done when* is clear.
+(Example rows — the AI replaces them with the real inventory. Full **Function Spec** per unit goes below for critical-path items.)
 
-| # | Phase | Feature | Unit (function / component) | File | Depends on | Done when | Status |
-|---|-------|---------|-----------------------------|------|------------|-----------|--------|
-| 1 | P1 | F-00 | `Migration_create_<table>.up()/down()` | migrations/… | — | up→down→up passes | todo |
-| 2 | P2 | F-01 | `mockApi.<entity>.list()` | mocks/… | contracts | matches real contract shape | todo |
-| 3 | P3 | F-01 | `<Entity>Controller.list()` | api/… | migration #1 | 200 paginated; 401/403 tested | todo |
-| 4 | P4 | F-01 | `use<Entity>List()` → real service | web/… | #2, #3 | mock usage removed | todo |
-
-> (TBD — AI replaces the example rows with the real inventory, ordered by dependency)
-
-## Carry-over (from phase exits)
-
+### Carry-over (from phase exits)
 | From | Item | Decision (fix now / next phase / backlog) |
 |------|------|-------------------------------------------|
 | — | — | — |
 
-## Do not
+## Change log
+| Date | AI | Change | Why |
+|------|----|--------|-----|
+| — | — | — | — |
 
-- Start a phase's work without its items listed here
-- Build a function with no spec / no *Done when*
-- Leave statuses stale — the next AI reads this file to know what is done
-- Add scope that is not in the feature list
+## Do not
+- Build a unit with no row / *Done when*, or leave statuses stale
+- Add scope outside the feature list

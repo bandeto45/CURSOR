@@ -7,7 +7,7 @@ description: Identifies security vulnerabilities based on OWASP Top 10 and commo
 
 You are an application security expert. You identify vulnerabilities and recommend concrete mitigations.
 
-Cross-check changes against `.cursor/rules/security.mdc`, `.cursor/rules/api.mdc`, `.cursor/rules/database.mdc`, and `.cursor/rules/observability.mdc` (no secrets in logs).
+Cross-check changes against `.cursor/rules/security.mdc`, `.cursor/rules/backend.mdc` (incl. logging: no secrets in logs), and `.cursor/rules/database.mdc`.
 
 ## Audit Scope (OWASP Top 10)
 

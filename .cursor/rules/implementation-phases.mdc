@@ -3,9 +3,9 @@ description: Default implementation phases P1–P5 — detailed sub-tasks, funct
 alwaysApply: true
 ---
 
-# Implementation phases (default)
+# Implementation phases
 
-**Do not mix phases.** Finish the current phase exit gate before starting the next. Track status in `CURSOR.md` Project Profile → **Current phase** (`P1`…`P5` \| `done`).
+> Purpose: build in five ordered phases, one function at a time. Track status in Profile → **Current phase** (`P1`…`P5` \| `done`). Never mix phases; finish the exit gate first.
 
 | Phase | Name | Focus |
 |-------|------|--------|
@@ -17,14 +17,14 @@ alwaysApply: true
 
 ## How detail works (specific, function by function)
 
-Phases are **not** vague bullets. During install (after concept + routes are known) the AI writes the concrete plan into **`phase-plan.mdc`**: for every phase, the exact **features → routes/endpoints/tables → functions** to build, in build order. Sub-tasks below are the *generic skeleton*; `phase-plan.mdc` is the *project-specific* list.
+During install (after concept + routes are known) the AI writes the concrete plan into **`phase-plan.mdc`** (`format.mdc` ID scheme: `F` → `R`/`E`/`T` → `U`). Sub-tasks below are the *generic skeleton*; `phase-plan.mdc` is the *project-specific* list.
 
 ### Rule of specificity
 
-1. **One function/unit = one line item** with a Function Spec (template below). No "implement auth" — instead `AuthService.login()`, `AuthService.refresh()`, `requireRole()`, `LoginForm.onSubmit()`, …
+1. **One function/unit = one `U-nn` line item** with a Function Spec (template below). No "implement auth" — instead `AuthService.login()`, `AuthService.refresh()`, `requireRole()`, `LoginForm.onSubmit()`, …
 2. **Order inside a phase:** dependencies first (types/contracts → helpers → core functions → composition → tests).
 3. **Every line item has a Definition of Done** the AI can check (file exists, function signature matches spec, test passes, states covered).
-4. **Status per item:** `todo` → `doing` → `done` \| `deferred (reason)`. Update in `phase-plan.mdc` as work happens — not chat-only.
+4. **Status per item:** `todo` → `doing` → `done` \| `deferred (reason)` (`format.mdc`). Update in `phase-plan.mdc` as work happens.
 5. Work **one item at a time**; do not start an item whose dependencies are not `done`.
 6. Any new function discovered mid-phase is **added to the plan first**, then built.
 
@@ -32,7 +32,7 @@ Phases are **not** vague bullets. During install (after concept + routes are kno
 
 ```
 #### <Module.function or Component> — <one-line purpose>
-- Phase / feature: <P#> · <feature>
+- ID / phase / feature: <U-nn> · <P#> · <F-nn> (+ R/E/T ids)
 - File: <path>
 - Depends on: <other items / contracts / tables>
 - Input: <params + types + validation rules>
@@ -56,7 +56,7 @@ At the **end** of each phase run this gate **before** opening the next (`/phase-
 ### Exit checklist (copy per phase)
 
 - [ ] Every line item in `phase-plan.mdc` for this phase is `done` or explicitly `deferred (reason)`
-- [ ] **Defaults** still intact (forms, ui-styling, design-direction, layout, validation, PHP migrate/seed, icons-states, multi-ai)
+- [ ] **Default rules** still intact (`CURSOR.md` → Rule map)
 - [ ] Each function's **Done when** verified; tests for this phase's functions pass
 - [ ] Smoke / manual test of this phase's deliverables passed
 - [ ] Known bugs listed (fix now vs carry to next phase)
@@ -192,11 +192,11 @@ Run **Phase exit gate**. No open P1–P4 carry items unless accepted as known ba
 
 ---
 
-## AI behavior
+## Working agreement
 
 1. Read **Current phase**, `phase-plan.mdc`, and the **AI Handoff Log** before coding.
-2. Pick the next `todo` line item whose dependencies are `done`; write/complete its Function Spec first, then build it.
-3. Only implement items for the current phase (unless fixing a blocking bug).
-4. Update the item's status in `phase-plan.mdc` as you go.
-5. At phase end run the exit gate (`/phase-exit`); update carry-over; then bump Current phase.
-6. Append an AI Handoff Log row when the session ends.
+2. Take the next `todo` unit whose dependencies are `done`; write its Function Spec first, then build it — in small vertical slices inside the current phase (blocking bug fixes excepted).
+3. Update its status in `phase-plan.mdc` as you go; ask the dev when requirements conflict instead of guessing.
+4. Non-obvious choices (auth, payments, storage) get a one-line ADR in `phase-plan.mdc` change log; risks (PII, payments, multi-tenant, offline) are listed early in `concept-domain.mdc`.
+5. **Definition of done** for a phase: exit checklist passes, no secrets in git, production env keys in GitHub Secrets.
+6. At phase end run `/phase-exit`, update carry-over, bump Current phase; append an AI Handoff Log row when the session ends.

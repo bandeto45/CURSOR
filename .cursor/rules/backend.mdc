@@ -1,0 +1,25 @@
+---
+description: Backend rules — API shape, authz, logging, and endpoint quality
+globs: "api/**,server/**,backend/**,**/*.php"
+alwaysApply: false
+---
+
+# Backend
+
+> Purpose: predictable, secure endpoints that follow `phase-plan.mdc`. Validation: `validation.mdc`. DB: `database.mdc`. Security: `security.mdc`.
+
+## Rules
+
+1. Implement only endpoints in the concept (`E-nn` in `phase-plan.mdc`).
+2. **Authenticate, then authorize** every protected endpoint (role + ownership).
+3. One JSON shape for success and one for errors (`jsonSuccess()` / `jsonError()`); correct HTTP status codes; explicit pagination on list endpoints.
+4. Config from env only; new env keys go in `.env.example` **and** GitHub Secrets in the same change (`/deploy`).
+5. Idempotent writes where retries are likely (payments, webhooks); rate-limit auth and expensive endpoints.
+6. Audit trail for admin / money / PII changes *(when the domain needs it)*; queue/background jobs only when the concept needs them.
+7. Document the contract (route, payload, errors) before the UI couples to it.
+
+## Logging
+- Structured logs where practical (level, message, request id)
+- Never log passwords, tokens, or payment/OTP data
+- User-safe error messages to clients; stack details stay server-side
+- Correlate client error reports with server request ids when both exist

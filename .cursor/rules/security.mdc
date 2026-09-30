@@ -6,11 +6,16 @@ alwaysApply: false
 
 # Security
 
-- Hash passwords with a strong algorithm (e.g. bcrypt/argon2); never store plaintext
-- JWT/session secrets only from env; production via **GitHub Secrets** (`/deploy`); rotate guidance in ops docs when relevant
-- CSRF strategy for cookie-based sessions; CORS allowlist — no `*` with credentials
-- Sanitize/escape output; parameterized SQL only
-- Upload allowlists (MIME + extension + size); serve with safe Content-Type
-- Rate-limit login and password-reset
-- Do not log secrets, payment proofs contents, or full card/OTP data
-- Principle of least privilege for admin/staff roles
+> Purpose: secure by default for auth, input, secrets, and uploads.
+
+## Rules
+
+1. **Passwords:** strong hash (bcrypt/argon2); never plaintext. Rotate sessions on login; rotate refresh tokens when using JWT refresh.
+2. **Secrets** (JWT/session keys) only from env; production in GitHub Secrets (`/deploy`). Scan for secrets in CI/hooks; never commit proof files or dumps.
+3. **CSRF** strategy for cookie sessions; **CORS** allowlist — never `*` with credentials.
+4. **Output:** sanitize/escape; parameterized SQL only.
+5. **Uploads:** allowlist MIME + extension + size; store outside the public tree when possible; serve with a safe Content-Type.
+6. **Rate-limit** login and password reset.
+7. **IDOR:** every object access checks ownership unless the role allows it; admin/staff get least privilege.
+8. Security headers (CSP etc.) suitable to the stack/host; audit dependencies on a cadence when a lockfile exists.
+9. Write short threat notes for auth, uploads, admin, and payment flows from the concept.

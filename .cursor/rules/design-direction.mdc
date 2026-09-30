@@ -1,60 +1,54 @@
 ---
-description: AI-suggested design direction — UX-first, modern, eye-comfortable, worth coming back to
+description: AI recommends the visual design — UX-first, modern, eye-comfortable, worth coming back to; dev approves
 alwaysApply: true
 ---
 
-# Design direction (AI suggests — dev approves)
+# Design direction
 
-The dev **does not have to know colors, fonts, or styles.** The AI reads the **concept** (product, users, roles, tone) and **proposes** the visual system. Locked *structure* stays (`ui-styling.mdc`: Tailwind, shared primitives, states); the *look* is **suggested per project**.
+> Purpose: the dev needs no design knowledge. The AI recommends the look from the concept; structure stays locked in `ui-styling.mdc`.
 
-## Flow (during intake / P2.3)
+## Flow (`format.mdc`: Ask → Recommend → Decide → Write → Confirm)
 
-1. **Collect inputs** — the concept, users, tone words (if any), brand constraints the dev already has (logo, brand color, fonts, light/dark preference, references). **Dev-provided values are constraints and win** over suggestions.
-2. **Propose 2–3 directions**, mark exactly one **Recommended**. Each direction includes:
-   - Name + mood (3 words) and why it fits **this** concept and its users
-   - Palette: primary, neutral ramp, surface/card/border, success/warn/danger — hex + role + measured contrast for text/UI pairs
-   - Light / dark recommendation (ship both when users may work long or at night)
-   - Typography: UI/body + display pairing, weights, base size, line-height
-   - Shape & density: radius, shadow/border style, spacing rhythm, compact vs. airy
-   - Icon system recommendation (`material` or `lottie`) and motion character
-   - One-paragraph "what the main screen feels like"
-3. **Dev picks / tweaks** ("A but warmer", "darker header"). Re-propose only the changed parts.
-4. **Write it down immediately:** `frontend-design/SKILL.md` (tokens, type, icons), Tailwind theme (`tailwind.config` / `@theme`), Profile → **Design direction**. No raw hex outside the theme.
-5. If the dev says "you decide" → use the Recommended direction and record it as AI-chosen.
+1. **Ask** for constraints only: brand already decided (logo, brand color, fonts), light/dark preference, tone words, references. Dev-provided values **win**.
+2. **Recommend** 2–3 directions as `REC-design-n` blocks, one **Recommended**. Each direction carries:
+   | Part | Content |
+   |------|---------|
+   | Name + mood | 3 words, and why it fits **this** concept and its users |
+   | Palette | Primary, neutral ramp, surface/card/border, success/warn/danger — hex + role + measured contrast |
+   | Mode | Light / dark / both (recommend both when users work long or at night) |
+   | Type | UI/body + display pairing, weights, base size, line-height |
+   | Shape & density | Radius, shadow/border style, spacing rhythm, compact vs airy |
+   | Icons & motion | `material` or `lottie` recommendation; motion character |
+   | Feel | One paragraph: what the main screen feels like |
+3. **Decide** — dev picks, tweaks ("A but warmer"), or says "you decide" (Recommended, recorded `AI-chosen`). Re-recommend only what changed.
+4. **Write** to `frontend-design/SKILL.md` (tokens, type, icons), the Tailwind theme, and Profile → **Design direction**. Status `DRAFT` → `APPROVED`.
 
-## Every suggestion must satisfy all four
+## Every recommendation must satisfy four goals
 
-| Goal | Concrete requirements |
-|------|----------------------|
-| **UX-first** | Clear hierarchy, one primary action per view, familiar patterns, visible feedback, short paths, touch targets ≥ ~44px |
-| **Modern** | Current, restrained look: generous whitespace, soft radius, hairline borders/soft shadows, 1–2 typefaces, consistent icon style — no dated gradients, heavy skeuomorphism, or badge soup |
-| **Easy on the eyes** | See rules below |
-| **Worth coming back to** | See rules below |
+| Goal | Requirements |
+|------|--------------|
+| **UX-first** | Clear hierarchy, one primary action per view, familiar patterns, visible feedback, short paths, targets ≥ ~44px |
+| **Modern** | Restrained: whitespace, soft radius, hairline borders/soft shadows, 1–2 typefaces, one icon style; no dated gradients, skeuomorphism, or badge soup |
+| **Easy on the eyes** | Rules below |
+| **Worth coming back to** | Rules below |
 
-### Easy on the eyes (comfort rules)
+### Easy on the eyes
+- No pure `#000` on pure `#fff` — near-black on soft off-white (light-gray on dark-gray in dark mode)
+- Text contrast WCAG AA (4.5:1 body, 3:1 large/UI) without going harsh
+- One accent for actions; large surfaces neutral; avoid big saturated fills and vibrating pairs
+- Dark mode: dark-gray surfaces (not `#000`), slightly desaturated accents, elevation by lighter surface
+- Body ≥ 16px, `leading-relaxed`, line length ~60–75 chars, weights 400/500/600
+- Whitespace separates groups; no looping/flashing motion in content areas
 
-- **No pure `#000` on pure `#fff`.** Use near-black text on a soft off-white surface (or light-gray text on dark-gray surface in dark mode)
-- **Text contrast WCAG AA** (4.5:1 body, 3:1 large/UI) — meet it without going harsh; long-form text does not need maximum contrast
-- **One accent color** for actions; large surfaces stay neutral. Avoid big saturated fills and vibrating pairs (red/blue, neon on dark)
-- **Dark mode:** dark gray (not `#000`) surfaces, slightly desaturated accents, elevation by lighter surface — not glow
-- **Type comfort:** body ≥ 16px, `leading-relaxed` for paragraphs, line length ~60–75 chars, weights limited (400/500/600)
-- **Calm density:** whitespace separates groups; borders/shadows subtle; no full-screen flashing or looping motion in content areas
-- Honor `prefers-reduced-motion` and `prefers-color-scheme`
-
-### Worth coming back to (retention through quality — not tricks)
-
-- **Fast and smooth:** skeletons instead of blank waits, optimistic UI where safe, lazy load, no layout shift
-- **Familiar + consistent:** same patterns everywhere so returning users never relearn
-- **Low-friction return:** remember theme/filters/last view, resume where the user left off, sensible defaults
-- **Small delight:** tasteful micro-interactions (100–250ms), friendly empty states, clear success moments
-- **Trust:** honest copy, clear errors with a next step, undo instead of scary confirms where possible
-- **No dark patterns:** no manipulative streaks, fake urgency, or hidden opt-outs. Return because it is good, not because it is sticky-by-trick
+### Worth coming back to (quality, not tricks)
+- Fast and smooth: skeletons, optimistic UI where safe, lazy load, no layout shift
+- Familiar and consistent: returning users never relearn
+- Low-friction return: remember theme/filters/last view; resume where they left off
+- Small delight: 100–250ms micro-interactions, friendly empty states, clear success moments
+- Trust: honest copy, errors with a next step, undo over scary confirms
+- No dark patterns: no manipulative streaks, fake urgency, or hidden opt-outs
 
 ## Do not
-
-- Ask the dev for hex codes or font names as a required intake step (offer to accept them if they have them)
-- Present only one option, or several without a **Recommended** one
-- Pick colors by taste alone — show contrast ratios and the reason tied to the concept
-- Hardcode the chosen palette outside the Tailwind theme
-- Change the approved direction silently mid-project (update SKILL.md + Profile first)
-- Copy a reference's brand; follow `references.mdc`
+- Present one option only, or several without a Recommended
+- Choose colors by taste alone — show contrast ratios and the concept-based reason
+- Hardcode the palette outside the Tailwind theme, or change the approved direction silently

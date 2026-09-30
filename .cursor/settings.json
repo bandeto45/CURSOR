@@ -2,7 +2,7 @@
   "version": "1.0",
   "project": {
     "name": "TBD",
-    "description": "Reusable AI-agnostic setup (Claude, Kimi, Grok, Gemini, Copilot, Cursor…) — ask + fill during install; defaults locked; concept drives DB/domain/design/layout."
+    "description": "Reusable AI-agnostic setup (Claude, Kimi, Grok, Gemini, Copilot, Cursor…) — Ask → Recommend → Decide → Write → Confirm."
   },
   "agents": {
     "enabled": true,
@@ -21,110 +21,94 @@
     "enabled": true,
     "directory": ".cursor/rules",
     "lockedDefaults": [
-      "defaults.mdc",
-      "install.mdc",
       "restrictions.mdc",
-      "forms.mdc",
-      "ui-styling.mdc",
-      "validation.mdc",
-      "database.mdc",
-      "implementation-phases.mdc",
-      "references.mdc",
-      "icons-states.mdc",
-      "concept-domain.mdc",
+      "format.mdc",
       "multi-ai.mdc",
+      "references.mdc",
       "design-direction.mdc",
       "layout-strategy.mdc",
-      "route-layouts.mdc",
-      "phase-plan.mdc"
+      "ui-styling.mdc",
+      "forms.mdc",
+      "icons-states.mdc",
+      "validation.mdc",
+      "database.mdc",
+      "implementation-phases.mdc"
     ],
     "autoApply": {
-      "defaults.mdc": ["**/*"],
-      "install.mdc": ["**/*"],
-      "restrictions.mdc": ["**/*"],
-      "forms.mdc": ["**/*"],
-      "ui-styling.mdc": ["**/*"],
-      "validation.mdc": ["**/*"],
-      "database.mdc": ["**/*"],
-      "implementation-phases.mdc": ["**/*"],
-      "references.mdc": ["**/*"],
-      "icons-states.mdc": ["**/*"],
-      "concept-domain.mdc": ["**/*"],
-      "multi-ai.mdc": ["**/*"],
-      "design-direction.mdc": ["**/*"],
-      "layout-strategy.mdc": ["**/*"],
-      "route-layouts.mdc": ["**/*"],
-      "phase-plan.mdc": ["**/*"],
-      "planning-basic.mdc": ["**/*"],
-      "planning-advanced.mdc": ["**/*"],
-      "forms-advanced.mdc": [
-        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
+      "restrictions.mdc": [
+        "**/*"
       ],
-      "validation-advanced.mdc": [
-        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}",
+      "format.mdc": [
+        "**/*"
+      ],
+      "multi-ai.mdc": [
+        "**/*"
+      ],
+      "references.mdc": [
+        "**/*"
+      ],
+      "design-direction.mdc": [
+        "**/*"
+      ],
+      "layout-strategy.mdc": [
+        "**/*"
+      ],
+      "ui-styling.mdc": [
+        "**/*"
+      ],
+      "forms.mdc": [
+        "**/*"
+      ],
+      "icons-states.mdc": [
+        "**/*"
+      ],
+      "validation.mdc": [
+        "**/*"
+      ],
+      "database.mdc": [
+        "**/*"
+      ],
+      "implementation-phases.mdc": [
+        "**/*"
+      ],
+      "concept-domain.mdc": [
+        "**/*"
+      ],
+      "route-layouts.mdc": [
+        "**/*"
+      ],
+      "phase-plan.mdc": [
+        "**/*"
+      ],
+      "backend.mdc": [
         "api/**",
         "server/**",
         "backend/**",
         "**/*.php"
-      ],
-      "database-advanced.mdc": [
-        "migrations/**",
-        "seeds/**",
-        "**/migration.php",
-        "**/seed.php",
-        "**/Database.*"
-      ],
-      "frontend-basic.mdc": [
-        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
-      ],
-      "frontend-advanced.mdc": [
-        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
-      ],
-      "ui-styling-advanced.mdc": [
-        "**/*.{jsx,tsx,js,ts,vue,css,scss,html}"
-      ],
-      "backend-basic.mdc": [
-        "api/**",
-        "server/**",
-        "backend/**",
-        "**/*.php"
-      ],
-      "backend-advanced.mdc": [
-        "api/**",
-        "server/**",
-        "backend/**",
-        "**/*.php"
-      ],
-      "seo.mdc": [
-        "**/*.{jsx,tsx,js,ts,html,php}",
-        "**/seo/**",
-        "**/meta/**"
       ],
       "security.mdc": [
         "api/**",
         "server/**",
         "backend/**",
-        "**/services/**",
-        "**/*.php"
-      ],
-      "security-advanced.mdc": [
-        "api/**",
-        "server/**",
-        "backend/**",
-        "**/services/**",
-        "**/*.php"
+        "**/*.php",
+        "**/services/**"
       ],
       "testing.mdc": [
         "**/*.{test,spec}.{js,jsx,ts,tsx}",
         "**/tests/**",
         "**/__tests__/**"
       ],
-      "observability.mdc": [
-        "**/logger/**",
-        "**/Logger.*",
-        "**/logging/**"
+      "seo.mdc": [
+        "**/*.{jsx,tsx,js,ts,html,php}",
+        "**/seo/**",
+        "**/meta/**"
       ]
-    }
+    },
+    "projectFiles": [
+      "concept-domain.mdc",
+      "route-layouts.mdc",
+      "phase-plan.mdc"
+    ]
   },
   "skills": {
     "enabled": true,
@@ -135,10 +119,13 @@
     "claudeMdPath": "CURSOR.md",
     "aiAgnostic": true,
     "multiAiHandoffLog": true,
-    "aiProposesDesign": true,
-    "layoutStrategyOptions": ["normal", "layout", "auto"],
-    "requireRouteLayouts": true,
-    "pointerFiles": ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".github/copilot-instructions.md", ".windsurfrules"],
+    "pointerFiles": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "GEMINI.md",
+      ".github/copilot-instructions.md",
+      ".windsurfrules"
+    ],
     "preferEditOverCreate": true,
     "confirmDestructiveActions": true,
     "autoRunLintOnSave": true,
@@ -148,7 +135,15 @@
     "blockFeatureWorkUntilProfileFilled": true,
     "neverRemoveDefaultRules": true,
     "conceptDrivesDomainAndSchema": true,
-    "referencesLeaveNoTraceInFiles": true
+    "referencesLeaveNoTraceInFiles": true,
+    "decisionFlow": "ask-recommend-decide-write-confirm",
+    "aiRecommends": true,
+    "requireRouteLayouts": true,
+    "layoutStrategyOptions": [
+      "normal",
+      "layout",
+      "auto"
+    ]
   },
   "seo": {
     "enabled": false,

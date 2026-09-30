@@ -1,52 +1,28 @@
 ---
-description: AI-agnostic operation — works with Claude, Kimi, Grok, Gemini, Copilot, Cursor and others; multiple AIs can share one project
+description: Works with any AI (Claude, Kimi, Grok, Gemini, Copilot, Cursor…); several AIs can share one project
 alwaysApply: true
 ---
 
-# Multi-AI (default — never remove)
+# Multi-AI
 
-This pack is **not tied to one AI**. "The AI" / "the agent" in every rule means **whichever assistant is working right now** (Claude, Kimi, Grok, Gemini, Copilot, Cursor, Windsurf, Codex, …). **Files are the shared memory** — not chat history.
+> Purpose: "the AI" means whichever assistant is working now. **Files are the shared memory** — not chat.
 
-## Entry points (each tool finds the same brain)
+## Rules
 
-| Tool | Reads automatically | Points to |
-|------|--------------------|-----------|
-| Cursor | `.cursor/rules/*.mdc`, `CURSOR.md` | itself |
-| Claude Code / Claude | `CLAUDE.md` | `CURSOR.md` |
-| Kimi · Grok · Codex · other CLIs/agents | `AGENTS.md` | `CURSOR.md` |
-| Gemini CLI | `GEMINI.md` | `CURSOR.md` |
-| GitHub Copilot | `.github/copilot-instructions.md` | `CURSOR.md` |
-| Windsurf | `.windsurfrules` | `CURSOR.md` |
-| Anything else | (paste / attach) | `CURSOR.md` |
+1. **One brain:** `CURSOR.md`. Pointer files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.windsurfrules`) stay tiny — never copy rules into them. Generate them with `.cursor/adapters/sync-ai-adapters.sh`.
+2. **Start of session:** read `CURSOR.md` → Profile, **Current phase**, **AI Handoff Log**; then `phase-plan.mdc`, `route-layouts.mdc`, `concept-domain.mdc`, and the `frontend-design` skill.
+3. **Decisions live in files** (`format.mdc`). Do not reverse another AI's `APPROVED` decision unless the dev asks; edit the file first and log it.
+4. **Stay in the Current phase.** A second AI continues it; it does not restart intake (use `/project-intake --update`) or skip the exit gate.
+5. **End of session:** append one row to the **AI Handoff Log** — date, tool, phase, what changed, open/next.
+6. **Same standards for every AI.** Files on disk win over memory; re-read before editing a file another AI may have touched.
+7. Never write which AI/model made a choice into code, comments, or UI copy.
 
-`CURSOR.md` is the **single source of truth**. Pointer files stay tiny — never copy rules into them (they drift). Generate missing pointers with `.cursor/adapters/sync-ai-adapters.sh`.
+## If the tool lacks a Cursor feature
 
-## If the tool has no `.mdc` / slash-command / agent / hook support
-
-| Pack feature | Fallback for other AIs |
-|--------------|------------------------|
-| `.cursor/rules/*.mdc` | Read them. Treat `alwaysApply: true` files as always in force; read `alwaysApply: false` files when the task touches their area (see `globs`) |
-| `/command` (e.g. `/project-intake`, `/phase-exit`) | Open `.cursor/commands/<name>.md` and follow it as a checklist |
-| `.cursor/agents/*.md` | Adopt that persona file for the task (review, debug, tests, docs, security) |
+| Pack feature | Fallback |
+|--------------|----------|
+| `.cursor/rules/*.mdc` | Read them. `alwaysApply: true` = always in force; scoped files (`globs`) when the task touches those files |
+| `/command` | Open `.cursor/commands/<name>.md` and follow it as a checklist |
+| `.cursor/agents/*.md` | Adopt that persona for the task |
 | `.cursor/hooks/*.sh` | Run the script manually before commit / after edits |
-| Questions / form UI | Ask in plain chat, in batches; wait for answers |
-| `.cursor/settings.json` | Read as project metadata; honor `behavior` flags |
-
-## Rules for using more than one AI on a project
-
-1. **Start of session:** read `CURSOR.md` → Project Profile, **Current phase**, **AI Handoff Log**, then `concept-domain.mdc`, `route-layouts.mdc`, and the `frontend-design` skill.
-2. **Decisions live in files.** Design direction, layout strategy, route layouts, concept, and scope are written to their files at the moment they are decided. If it is only in chat, the next AI cannot see it.
-3. **Do not silently reverse another AI's decision** (design tokens, layout pattern, schema, scope). Change it only when the dev asks, and update the file first.
-4. **Stay inside the Current phase.** A second AI joining mid-phase continues that phase; it does not restart or skip the exit gate.
-5. **End of session:** append one row to **AI Handoff Log** in `CURSOR.md` — date, tool, phase, what changed, what is open/next.
-6. **Same standards for every AI:** defaults, restrictions, and phase gates apply identically — no AI gets looser rules.
-7. **Conflicting edits:** files on disk win over an AI's memory; re-read before editing a file another AI may have touched.
-8. **Commits/PRs:** attribute per the tool's own convention; never write which AI or model made a design choice into code, comments, or UI copy.
-
-## Do not
-
-- Assume Cursor-only features exist (slash commands, hooks, questions UI) — use the fallbacks
-- Duplicate rules into `AGENTS.md` / `CLAUDE.md` / other pointer files
-- Keep decisions in chat only
-- Skip the Handoff Log when you finish work
-- Let a second AI restart intake when Profile is already filled (use `/project-intake --update` instead)
+| Questions UI | Ask in plain chat, in batches |

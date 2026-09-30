@@ -1,13 +1,16 @@
 ---
-description: Testing expectations for unit, integration, and critical paths
+description: Testing expectations for units, integration, and critical paths
 globs: "**/*.{test,spec}.{js,jsx,ts,tsx},**/tests/**,**/__tests__/**"
 alwaysApply: false
 ---
 
 # Testing
 
-- Add tests for new business logic and pricing/auth/payment-critical paths
-- Prefer fast unit tests for pure functions; integration tests for API + DB when available
-- Do not merge knowingly broken tests
-- Name tests by behavior, not implementation trivia
-- When the project has no runner yet, note it in intake and avoid fake coverage theater
+> Purpose: every plan unit has tests matching its *Done when* — no coverage theater.
+
+## Rules
+1. Test new business logic and every auth/pricing/payment-critical path.
+2. Fast unit tests for pure functions; integration tests for API + DB.
+3. Per endpoint: happy · validation fail (422) · unauthenticated (401) · forbidden (403) · not found (404).
+4. Name tests by behavior, not implementation.
+5. Never merge knowingly broken tests; if no runner exists yet, say so instead of faking coverage.

@@ -6,7 +6,7 @@ alwaysApply: false
 
 # SEO
 
-Read **Project Profile → SEO** in `CURSOR.md` and `settings.json` → `seo.enabled`.
+> Purpose: behavior follows Profile → SEO (`on`/`off`) and `settings.json` → `seo.enabled`.
 
 ## When SEO = `off`
 

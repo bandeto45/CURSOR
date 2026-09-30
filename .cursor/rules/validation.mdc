@@ -1,21 +1,22 @@
 ---
-description: Default validation — client UX + server enforcement (permanent)
+description: Client UX validation + mandatory server validation
 alwaysApply: true
 ---
 
-# Validation (default — never remove)
+# Validation
 
-## Always
+> Purpose: the server is the authority; the client makes errors clear and early.
 
-- Validate on the **server** for every write/auth endpoint — UI checks are not enough
-- Mirror clear rules on the **client** for the unified form system (required, format, min/max)
-- Show field-level errors with the shared error chrome from `forms.mdc`
-- Reject empty required fields; validate email/tel/password/file constraints before submit when possible
-- Return structured `4xx` with field paths when the API supports it
-- Never trust hidden fields, disabled inputs, or client-only role flags
+## Rules
 
-## Minimum checks by control
+1. **Server validates every write/auth endpoint** — UI checks are never enough. Never trust hidden fields, disabled inputs, or client-only role flags.
+2. **Client mirrors** the rules (required, format, min/max) using the shared error chrome from `forms.mdc`; reject empty required fields before submit.
+3. **Structured errors:** `4xx` (422 for validation) with field paths that match the form field names, so the UI can map them.
+4. **Normalize before validating** (trim, phone digits) the same way on client and server.
+5. Share one schema/source for rules between client and server when the stack allows; keep business-critical limits next to the domain rules in `concept-domain.mdc`.
+6. Cross-field rules (end ≥ start, password confirm) and uniqueness/existence checks (debounced on the client) *(when the concept needs them)*. Localize messages when i18n is on in the Profile.
 
+### Minimum checks
 | Control | Default checks |
 |---------|----------------|
 | Email | Required (if marked) + format |
@@ -24,5 +25,3 @@ alwaysApply: true
 | Upload | Type allowlist + max size |
 | Stepper / number | min, max, step |
 | Select / checkbox | Required membership when marked |
-
-Advanced (schemas, cross-field, async uniqueness): `validation-advanced.mdc`.

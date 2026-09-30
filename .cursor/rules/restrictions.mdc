@@ -1,55 +1,48 @@
 ---
-description: Hard bans for every project using this pack (any AI)
+description: Every hard ban for projects using this pack — the single place for "never"
 alwaysApply: true
 ---
 
 # Restrictions
 
-## Never
+> Purpose: the one list of global bans. Topic files only list bans unique to them.
 
-- Treat **install** as file-copy only — must **ask + fill** Profile in the same session
-- Skip **project intake** when Project Profile fields are `TBD`
-- Keep intake answers only in chat without writing them to `CURSOR.md` / settings / skill / `concept-domain.mdc`
-- Start feature work while required Profile fields are still `TBD` (unless user deferred a field)
-- **Remove or weaken default rules**: forms, custom UI styling (Tailwind base), validation, PHP migrate/seed, icons-states
-- Replace locked Tailwind UI system with another framework or per-page one-off skins
-- **Mix implementation phases** or skip `/phase-exit` gates
-- Invent DB schema or domain rules that ignore the stated **concept**
-- Commit secrets, API keys, or filled `.env` files
-- Hardcode production API hosts, FTP, or DB credentials in source
-- Add a new env key used in production without adding the same key to **GitHub Secrets**
-- Deploy to production/live with secrets only on a local `.env` and not in GitHub Secrets
-- Add `.sql` migrations or seeds — use PHP `migration` / `seed` only
-- Concatenate user input into SQL (SQL injection)
-- Return HTTP `200` with an error-only payload when a proper error status exists
-- Rely on UI hiding for authorization — enforce roles server-side
-- Hard-delete user-facing records when soft delete (`deleted_at`) is the project norm
-- Mix bare native form controls with the unified custom form system
-- Mix Bootstrap/MUI/default third-party theme with the locked Tailwind product skin
-- Invent a second visual language when a UI baseline is defined
-- Skip shared **404 / status-error / empty** screens, **skeleton loaders**, or **lazy load**
-- Replace the locked icon system without updating Profile (Material Icons **or** Lottie web)
-- Enable SEO without Schema.org JSON-LD when Project Profile SEO = `on`
-- Copy third-party product brands, trademarks, or marketing copy into the project
-- Copy a reference wholesale — take only the parts needed for the requested work
-- Write where a design or pattern came from inside files (code, comments, docs, commits, UI copy)
-- Run destructive git/db commands without explicit user confirmation
-- When Layout strategy = `layout`: use fluid-only stretched layouts instead of distinct mobile · tablet · desktop layouts
-- When Clients = **web + mobile**: split into separate mobile and web projects/repos when Profile requires a **single codebase**
-- Skip asking the Layout strategy choice (`normal` \| `layout` \| `auto`), or ignore the recorded choice
-- Build P2 screens before `route-layouts.mdc` is filled and approved
-- Require the dev to hand over hex codes/fonts — the AI proposes the design; dev approves
+## Install & process
+- Treat install as copy-only — must **ask + fill** in the same session
+- Keep decisions only in chat, or skip writing them to their file (`format.mdc`)
+- Start feature work while required Profile fields are `TBD` (unless the dev deferred them)
+- Skip intake, or guess brand/stack/features/design/layout — recommend, then get a decision
+- Mix phases, skip exit gates, or build a unit that is not in `phase-plan.mdc`
+- Start P2 screens before `route-layouts.mdc` is `APPROVED`
+- Remove or weaken any default rule; replace the locked UI system (extensions are fine)
+- Assume one AI/tool; skip the AI Handoff Log (`multi-ai.mdc`)
+
+## Concept & design
+- Invent schema, domain rules, or scope that ignore `concept-domain.mdc`
+- Require the dev to supply hex codes/fonts — the AI recommends the design
 - Ship harsh or manipulative design (pure black on pure white, big saturated fills, dark patterns)
-- Assume a single AI/tool, keep decisions only in chat, or skip the AI Handoff Log
+- Under Layout Responsive: ship one stretched layout, or split into separate mobile/web projects
+- Copy a third-party brand, trademarks, copy, or a reference wholesale; leave any source trace in files (`references.mdc`)
+
+## Code & data
+- Add `.sql` migrations/seeds; concatenate user input into SQL; edit applied migrations in shared envs
+- Hard-delete user records where soft delete (`deleted_at`) is the norm
+- Rely on the UI to hide controls instead of enforcing authorization server-side
+- Return HTTP `200` with an error-only payload when a proper status exists
+- Mix bare native form controls with the custom form system
+- Skip shared 404 / status-error / empty screens, skeletons, or lazy load
+- Mix Bootstrap/MUI/other themes with the Tailwind product skin
+- Turn SEO on without Schema.org JSON-LD
+
+## Secrets & deploy
+- Commit secrets, keys, or a filled `.env`; log passwords/tokens/payment data
+- Hardcode production hosts, FTP, or DB credentials (web **or** mobile)
+- Add a production env key without the same key in `.env.example` **and** GitHub Secrets
+- Deploy live with secrets only in a local `.env`
+- Run destructive git/db commands without explicit dev confirmation
 
 ## Prefer
-
-- Edit existing files over creating parallel structures
-- Shared UI components and design tokens
-- Prepared statements / parameterized queries
-- Documented env in `.env.example` only (keys + placeholders — never live values)
-- Production/live values in **GitHub Secrets**: FTP/SSH, database, `APP_URL` / API hosts (web **and** mobile when split), and every new env key — CI injects at deploy (`/deploy`)
-- Concept → domain file → migrations → API → UI
-- Layout = `layout`: one project, distinct per-class layouts; shared tokens/forms/components across surfaces
-- Layout = `normal`: mobile-first reflow of one composition
-- Build from `route-layouts.mdc`; edit it first when a layout changes
+- Edit existing files over parallel structures; shared tokens and `components/ui/`
+- Prepared statements; `.env.example` with keys only
+- Order: concept → domain → migrations → API → UI
+- Build screens from `route-layouts.mdc`; edit it first when a layout changes

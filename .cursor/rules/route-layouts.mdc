@@ -1,65 +1,61 @@
 ---
-description: Per-route layout map — concept, mobile, tablet, desktop layout for every route (filled after layout strategy is chosen)
+description: Per-route layout map — mobile, tablet, desktop for every route (AI-filled after the layout strategy is chosen)
 alwaysApply: true
 ---
 
-# Route layouts (fill at install — AI recommends, dev approves)
+# Route layouts
 
-> **Status:** Template. Filled **after** Layout strategy is chosen (`layout-strategy.mdc`) and routes are derived from the concept. Build screens from this file; edit it **first** when a layout changes.
+> Status: TEMPLATE — filled by —, —; approved by —
+> Purpose: the build contract for P2. Edit this file **first** when a layout changes.
 
+## Decisions
 | Field | Value |
 |-------|--------|
-| Layout strategy | TBD — `normal` \| `layout` \| `auto` |
-| Layout resolved | TBD — `normal` \| `layout` \| `mixed` |
+| Layout strategy / resolved | TBD — `normal` \| `layout` \| `auto` → `normal` \| `layout` \| `mixed` |
 | Reason (1 line) | TBD |
-| Nav — mobile | TBD (e.g. bottom tabs + drawer) |
-| Nav — tablet | TBD (e.g. nav rail) |
-| Nav — desktop | TBD (e.g. sidebar + top bar) |
-| Approved by dev | TBD (yes / date) |
+| Nav — mobile · tablet · desktop | TBD · TBD · TBD (e.g. bottom tabs · nav rail · sidebar + top bar) |
 
-## Route index
+(Recommendation Blocks `REC-layout-1`, `REC-route-n` — accepted ones recorded here per `format.mdc`.)
 
-| Route | Role / access | Pattern | Mode |
-|-------|---------------|---------|------|
-| TBD | TBD | TBD (from catalog) | normal \| layout |
+## Content
 
-## Route block template — Layout Responsive (`layout`)
+### Route index
+| ID | Route | Role / access | Feature | Pattern | Mode |
+|----|-------|---------------|---------|---------|------|
+| R-01 | TBD | TBD | F-01 | TBD (from catalog) | normal \| layout |
 
-Copy one block per route. Be concrete: regions, order, what is hidden, where the primary CTA sits.
-
+### Route block — `layout` mode (one per route; name regions, order, what hides, CTA position)
 ```
-### <route path> — <Page name>
-- Role / access: <who>
-- Purpose (one primary job): <what the user does here>
-- Layout concept: <pattern name + why it is the recommended fit>
-- Mobile (<768): <regions top→bottom, nav, primary CTA position, sheets/drawers>
-- Tablet (768–1023): <columns/panes, nav, what appears that mobile hid>
-- Desktop (≥1024): <columns/panes, sidebar/top bar, density, hover/keyboard extras>
-- Table / list handling: <mobile card list · tablet condensed table + drawer · desktop full table> (if the page has tabular data)
-- States: <loading skeleton shape · empty · error>
-- Notes: <sticky elements, infinite scroll vs pagination, safe-area, motion>
+### R-nn <route path> — <Page name>
+- Role / access:   <who>
+- Purpose:         <the one primary job>
+- Layout concept:  <pattern + why it is the recommended fit>
+- Mobile (<768):   <regions top→bottom · nav · primary CTA · sheets/drawers>
+- Tablet (768–1023): <columns/panes · nav · what appears that mobile hid>
+- Desktop (≥1024): <columns/panes · sidebar/top bar · density · hover/keyboard extras>
+- Table / list:    <mobile card list · tablet condensed table + drawer · desktop full table>
+- States:          <loading skeleton shape · empty · error>
+- Notes:           <sticky elements · infinite scroll vs pagination · safe-area · motion>
 ```
 
-## Route block template — Normal Responsive (`normal`)
-
+### Route block — `normal` mode
 ```
-### <route path> — <Page name>
-- Role / access: <who>
-- Purpose (one primary job): <…>
-- Layout concept: <single composition + why>
-- Reflow: <columns at base / md / lg; what stacks; what hides or collapses>
-- Nav: <navbar → menu button at what width>
-- Table / list handling: <horizontal scroll with sticky first column, or stacked rows> (if tabular data)
-- States: <loading skeleton shape · empty · error>
+### R-nn <route path> — <Page name>
+- Role / access · Purpose · Layout concept: <as above, single composition>
+- Reflow:          <columns at base / md / lg · what stacks · what hides/collapses>
+- Nav:             <navbar → menu button at what width>
+- Table / list:    <horizontal scroll with sticky first column, or stacked rows>
+- States:          <loading skeleton shape · empty · error>
 ```
 
-## Routes
+### Routes
+(TBD — AI writes one block per route after intake, using the catalog in `layout-strategy.mdc`.)
 
-> (TBD — AI generates one block per route after intake, using the pattern catalog in `layout-strategy.mdc`)
+## Change log
+| Date | AI | Change | Why |
+|------|----|--------|-----|
+| — | — | — | — |
 
 ## Do not
-
-- Leave a v1 route without a block before P2 starts
-- Write vague blocks ("responsive layout") — name regions, order, and per-class differences
-- Add screens that are not in the concept's v1 scope
-- Change a route's layout in code without updating this file first
+- Leave a v1 route without a block before P2, or write vague blocks ("responsive layout")
+- Add routes outside the concept's v1 scope
