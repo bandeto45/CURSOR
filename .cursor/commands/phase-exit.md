@@ -29,6 +29,7 @@ Close the **current** implementation phase before starting the next.
 4. Ask user to confirm **exit OK**.
 5. If OK and `--next` (or user agrees): bump **Current phase** in `CURSOR.md`.
 6. Append an **AI Handoff Log** row; summarize carry-over for the next phase.
+7. If Profile → **Guide tips** is `on`: end with one line — the suggested next prompt (e.g. `Build R-01 per route-layouts`) and one token tip (e.g. start a fresh chat for the next phase).
 
 ## Do Not
 

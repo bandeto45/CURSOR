@@ -14,7 +14,8 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 2. **Stop before feature coding** while Profile is `TBD`.
 3. **Run the intake (§2)** one topic at a time. For each topic: **Ask** → **Recommend** (`REC-…` block) → **Decide** → **Write** to its file immediately → **Confirm** in 2–4 lines. "You decide" = take the Recommended option.
 4. **Generate the plan files** in order: `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`. Set Current phase `P1`.
-5. **Confirm install complete** (checklist below), append the first **AI Handoff Log** row, then continue with the dev's build request.
+5. **Confirm install complete** (checklist below), append the first **AI Handoff Log** row.
+6. **Show the Getting Started guide** (`reference/usage-guide.md`, short version, in the dev's language): what to do next for the Current phase, 3 copy-paste prompts, and the top token-saving tips. Offer to save it as `docs/USING-THE-PACK.md` (`/guide save`). It is optional advice — then continue with the dev's build request.
 
 ### Install complete when
 - [ ] Profile has no `TBD` (except items the dev deferred)
@@ -25,6 +26,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 - [ ] Proposal package drafted from `.cursor/templates/` (deck, Letter document + PDF, guide skeleton) and reviewed by the dev — may finish inside P1
 - [ ] Environments + deploy method chosen; live env path confirmed: **GitHub Environments/Secrets** (`/deploy setup`)
 - [ ] Pointer files generated; Handoff Log started; default rules untouched
+- [ ] Getting Started guide shown (`/guide`); dev knows the resume prompt and the token tips
 
 ---
 
@@ -58,6 +60,7 @@ Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 | **SEO** | `off` \| `on` (Schema.org required when `on`) |
 | **i18n / analytics / testing** | TBD |
 | **Current phase** | `P1` \| `P2` \| `P3` \| `P4` \| `P5` \| `done` (default after install: `P1`) |
+| **Guide tips** | `on` \| `off` — when `on`, the AI ends each phase (`/phase-exit`) with a one-line "suggested next prompt" |
 | **Environments** | `local+production` \| `local+staging+production` (`environments.mdc`) |
 | **Deploy method** | `ftp` \| `ssh` |
 | **Live env** | **GitHub Environments + Secrets** (per environment) — `.env`, FTP/SSH, DB, API/app hosts |
@@ -97,6 +100,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 
 | Moment | Read |
 |--------|------|
+| **Dev asks how to use it / tips** | `reference/usage-guide.md` (`/guide`) |
 | **Every session** | Profile · Handoff Log · `implementation-phases.mdc` · `reference/phases/<Current phase>.md` · rows of `phase-plan.mdc` for the current phase |
 | **Intake / P1** | `reference/intake.md` · `concept-domain` · `design-direction` · `layout-strategy` (+ `reference/layout-patterns.md`) · `route-layouts` · `project-structure` · `database` (+ `reference/migrations.md`) · `proposal` (+ `templates/`) |
 | **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
@@ -133,7 +137,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 
