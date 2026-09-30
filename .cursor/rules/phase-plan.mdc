@@ -1,0 +1,51 @@
+---
+description: Project-specific phase plan — features, routes, endpoints, and functions per phase (generated at install, kept current)
+alwaysApply: true
+---
+
+# Phase plan (generated at install — living file)
+
+> **Status:** Template. After concept, routes, and layouts are known (end of intake / P1.6) the AI fills this file. It is the **project-specific, function-by-function** version of `implementation-phases.mdc`. Update statuses as work happens; add newly discovered items **here first**.
+
+| Field | Value |
+|-------|--------|
+| Current phase | TBD (mirror of Profile) |
+| Last updated by | TBD (AI/tool · date) |
+
+## Feature list (from scope lock)
+
+| ID | Feature | Roles | Routes | Entities | Endpoints |
+|----|---------|-------|--------|----------|-----------|
+| F-01 | TBD | TBD | TBD | TBD | TBD |
+
+## Endpoint inventory (from P1.5)
+
+| ID | Method + path | Purpose | Auth / role | Request | Response | Errors |
+|----|---------------|---------|-------------|---------|----------|--------|
+| E-01 | TBD | TBD | TBD | TBD | TBD | TBD |
+
+## Function inventory & plan
+
+One row per function/unit. Full **Function Spec** (see `implementation-phases.mdc`) goes below the table for critical-path items; simple items may stay one row if *Done when* is clear.
+
+| # | Phase | Feature | Unit (function / component) | File | Depends on | Done when | Status |
+|---|-------|---------|-----------------------------|------|------------|-----------|--------|
+| 1 | P1 | F-00 | `Migration_create_<table>.up()/down()` | migrations/… | — | up→down→up passes | todo |
+| 2 | P2 | F-01 | `mockApi.<entity>.list()` | mocks/… | contracts | matches real contract shape | todo |
+| 3 | P3 | F-01 | `<Entity>Controller.list()` | api/… | migration #1 | 200 paginated; 401/403 tested | todo |
+| 4 | P4 | F-01 | `use<Entity>List()` → real service | web/… | #2, #3 | mock usage removed | todo |
+
+> (TBD — AI replaces the example rows with the real inventory, ordered by dependency)
+
+## Carry-over (from phase exits)
+
+| From | Item | Decision (fix now / next phase / backlog) |
+|------|------|-------------------------------------------|
+| — | — | — |
+
+## Do not
+
+- Start a phase's work without its items listed here
+- Build a function with no spec / no *Done when*
+- Leave statuses stale — the next AI reads this file to know what is done
+- Add scope that is not in the feature list

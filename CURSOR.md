@@ -46,12 +46,13 @@ If already inside the target project with this pack present, skip copy and go to
 - [ ] `concept-domain.mdc` filled from concept (entities + domain rules)
 - [ ] SEO `on`/`off` set; if `on`, Schema.org noted
 - [ ] Rule level `basic` or `basic+advanced` set
-- [ ] **Current phase** set (usually `P0`); phases P0–P4 acknowledged
+- [ ] **Current phase** set (usually `P1`); phases P1–P5 acknowledged
 - [ ] Default rules present and not disabled (forms, ui-styling, validation, database engine, implementation-phases, icons-states)
 - [ ] Production/live env path confirmed: **GitHub Secrets** (FTP, DB, API hosts; `/deploy`)
 - [ ] Icon system chosen (`material` \| `lottie`) in Profile
 - [ ] **Design direction** proposed by the AI (2–3 options, one Recommended), approved, and written to the skill + Tailwind theme
 - [ ] **Layout strategy** chosen (`normal` \| `layout` \| `auto`), resolved, and **per-route layouts** written + approved in `route-layouts.mdc`
+- [ ] **`phase-plan.mdc`** generated (features → endpoints → functions per phase)
 - [ ] **AI Handoff Log** initialized
 - [ ] AI’s next steps reference Profile + concept (not guesses)
 
@@ -121,7 +122,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 - Extra hard bans / compliance (PII, payments, age gates)?
 
 ### 8. Implementation & other
-- Confirm default phases **P0→P4** (foundation → mock UI → API → integration/mock cleanup → cleanup/docs/final test)?
+- Confirm default phases **P1→P5** (foundation → mock UI → API → integration/mock cleanup → cleanup/docs/final test), plus the generated function-level `phase-plan.mdc`?
 - Any phase to skip/merge for this project?
 - i18n languages?
 - Analytics / observability?
@@ -156,7 +157,7 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 | **SEO** | `off` \| `on` (default template: `off` until intake) |
 | **Schema.org** | Required when SEO = `on` |
 | **Rule level** | `basic` \| `basic+advanced` |
-| **Current phase** | `P0` \| `P1` \| `P2` \| `P3` \| `P4` \| `done` (default after install: `P0`) |
+| **Current phase** | `P1` \| `P2` \| `P3` \| `P4` \| `P5` \| `done` (default after install: `P1`) |
 | **Deploy / live env** | **GitHub Secrets** — production `.env`, FTP/SSH, DB, API/app hosts (web + mobile when split) |
 | **v1 in scope** | TBD |
 | **v1 out of scope** | TBD |
@@ -169,15 +170,15 @@ Do **not** invent brand, stack, or features. Wait for answers. Fill files as ans
 
 | Phase | Name | What you build |
 |-------|------|----------------|
-| **P0** | Foundation | Concept lock, tokens, skeleton, PHP migrations/seeds |
-| **P1** | Mock UI + mock data | All v1 screens on mocks; custom forms + client validation |
-| **P2** | API backend | Real API on applied schema; server validation; UI may stay on mocks |
-| **P3** | Integration + mock cleanup | Wire UI ↔ API; remove mock data from prod paths |
-| **P4** | Cleanup, docs, final testing | Dead code gone, documentation, regression, ship checks |
+| **P1** | Foundation | Concept lock, design + layouts approved, tokens, skeleton, PHP migrations/seeds, phase plan |
+| **P2** | Mock UI + mock data | Every route built to its layout block on mocks; custom forms + client validation |
+| **P3** | API backend | Real API endpoint by endpoint; server validation + authz; UI may stay on mocks |
+| **P4** | Integration + mock cleanup | Wire UI ↔ API feature by feature; remove mock data from prod paths |
+| **P5** | Cleanup, docs, final testing | Dead code gone, documentation, regression, ship checks |
 
 ### Every phase has
 
-1. **Subs** — numbered checklist under that phase (customize from concept at install)
+1. **Subs** — numbered checklist under that phase, made **function-by-function** in `phase-plan.mdc` (features → routes/endpoints/tables → functions, each with a Function Spec and *Done when*)
 2. **Exit gate** — smoke/tests + leftovers + fixes + carry-over to next phase — **required** before advancing
 
 ### Exit gate (summary)
@@ -236,7 +237,8 @@ defaults · references      icons-states (404/empty/skeleton/lazy)
 | `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · modals/nav/forms/layout |
 | `validation.mdc` | Client UX + **server** validation |
 | `database.mdc` | PHP migrate/seed only; prepared statements |
-| `implementation-phases.mdc` | P0–P4 order, subs, exit gates |
+| `implementation-phases.mdc` | P1–P5 order, detailed subs, function specs, exit gates |
+| `phase-plan.mdc` | Project-specific function-by-function plan (generated at install) |
 | `references.mdc` | Take only what applies; no source traces in files |
 | `icons-states.mdc` | Material **or** Lottie; 404/error/empty; skeleton; lazy load |
 | `install.mdc` / `restrictions.mdc` | Install ask+fill; hard bans |
@@ -308,8 +310,8 @@ Add when Profile **Rule level** = `basic+advanced`. Defaults stay on.
 ## Workflow
 
 1. **Install** = copy + ask + fill Profile / `concept-domain.mdc` / settings / skill / `route-layouts.mdc` (AI proposes design + per-route layouts; dev approves)
-2. Confirm Phase C — defaults present; concept filled; **Current phase = P0**
-3. Build **one phase at a time** (P0→P4); customize subs from concept
+2. Confirm Phase C — defaults present; concept filled; **Current phase = P1**
+3. Build **one phase at a time** (P1→P5); customize subs from concept
 4. At phase end: `/phase-exit` — test leftovers, fixes, carry-over — then advance
 5. DB from concept via PHP migrations; forms/validation/styling defaults always on
 6. Before commit: hooks / lint / secret scan
@@ -338,9 +340,10 @@ Do not hardcode production API hosts in frontend (web or mobile). Full checklist
 - Keep answers only in chat
 - Start feature work while required Profile fields are still `TBD`
 - **Mix phases** or skip exit gates
-- Start P1 UI before P0 foundation exit OK (unless user explicitly overrides)
-- Start P3 integration before P2 API exit OK
-- Leave mocks in prod paths after P3 without documenting
+- Build a function that has no entry/spec in `phase-plan.mdc`, or leave its status stale
+- Start P2 UI before P1 foundation exit OK (unless user explicitly overrides)
+- Start P4 integration before P3 API exit OK
+- Leave mocks in prod paths after P4 without documenting
 - Remove default forms / custom styling / validation / icons-states / **Tailwind ui-styling base**
 - Replace locked UI system with another CSS framework or one-off page skins (extensions OK)
 - Skip shared 404, status-error, empty screens, skeleton loaders, or lazy load
@@ -351,7 +354,7 @@ Do not hardcode production API hosts in frontend (web or mobile). Full checklist
 - Add a production env key without the matching GitHub Secret (including the host the frontend calls)
 - Hardcode the live API host in web or mobile source when backend is separate
 - Skip asking the **Layout strategy** choice (`normal` \| `layout` \| `auto`), or ignore the recorded choice
-- Start P1 screens before `route-layouts.mdc` is filled and approved
+- Start P2 screens before `route-layouts.mdc` is filled and approved
 - Under `layout`: ship the same layout stretched instead of distinct mobile · tablet · desktop layouts
 - Under `layout`: split into separate mobile and web projects — one **single codebase**
 - Make the dev supply hex codes/fonts as a requirement — the AI proposes the design; dev approves

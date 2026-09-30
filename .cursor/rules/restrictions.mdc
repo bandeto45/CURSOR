@@ -37,7 +37,7 @@ alwaysApply: true
 - When Layout strategy = `layout`: use fluid-only stretched layouts instead of distinct mobile · tablet · desktop layouts
 - When Clients = **web + mobile**: split into separate mobile and web projects/repos when Profile requires a **single codebase**
 - Skip asking the Layout strategy choice (`normal` \| `layout` \| `auto`), or ignore the recorded choice
-- Build P1 screens before `route-layouts.mdc` is filled and approved
+- Build P2 screens before `route-layouts.mdc` is filled and approved
 - Require the dev to hand over hex codes/fonts — the AI proposes the design; dev approves
 - Ship harsh or manipulative design (pure black on pure white, big saturated fills, dark patterns)
 - Assume a single AI/tool, keep decisions only in chat, or skip the AI Handoff Log

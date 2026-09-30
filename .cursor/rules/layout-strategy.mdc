@@ -48,7 +48,7 @@ Profile fields: **Layout strategy** = `normal` \| `layout` \| `auto` · **Layout
 
 1. **Derive the route list** from the concept (per role/surface): every screen the v1 scope needs.
 2. For each route the AI proposes **its most recommended layout** — pick a pattern from the catalog, then write mobile · tablet · desktop for it — into `.cursor/rules/route-layouts.mdc` using that file's template.
-3. Dev reviews/edits the map; **approved** map is the build contract for P1. Layout changes later → edit `route-layouts.mdc` first.
+3. Dev reviews/edits the map; **approved** map is the build contract for P2. Layout changes later → edit `route-layouts.mdc` first.
 4. `normal` → each route gets **one composition + reflow notes** (what stacks, what hides, nav collapse, table handling).
    `layout` → each route gets **three explicit layouts** (mobile · tablet · desktop).
    `mixed` → route groups are tagged `normal` or `layout`; each route follows its group's mode.
@@ -73,7 +73,7 @@ Nav by class (Layout Responsive): mobile → bottom tabs / drawer; tablet → na
 ## Do not
 
 - Skip asking the three-way choice, or infer it silently
-- Build P1 screens before `route-layouts.mdc` is filled and approved
+- Build P2 screens before `route-layouts.mdc` is filled and approved
 - Under `layout`: ship the same DOM merely stretched for all classes
 - Under `layout`: split into separate mobile and web projects — **single codebase**, shared tokens/forms/components; only composition and nav change
 - Under `normal`: claim the result is mobile-app-ready

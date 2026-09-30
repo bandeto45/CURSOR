@@ -1,145 +1,202 @@
 ---
-description: Default implementation phases P0–P4 with sub-tasks and exit gates
+description: Default implementation phases P1–P5 — detailed sub-tasks, function-by-function specs, exit gates
 alwaysApply: true
 ---
 
 # Implementation phases (default)
 
-**Do not mix phases.** Finish the current phase exit gate before starting the next. Track status in `CURSOR.md` Project Profile → **Current phase**.
+**Do not mix phases.** Finish the current phase exit gate before starting the next. Track status in `CURSOR.md` Project Profile → **Current phase** (`P1`…`P5` \| `done`).
 
 | Phase | Name | Focus |
 |-------|------|--------|
-| **P0** | Foundation | Concept lock, tokens, folder skeleton, PHP migrations (+ seeds if needed) |
-| **P1** | Mock UI + mock data | All surfaces on mocks — no real API required |
-| **P2** | API backend | Real API on applied schema — UI may still use mocks |
-| **P3** | Integration | Wire UI → API; remove/replace mock data usage |
-| **P4** | Cleanup & ship | Dead code, docs, final testing |
+| **P1** | Foundation | Concept lock, design + layout approved, tokens, skeleton, PHP migrations (+ seeds) |
+| **P2** | Mock UI + mock data | Every route built to `route-layouts.mdc` on mock adapters — no real API |
+| **P3** | API backend | Real API on applied schema, endpoint by endpoint — UI stays on mocks |
+| **P4** | Integration | Wire UI → API feature by feature; remove/replace mocks |
+| **P5** | Cleanup & ship | Dead code, docs, regression, security/perf pass, deploy checklist |
 
-Customize sub-bullets from **concept** during install; keep phase order.
+## How detail works (specific, function by function)
+
+Phases are **not** vague bullets. During install (after concept + routes are known) the AI writes the concrete plan into **`phase-plan.mdc`**: for every phase, the exact **features → routes/endpoints/tables → functions** to build, in build order. Sub-tasks below are the *generic skeleton*; `phase-plan.mdc` is the *project-specific* list.
+
+### Rule of specificity
+
+1. **One function/unit = one line item** with a Function Spec (template below). No "implement auth" — instead `AuthService.login()`, `AuthService.refresh()`, `requireRole()`, `LoginForm.onSubmit()`, …
+2. **Order inside a phase:** dependencies first (types/contracts → helpers → core functions → composition → tests).
+3. **Every line item has a Definition of Done** the AI can check (file exists, function signature matches spec, test passes, states covered).
+4. **Status per item:** `todo` → `doing` → `done` \| `deferred (reason)`. Update in `phase-plan.mdc` as work happens — not chat-only.
+5. Work **one item at a time**; do not start an item whose dependencies are not `done`.
+6. Any new function discovered mid-phase is **added to the plan first**, then built.
+
+### Function Spec (copy per function / unit)
+
+```
+#### <Module.function or Component> — <one-line purpose>
+- Phase / feature: <P#> · <feature>
+- File: <path>
+- Depends on: <other items / contracts / tables>
+- Input: <params + types + validation rules>
+- Output: <return type / response shape (success)>
+- Errors: <error cases → code/message/field mapping>
+- Authz: <role/ownership check, or "public">
+- Side effects: <db writes, events, cache, files>
+- UI states (if UI): <loading skeleton · empty · error · success>
+- Layout (if UI): <route block in route-layouts.mdc + mobile/tablet/desktop notes>
+- Tests: <cases: happy · validation fail · authz fail · edge>
+- Done when: <checkable criteria>
+- Status: todo
+```
 
 ---
 
 ## Phase exit gate (every phase)
 
-At the **end** of each phase, run this gate **before** opening the next phase. Write leftovers into Profile / `concept-domain.mdc` / a short `PHASE_NOTES` section in `CURSOR.md`.
+At the **end** of each phase run this gate **before** opening the next (`/phase-exit`). Write leftovers into Profile / `concept-domain.mdc` / `phase-plan.mdc`.
 
 ### Exit checklist (copy per phase)
 
-- [ ] All **sub-tasks** for this phase done or explicitly deferred
-- [ ] **Defaults** still intact (forms, ui-styling, validation, PHP migrate/seed, icons-states)
-- [ ] Smoke / manual **test** of this phase’s deliverables passed
+- [ ] Every line item in `phase-plan.mdc` for this phase is `done` or explicitly `deferred (reason)`
+- [ ] **Defaults** still intact (forms, ui-styling, design-direction, layout, validation, PHP migrate/seed, icons-states, multi-ai)
+- [ ] Each function's **Done when** verified; tests for this phase's functions pass
+- [ ] Smoke / manual test of this phase's deliverables passed
 - [ ] Known bugs listed (fix now vs carry to next phase)
-- [ ] Gaps / adds for **next phase** written down (not chat-only)
+- [ ] Gaps / adds for **next phase** written into `phase-plan.mdc` (not chat-only)
 - [ ] Nothing from a **later** phase was half-started (or reverted / parked)
+- [ ] **AI Handoff Log** row added (`CURSOR.md`)
 - [ ] User/AI agree: **exit OK** → advance Current phase
 
 If anything fails: fix or document carry-over — do **not** silently advance.
 
 ---
 
-## P0 — Foundation
+## P1 — Foundation
+
+**Goal:** everything later phases depend on is decided, written, and bootable — no feature UI yet.
 
 ### Subs
 
-- [ ] P0.1 Intake complete — Profile + `concept-domain.mdc` filled
-- [ ] P0.2 Scope lock — v1 in/out of scope
-- [ ] P0.3 **AI design proposal** (2–3 options, one Recommended) approved; tokens + `frontend-design` skill + **Tailwind theme** filled
-- [ ] P0.3b **Layout strategy** chosen (`normal` \| `layout` \| `auto`) + **`route-layouts.mdc`** filled and approved (per-route mobile · tablet · desktop)
-- [ ] P0.4 Repo skeleton (web/api/migrations/seeds per stack)
-- [ ] P0.5 PHP migrations for concept entities (`up`/`down`) — **no `.sql`**
-- [ ] P0.6 Seed.php / seeds for baseline demo data (if needed)
-- [ ] P0.7 `.env.example` documented (keys only); app boots empty/skeleton; production values go in **GitHub Secrets** (`/deploy`)
-- [ ] P0.8 Unified **Tailwind** form + ui primitives scaffold (`components/ui/`)
-- [ ] P0.9 Icon system recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
-
-### Exit (P0 → P1)
-
-Run **Phase exit gate**. Especially verify: schema matches concept; Tailwind theme + ui shell stubbed; no feature UI pretending to be done.
-
----
-
-## P1 — Mock UI + mock data
-
-### Subs
-
-- [ ] P1.1 Routing shells per role/surface from concept
-- [ ] P1.2 Marketing / baseline UI (if in scope)
-- [ ] P1.3 All v1 screens on **mock data** (happy paths)
-- [ ] P1.4 Unified **custom Tailwind forms** on all inputs (defaults)
-- [ ] P1.5 Shared **ui-styling** primitives wired (modal, nav, tabs, cards, buttons, alerts)
-- [ ] P1.6 Client validation UX wired to shared form errors
-- [ ] P1.7 Shared **404**, status-error, and **empty data** screens (animated per `icons-states.mdc`)
-- [ ] P1.8 **Skeleton loaders** on async list/detail regions
-- [ ] P1.9 **Lazy-loaded** routes/chunks wired
-- [ ] P1.10 Page shell: navbar/toolbar/back + tab pages where concept needs
-- [ ] P1.11 Layout check against `route-layouts.mdc`: `layout` → distinct mobile · tablet · desktop layouts per route; `normal` → reflow as specified
-- [ ] P1.12 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
+- [ ] P1.1 **Intake complete** — Profile + `concept-domain.mdc` filled (entities, roles, statuses/lifecycles, business rules)
+- [ ] P1.2 **Scope lock** — v1 in/out; feature list with IDs (`F-01…`) used by every later plan item
+- [ ] P1.3 **Design direction approved** (AI proposal) → `frontend-design` skill + **Tailwind theme** tokens (colors, type, radius, shadow, spacing, z-index)
+- [ ] P1.4 **Layout strategy chosen** + **`route-layouts.mdc`** filled and approved (every v1 route: mobile · tablet · desktop)
+- [ ] P1.5 **Route & feature inventory** — route list × role, endpoint list (method, path, purpose), function inventory per feature
+- [ ] P1.6 **`phase-plan.mdc` generated** — P2–P5 line items with Function Specs for the critical path; the rest as named stubs
+- [ ] P1.7 **Repo skeleton** per stack: `web/` (or `app/`), `api/`, `migrations/`, `seeds/`, `components/ui/`, `mocks/`, `tests/`, shared `types/contracts`
+- [ ] P1.8 **Migrations** — one PHP migration per entity: `up()` creates table/indexes/FKs, `down()` reverses; naming `YYYYMMDDHHMM_create_<table>`; **no `.sql`**
+- [ ] P1.9 **Migration runner** — `migrate()`, `rollback()`, `status()`; verified up → down → up on an empty DB
+- [ ] P1.10 **Seeds** — `Seeder::run()` per entity, idempotent, demo data only from concept (if needed)
+- [ ] P1.11 **`.env.example`** (keys only) + config loader `env()`; app boots empty; production values in **GitHub Secrets** (`/deploy`)
+- [ ] P1.12 **UI primitives scaffold** in `components/ui/`: `Button`, `Input` (+ all form controls), `Modal`, `Popover`, `Alert/Toast`, `Card`, `Tabs`, `Navbar`, `BottomToolbar`, `PageHeader`, `BackButton`, `Skeleton`, `EmptyState`, `ErrorState`, `NotFound` — stubs with props + story/preview
+- [ ] P1.13 **Layout shells scaffold** per strategy: `normal` → one `AppShell`; `layout` → `MobileShell`, `TabletShell`, `DesktopShell` + breakpoint switcher
+- [ ] P1.14 **Icon system** recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
+- [ ] P1.15 **Tooling**: lint, format, test runner, hooks working (`/lint`, `/test`)
 
 ### Exit (P1 → P2)
 
-Run **Phase exit gate**. Especially verify: no accidental real API coupling; mock modules listed for P3 removal; ui-styling primitives reused (not one-offs); 404/empty/skeleton/lazy present.
+Run **Phase exit gate**. Verify: schema matches concept; migrate up/down/up passes; theme + shells + primitives stubbed; every v1 route has an approved layout block; `phase-plan.mdc` exists; no feature UI pretending to be done.
 
 ---
 
-## P2 — API backend
+## P2 — Mock UI + mock data
+
+**Goal:** every v1 route works visually and behaviorally on **mocks**, built exactly to `route-layouts.mdc`.
 
 ### Subs
 
-- [ ] P2.1 Migrations applied on local/empty DB
-- [ ] P2.2 Auth + role middleware
-- [ ] P2.3 CRUD/query endpoints for concept entities
-- [ ] P2.4 **Server validation** on all writes (default)
-- [ ] P2.5 Consistent JSON success/error shapes
-- [ ] P2.6 Upload/payment/etc. endpoints if in concept
-- [ ] P2.7 Seeds usable for API smoke tests
-- [ ] P2.8 API smoke tests / manual Postman-style checks
+- [ ] P2.1 **Mock data layer** — `mocks/<entity>.ts` fixtures + `mockApi.<entity>.list()/get()/create()/update()/remove()` matching the *future real contract* (same shapes, same error format); simulated latency + error toggles
+- [ ] P2.2 **Contracts/types** — request/response types per endpoint (single source reused in P3/P4)
+- [ ] P2.3 **Primitives finished** — every `components/ui/` item implemented, themed, keyboard + focus + a11y
+- [ ] P2.4 **Form system** — every control in `forms.mdc`; `FormField` error slots; client validators as named functions (`validateEmail()`, `validateRequired()`, … or schema per form)
+- [ ] P2.5 **Routing shells** — router, guards (`RequireAuth`, `RequireRole` on mock session), lazy-loaded route chunks, page-transition wrapper
+- [ ] P2.6 **Route-by-route build** — for each route in `route-layouts.mdc`, in plan order:
+  - page component + its child components (each a plan line item)
+  - **mobile · tablet · desktop layout exactly as specified** (or reflow per `normal`)
+  - data hooks (`use<Entity>List()`, `use<Entity>()`, mutations) calling `mockApi`
+  - all states: **skeleton** → loaded · **empty** · **error** (retry) · success feedback
+  - tables: card list (mobile) · condensed table + drawer (tablet) · full table (desktop) where specified
+- [ ] P2.7 **Forms wired** — submit handlers (`onSubmit`), disabled/loading state, inline field errors, no double-submit
+- [ ] P2.8 **Shared screens** — animated **404**, status-error, empty data
+- [ ] P2.9 **Navigation** — navbar/rail/sidebar/bottom tabs per class, back behavior, tab pages
+- [ ] P2.10 **Layout verification** — check each route at 375 · 768 · 1280 against its block; fix drift
+- [ ] P2.11 **Mock inventory** — list every mock module + consumer (for P4 removal)
+- [ ] P2.12 **SEO stubs** only if Profile SEO = `on`
 
 ### Exit (P2 → P3)
 
-Run **Phase exit gate**. Especially verify: UI still on mocks is OK; contract list (routes + payloads) ready for P3; authz covered.
+Run **Phase exit gate**. Verify: every route matches its layout block on all three classes; no real API coupling; mock inventory written; ui primitives reused (no one-offs); 404/empty/skeleton/lazy present; contracts/types complete for P3.
 
 ---
 
-## P3 — Integration (API ↔ UI) + mock cleanup
+## P3 — API backend
+
+**Goal:** the real API, built **endpoint by endpoint**, matching the P2 contracts. UI still on mocks.
 
 ### Subs
 
-- [ ] P3.1 API client / services replace mock adapters per feature
-- [ ] P3.2 Auth session/token wiring in UI
-- [ ] P3.3 Map API errors → form field errors
-- [ ] P3.4 Feature-by-feature cutover (do not big-bang if risky)
-- [ ] P3.5 **Remove or quarantine mock data** used in production paths
-- [ ] P3.6 Keep mocks only behind explicit dev flag (or delete)
-- [ ] P3.7 SEO meta + Schema.org if SEO = `on`
-- [ ] P3.8 End-to-end happy paths on real API
+- [ ] P3.1 **Bootstrap** — router, request/response helpers, `jsonSuccess()` / `jsonError()` (one consistent shape), error handler, CORS from env, request logging
+- [ ] P3.2 **DB access** — `Database::query()`/`execute()` with **prepared statements only**; transaction helper
+- [ ] P3.3 **Migrations applied** on local DB; seeds usable
+- [ ] P3.4 **Auth** — `register()`, `login()`, `logout()`, `refresh()`/session, `me()`, password hashing/verify, token/session issue + expiry
+- [ ] P3.5 **Middleware** — `authenticate()`, `requireRole(...roles)`, ownership check `canAccess(user, resource)`, rate limit on auth
+- [ ] P3.6 **Validation layer** — server validators per endpoint as named functions; **every write validated server-side**; errors map to field names matching the UI form fields
+- [ ] P3.7 **Endpoints, one by one** — for each row in the endpoint inventory, a Function Spec covering: route, handler function, service function(s), repository function(s), validator, authz, response shape, error cases, tests. Typical set per entity: `list` (filter/sort/paginate), `get`, `create`, `update`, `delete` (soft-delete if norm), plus concept-specific actions
+- [ ] P3.8 **Special endpoints** if in concept: file upload (type/size/path checks), payments, notifications, exports
+- [ ] P3.9 **Per-endpoint tests** — happy · validation fail (422 with field errors) · unauthenticated (401) · forbidden (403) · not found (404)
+- [ ] P3.10 **API smoke run** — Postman-style/manual collection covering every endpoint; saved in repo
+- [ ] P3.11 **Contract list** — final routes + payloads vs P2 contracts; diffs noted for P4
 
 ### Exit (P3 → P4)
 
-Run **Phase exit gate**. Especially verify: no silent mock fallbacks in prod builds; leftover mocks listed for P4 delete; integration bugs triaged.
+Run **Phase exit gate**. Verify: every inventory endpoint `done` with tests; authz enforced server-side (not UI-only); prepared statements everywhere; contract diffs listed; UI still on mocks is OK.
 
 ---
 
-## P4 — Cleanup, documentation, final testing
+## P4 — Integration (API ↔ UI) + mock cleanup
+
+**Goal:** the UI runs on the real API, feature by feature, with no silent mock fallbacks.
 
 ### Subs
 
-- [ ] P4.1 Delete dead code, unused routes, leftover mocks
-- [ ] P4.2 Docs: README / setup / env / migrate+seed commands; GitHub Secret **names** (not values) for live FTP, DB, API hosts
-- [ ] P4.3 Final regression pass (roles × critical flows)
-- [ ] P4.4 a11y spot-check on forms; security smoke (authz, uploads)
-- [ ] P4.5 Performance sanity (main pages)
-- [ ] P4.6 Deploy checklist from `/deploy` if shipping — GitHub Secrets complete (FTP, DB, API/app hosts, all env keys; web + mobile if split)
-- [ ] P4.7 Phase notes closed; Profile Current phase = `done` / `P4 complete`
+- [ ] P4.1 **API client** — `apiClient.request()` (base URL from env, auth header, JSON, timeout), typed wrappers per endpoint; error normalization
+- [ ] P4.2 **Auth wiring** — login/logout/refresh, session persistence, `RequireAuth`/`RequireRole` on real session, 401 → sign-out flow
+- [ ] P4.3 **Feature-by-feature cutover** (not big-bang): for each feature in plan order — swap `mockApi.<entity>.*` for real service functions, verify, then delete that mock's usage
+- [ ] P4.4 **Error mapping** — API field errors → form field errors; status codes → shared error/empty/404 screens
+- [ ] P4.5 **Loading/empty/error** verified on real latency and real empty data
+- [ ] P4.6 **Pagination / filters / infinite scroll** wired to real query params
+- [ ] P4.7 **Mocks removed or quarantined** — only behind an explicit dev flag, never in production builds
+- [ ] P4.8 **SEO meta + Schema.org** if SEO = `on`
+- [ ] P4.9 **End-to-end happy paths** per role on the real API
+- [ ] P4.10 **Layout re-check** — real data (long text, many rows) at 375 · 768 · 1280
 
-### Exit (P4 → done)
+### Exit (P4 → P5)
 
-Run **Phase exit gate**. No open P0–P3 carry items unless accepted as known backlog. Ship only when exit OK.
+Run **Phase exit gate**. Verify: no silent mock fallbacks in prod builds; remaining mocks listed for P5 delete; integration bugs triaged; e2e paths pass.
+
+---
+
+## P5 — Cleanup, documentation, final testing
+
+### Subs
+
+- [ ] P5.1 **Delete** dead code, unused routes/components, leftover mocks and flags
+- [ ] P5.2 **Docs** — README/setup/env, migrate + seed commands, API reference (endpoint list), GitHub Secret **names** (not values)
+- [ ] P5.3 **Regression pass** — roles × critical flows × three layout classes
+- [ ] P5.4 **a11y** spot-check (forms, focus, contrast, reduced motion) and **security** smoke (authz, uploads, injection, secrets scan)
+- [ ] P5.5 **Performance** sanity — main pages, bundle/lazy chunks, image sizes
+- [ ] P5.6 **Deploy checklist** from `/deploy` — GitHub Secrets complete (FTP, DB, API/app hosts, all env keys)
+- [ ] P5.7 **Phase notes closed**; `phase-plan.mdc` all `done`/`deferred`; Profile Current phase = `done`
+
+### Exit (P5 → done)
+
+Run **Phase exit gate**. No open P1–P4 carry items unless accepted as known backlog. Ship only when exit OK.
 
 ---
 
 ## AI behavior
 
-1. Read **Current phase** before coding.
-2. Only implement sub-tasks for that phase (unless fixing a blocking bug).
-3. At phase end: run exit gate with the user; update carry-over list; then bump Current phase.
-4. Prefer `/phase-exit` command when finishing a phase.
+1. Read **Current phase**, `phase-plan.mdc`, and the **AI Handoff Log** before coding.
+2. Pick the next `todo` line item whose dependencies are `done`; write/complete its Function Spec first, then build it.
+3. Only implement items for the current phase (unless fixing a blocking bug).
+4. Update the item's status in `phase-plan.mdc` as you go.
+5. At phase end run the exit gate (`/phase-exit`); update carry-over; then bump Current phase.
+6. Append an AI Handoff Log row when the session ends.

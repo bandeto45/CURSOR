@@ -7,7 +7,7 @@ alwaysApply: true
 
 The dev **does not have to know colors, fonts, or styles.** The AI reads the **concept** (product, users, roles, tone) and **proposes** the visual system. Locked *structure* stays (`ui-styling.mdc`: Tailwind, shared primitives, states); the *look* is **suggested per project**.
 
-## Flow (during intake / P0.3)
+## Flow (during intake / P2.3)
 
 1. **Collect inputs** — the concept, users, tone words (if any), brand constraints the dev already has (logo, brand color, fonts, light/dark preference, references). **Dev-provided values are constraints and win** over suggestions.
 2. **Propose 2–3 directions**, mark exactly one **Recommended**. Each direction includes:

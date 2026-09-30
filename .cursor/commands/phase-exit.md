@@ -11,7 +11,7 @@ Close the **current** implementation phase before starting the next.
 
 ```
 /phase-exit
-/phase-exit P1
+/phase-exit P2
 /phase-exit --next
 ```
 

@@ -64,13 +64,13 @@ Full detail: [`CURSOR.md`](./CURSOR.md)
 
 | Phase | Focus |
 |-------|--------|
-| **P0** Foundation | Concept, tokens, skeleton, PHP migrations/seeds |
-| **P1** Mock UI + mock data | All v1 screens on mocks; custom forms |
-| **P2** API backend | Real API; UI may still use mocks |
-| **P3** Integration + mock cleanup | Wire UI ↔ API; remove mocks from prod paths |
-| **P4** Cleanup, docs, final testing | Dead code, documentation, regression |
+| **P1** Foundation | Concept, tokens, skeleton, PHP migrations/seeds |
+| **P2** Mock UI + mock data | All v1 screens on mocks; custom forms |
+| **P3** API backend | Real API; UI may still use mocks |
+| **P4** Integration + mock cleanup | Wire UI ↔ API; remove mocks from prod paths |
+| **P5** Cleanup, docs, final testing | Dead code, documentation, regression |
 
-Each phase has **sub-tasks**. At the end of every phase run **`/phase-exit`**: smoke/tests, leftovers, fixes, and carry-over into the next phase — required before advancing.
+Each phase has **function-by-function sub-tasks**: at install the AI generates `.cursor/rules/phase-plan.mdc` (features → routes/endpoints/tables → functions, each with a spec and *Done when*), and works one function at a time. At the end of every phase run **`/phase-exit`**: smoke/tests, leftovers, fixes, and carry-over into the next phase — required before advancing.
 
 Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 

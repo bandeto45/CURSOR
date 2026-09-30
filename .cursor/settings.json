@@ -35,7 +35,8 @@
       "multi-ai.mdc",
       "design-direction.mdc",
       "layout-strategy.mdc",
-      "route-layouts.mdc"
+      "route-layouts.mdc",
+      "phase-plan.mdc"
     ],
     "autoApply": {
       "defaults.mdc": ["**/*"],
@@ -53,6 +54,7 @@
       "design-direction.mdc": ["**/*"],
       "layout-strategy.mdc": ["**/*"],
       "route-layouts.mdc": ["**/*"],
+      "phase-plan.mdc": ["**/*"],
       "planning-basic.mdc": ["**/*"],
       "planning-advanced.mdc": ["**/*"],
       "forms-advanced.mdc": [

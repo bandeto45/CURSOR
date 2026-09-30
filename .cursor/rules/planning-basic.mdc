@@ -1,5 +1,5 @@
 ---
-description: Basic planning — install, concept, P0–P4 phases, exit gates
+description: Basic planning — install, concept, P1–P5 phases, exit gates
 alwaysApply: true
 ---
 
@@ -9,11 +9,12 @@ alwaysApply: true
 2. **DB and domain rules follow the concept** — update `concept-domain.mdc` first.
 3. **Never drop** default rules (forms, UI styling, validation, PHP migrate/seed, icons-states).
 4. Lock v1 in/out of scope from Profile; do not expand silently.
-5. Follow **P0→P4** in `implementation-phases.mdc` — do not mix phases.
+5. Follow **P1→P5** in `implementation-phases.mdc` — do not mix phases.
 6. At phase end run **exit gate** (`/phase-exit`): tests, leftovers, fixes, carry-over.
 7. Prefer small vertical slices **within** the current phase.
 8. Ask when requirements conflict; do not guess product decisions.
 9. New production env keys → `.env.example` **and** GitHub Secrets (FTP, DB, API hosts for web + mobile) — `/deploy`.
-10. Layout: ask **Normal Responsive** \| **Layout Responsive** \| **Auto** for every project; record in Profile; then write per-route layouts into `route-layouts.mdc` and get dev approval before P1.
+10. Layout: ask **Normal Responsive** \| **Layout Responsive** \| **Auto** for every project; record in Profile; then write per-route layouts into `route-layouts.mdc` and get dev approval before P2.
 11. Design: AI proposes 2–3 directions (one Recommended) from the concept; dev approves; write to skill + Tailwind theme.
-12. Multi-AI: read the AI Handoff Log at start, append a row at end (`multi-ai.mdc`).
+12. Phase plan: generate `phase-plan.mdc` (features → endpoints → functions with specs) before building; one function at a time.
+13. Multi-AI: read the AI Handoff Log at start, append a row at end (`multi-ai.mdc`).

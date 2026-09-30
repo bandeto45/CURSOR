@@ -59,7 +59,7 @@ Copy one block per route. Be concrete: regions, order, what is hidden, where the
 
 ## Do not
 
-- Leave a v1 route without a block before P1 starts
+- Leave a v1 route without a block before P2 starts
 - Write vague blocks ("responsive layout") — name regions, order, and per-class differences
 - Add screens that are not in the concept's v1 scope
 - Change a route's layout in code without updating this file first
