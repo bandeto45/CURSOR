@@ -41,8 +41,10 @@ alwaysApply: true
 ## Secrets & deploy
 - Commit secrets, keys, or a filled `.env`; log passwords/tokens/payment data
 - Hardcode production hosts, FTP, or DB credentials (web **or** mobile)
-- Add a production env key without the same key in `.env.example` **and** GitHub Secrets
-- Deploy live with secrets only in a local `.env`
+- Add an env key without the same key in `.env.example` **and** in every GitHub Environment (`staging`, `production`)
+- Deploy live with secrets only in a local `.env`; deploy production without approval or (when the Profile has staging) without staging verification
+- Seed production, leave staging indexable, or reuse one database/secret set across environments
+- Ask for or write secret values in chat, files, or commits
 - Run destructive git/db commands without explicit dev confirmation
 
 ## Prefer

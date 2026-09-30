@@ -1,0 +1,54 @@
+---
+description: Environments — local, staging, production; GitHub Environments + Secrets per environment, branch mapping, promotion flow, deploy method (FTP or SSH)
+alwaysApply: false
+---
+
+# Environments
+
+> Purpose: separate, safe environments with the same key names and different values. Execution: `/deploy` (`.cursor/commands/deploy.md`). Workflow templates: `.cursor/templates/ci/`.
+
+## Rules
+
+### 1. The environments (Profile → **Environments**)
+| Environment | Purpose | Deploys from | Secrets live in | Data | Debug | Indexing |
+|-------------|---------|--------------|-----------------|------|-------|----------|
+| **local** | Development | — | local `.env` (never committed) | seeds/demo OK | on | — |
+| **staging** | Prod-like verification, client review | `develop` (auto on push) | GitHub Environment **`staging`** | separate DB; seeds/demo OK | off | **`noindex`** + robots disallow |
+| **production** | Live | `main` or tag `vX.Y.Z` (after approval) | GitHub Environment **`production`** | separate DB; **never seeded** | off | per SEO Profile |
+
+The AI recommends `local + staging + production` for anything with a database, users, payments, or more than one developer; `local + production` only for tiny/static sites (`REC-plan-n`, dev decides, recorded in Profile).
+
+### 2. Secrets model
+- **Same key names in every environment, different values** (`.env.example` lists each key once). Set them in **GitHub → Settings → Environments → `staging` / `production` → Secrets**; the dev enters values — never in chat, files, or git.
+- Required per environment: `APP_ENV` · `APP_URL` · `API_BASE_URL` (what web/mobile call) · `CORS_ORIGINS` · `DB_HOST/PORT/NAME/USER/PASSWORD` · deploy target (`FTP_HOST/USER/PASSWORD/PATH` **or** `SSH_HOST/USER/KEY/PATH`) · app secrets (`JWT_SECRET`, `APP_KEY`, third-party keys — use sandbox/test keys in staging).
+- Production Environment: **required reviewer** (approval gate) and restricted to `main`/tags; staging: no approval.
+- **New env key** = `.env.example` + secret in **both** environments + workflow wiring, in the same change.
+
+### 3. Branches, flow, promotion
+```
+feature/* ──PR──▶ develop ──push──▶ deploy STAGING ──verify──▶ PR develop→main ──approve──▶ deploy PRODUCTION
+hotfix/*  ──PR──▶ main ─────────────────────────────────────▶ deploy PRODUCTION (+ back-merge into develop)
+```
+- PRs run CI (`ci.yml`: install · lint · test · build); failing CI blocks merge.
+- Promote only what staging verified: smoke test + the `/deploy` checklist on staging first.
+- `local + production` only: deploy from `main` with the production approval gate.
+
+### 4. Build & deploy behavior
+- **Build per environment** with that environment's `API_BASE_URL` (build-time client config); don't reuse a staging build for production unless the client reads its host at runtime.
+- **Server `.env`** is written from that environment's secrets at deploy time — never from git.
+- **Migrations** run in the deploy job with `db:up` (`database.mdc`): staging first; **production: take/confirm a backup before migrating**. Seeds: staging only when flagged; **never production**.
+- **Deploy method** (Profile → **Deploy method**: `ftp` \| `ssh`): the AI recommends `ssh` (rsync + remote commands, atomic swap) when the host offers SSH, else `ftp`/FTPS. FTP can't run commands, so migrations run from CI against the remote DB (`DB_*` must be reachable from the runner) or through the host's own tooling.
+- Staging extras: visible **STAGING** banner, `noindex` (header + meta + `robots.txt`), sandbox payments, mail to a sink, analytics off.
+- Production extras: HTTPS, debug off, error tracking, backups, tested rollback (`/deploy` → Rollback).
+
+### 5. Flow (`format.mdc`)
+1. **Ask** (intake topic 9): which environments, hosting per environment, FTP or SSH, separate hosts/paths.
+2. **Recommend** `REC-plan-n` (environments + deploy method) → **Write** Profile → **Environments**, **Deploy method**, and the key list.
+3. **Scaffold** (P1): `.env.example` (incl. `APP_ENV`), `ci.yml`; (staging from P2 if wanted, otherwise by P5): `deploy-<method>.yml` from `templates/ci/`, adapted to the stack's build/migrate commands.
+4. **Tell the dev** the exact GitHub Environments to create and the secret **names** to fill; verify with the workflow's "check secrets" step (it fails fast if any is empty).
+
+## Do not
+- Deploy production without approval, or skip staging when the Profile has it (hotfix path excepted)
+- Reuse one database or one set of secret values across environments
+- Seed production, or leave staging indexable
+- Ask for or write secret values in chat, files, or commits

@@ -1,95 +1,71 @@
 ---
 name: deploy
-description: Deploy to staging or production using intake host/stack. Live .env, FTP, DB, and API hosts live in GitHub Secrets.
+description: Deploy to staging or production (FTP or SSH) using GitHub Environments + Secrets per environment. Read rules/environments.mdc first.
 ---
 
 # /deploy
 
-Deploy using the **hosting and stack from Project Profile** (`CURSOR.md`). If Profile is `TBD`, run `/project-intake` first.
+Uses the **Profile** (Environments · Deploy method · Migration tool · stack). If Profile is `TBD`, run `/project-intake` first. Model and rules: `.cursor/rules/environments.mdc`. Templates: `.cursor/templates/ci/`.
 
-**Production / live source of truth:** never commit a filled `.env`. Live values live in **GitHub Secrets**. CI/CD injects them at build and deploy. Local `.env` is local-only.
+**Never:** commit a filled `.env`, put secret values in chat/files, or reuse one set of values across environments.
 
 ## Usage
-
 ```
-/deploy staging
-/deploy production
-/deploy --dry-run production
+/deploy setup                 # scaffold workflows + list Environments/secrets the dev must create
+/deploy staging               # deploy current develop to staging
+/deploy production            # promote what staging verified (needs approval)
+/deploy --dry-run <env>       # run every check, change nothing
+/deploy rollback <env>        # see Rollback
 ```
 
-## GitHub Secrets (required for production)
+## 1. `/deploy setup` (once per project)
+1. Read Profile → **Environments** (`local+production` or `local+staging+production`) and **Deploy method** (`ftp` \| `ssh`); if missing, ask (intake topic 9) and record the recommendation (`REC-plan-n`).
+2. Copy `templates/ci/ci.yml` and `templates/ci/deploy-<method>.yml` to `.github/workflows/`; replace every `{{placeholder}}` with the stack's real commands (install · lint · test · build · `db:up` · `db:seed`); remove the staging job/branch if the Profile has no staging.
+3. Ensure `.env.example` lists every key once (incl. `APP_ENV`).
+4. **Tell the dev** exactly what to create in GitHub (the AI cannot enter secrets):
+   - Settings → Environments → **`staging`** and **`production`**; production: *Required reviewers* + branch restriction to `main`
+   - The same secret **names** in each environment, with that environment's own values (table below)
+5. Commit the workflows; run `/deploy --dry-run staging`.
 
-Every production env key must exist as a GitHub Secret **in the same change** as it is added to code, `.env.example`, or workflows. Staging uses the same rule if a staging environment exists.
+## 2. Secrets (per GitHub Environment; same names, different values)
+| Kind | Typical keys |
+|------|--------------|
+| Environment | `APP_ENV`, `APP_URL`, `API_BASE_URL`, `CORS_ORIGINS` |
+| Database | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` (separate DB per environment) |
+| Deploy target | FTP: `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`, `FTP_PATH` · SSH: `SSH_HOST`, `SSH_USER`, `SSH_KEY`, `SSH_PATH`, `SSH_KNOWN_HOSTS` |
+| Auth / crypto | `JWT_SECRET`, `APP_KEY`, session secrets |
+| Third-party | payment (sandbox in staging), SMS, email (sink in staging), storage, maps |
 
-### Always in GitHub Secrets
+Use the project's real names from `.env.example`. **Split frontend + backend / web + mobile:** each client's public API host (`VITE_API_URL`, `NEXT_PUBLIC_API_URL`, `EXPO_PUBLIC_API_URL`, …) is a secret **per environment**; the backend's `CORS_ORIGINS` lists every client origin of that environment. No production host in source.
 
-| Kind | Typical keys | Why |
-|------|----------------|-----|
-| FTP / SSH / deploy host | `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`, `FTP_PATH`, `SSH_HOST`, `SSH_USER`, `SSH_KEY` | Where files are uploaded |
-| Database | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | Live DB — never in git |
-| App / API hosts | `APP_URL`, `API_URL`, `API_BASE_URL`, CORS origins | Where clients call the API; where the API lives |
-| Auth / crypto | `JWT_SECRET`, `APP_KEY`, session secrets | |
-| Third-party | payment, SMS, email, storage, maps | |
+**New env key (every time):** `.env.example` → secret in **staging and production** → wire into the workflow (`env:` + server `.env` step) → tell the dev the secret **name** to fill.
 
-Use the project's real key names from `.env.example` — the table is a map of **kinds**, not a required naming scheme.
+## 3. Pre-deploy checklist (run on staging first, then production)
+- [ ] CI green on the commit being deployed; tests pass
+- [ ] Every required secret present in this environment (the workflow's "Check secrets" step passes)
+- [ ] Client build uses this environment's `API_BASE_URL`; no `localhost` or hardcoded host
+- [ ] Pending migrations reviewed (Migration tool; no ad-hoc `.sql` outside it); **production: backup confirmed before migrating**
+- [ ] Server `.env` is written from this environment's secrets (never from git)
+- [ ] HTTPS / CDN SSL mode correct; SPA fallback rules if an SPA; uploads writable but not executable
+- [ ] Debug tooling and one-time runners not publicly reachable
+- [ ] **Staging:** `noindex` (header + meta + `robots.txt`), STAGING banner, sandbox payments, mail sink, analytics off
+- [ ] **Production:** staging verified this exact change; approval given; error tracking + backups on; seeds **not** run
 
-### Split frontend + backend (web and/or mobile)
+## 4. Steps
+1. `develop` push → workflow deploys **staging** (or `/deploy staging`)
+2. Verify on staging: smoke test (health, auth, one critical write) + this checklist
+3. Promote: PR `develop → main` → merge → workflow pauses for **production approval** → deploys
+4. Each deploy: check secrets → test → build with the environment's host → write server `.env` → `db:up` → upload (FTP action, or SSH rsync to a new release + atomic switch) → smoke test
+5. Purge CDN cache if used; confirm the client calls the live API host, not localhost
+Hotfix: branch from `main` → PR → `main` (production) → back-merge into `develop`.
 
-When frontend and backend are **separate** (different hosts, repos, or apps):
-
-- **Backend** GitHub Secrets: `APP_URL`, CORS allowlist of **web + mobile** origins, DB, FTP/SSH for the API host
-- **Web frontend** GitHub Secrets: public API host the browser calls (`VITE_API_URL`, `NEXT_PUBLIC_API_URL`, or stack equivalent)
-- **Mobile** GitHub Secrets: public API host the app calls (`EXPO_PUBLIC_API_URL`, `API_BASE_URL`, or stack equivalent)
-- Do **not** hardcode production API hosts in source. Same key names as `.env.example`.
-
-If web and mobile are separate apps or repos, each has its own secret set — including the API host each one calls.
-
-### When adding a new env var (every time)
-
-1. Add the **key** (placeholder, no live value) to `.env.example`
-2. Add the same key to **GitHub Secrets** (production; staging too if used)
-3. Wire the secret into the deploy workflow so it is written to the server `.env` or injected at build
-4. If the new var is an API host or public client config, set it on **web and mobile** secret sets
-5. Tell the user the secret **name** they must fill in GitHub — do not invent live passwords or keys
-
-Never: commit the value, put live passwords in docs/chat as the source of truth, or ship a client that calls `localhost` / a hardcoded host in production.
-
-## Pre-deploy checklist
-
-- [ ] Intake complete (stack + host known)
-- [ ] All production env keys exist in **GitHub Secrets** (including any new keys this change added)
-- [ ] FTP/SSH + database + API/APP hosts in GitHub Secrets
-- [ ] Split apps: web + mobile API base URLs set (the hosts each client calls)
-- [ ] Frontend production build succeeds (if applicable) — built with the live API host from secrets
-- [ ] Backend syntax / tests pass (if applicable)
-- [ ] Pending migrations reviewed (project's migration tool; no ad-hoc `.sql` outside it)
-- [ ] Server `.env` comes from GitHub Secrets (never from git): DB_*, secrets, APP_URL, CORS, upload paths
-- [ ] HTTPS / CDN SSL mode correct for the chosen host
-- [ ] Upload directories writable and not arbitrarily executable
-- [ ] SPA fallback rules if the frontend is an SPA
-- [ ] Debug / one-time migration runners not publicly reachable
-
-## Deploy steps (generic)
-
-1. Confirm GitHub Secrets keys match `.env.example` (no missing production keys)
-2. CI reads secrets → builds frontend with the live API host → uploads via FTP/SSH using secrets
-3. Write/update server `.env` from secrets (never from git)
-4. Run pending migrations with `db:up` (and seeds only when intentional)
-5. Purge CDN cache if used
-6. Smoke test health, auth, and one critical write path — confirm the client is calling the live API host, not localhost
-
-## Rollback
-
-1. Restore previous build artifact
-2. Prefer forward-fix migrations; use a tested `db:down` only when safe (or forward-fix when the tool has no down)
-3. Purge CDN cache
+## 5. Rollback
+- **SSH:** repoint `current` to the previous `releases/<timestamp>` (kept: last 5)
+- **FTP:** redeploy the previous good commit/build artifact (re-run the workflow on that ref)
+- Database: prefer a forward-fix migration; use a tested `db:down` only when safe (or restore the pre-migration backup); purge CDN cache
 
 ## Do Not
-
-- Deploy with `.env` in git
-- Put live FTP, database, or API hosts only in a local file and skip GitHub Secrets
-- Add a production env key without the matching GitHub Secret
-- Hardcode the production API host in web or mobile source
-- Invent Hostinger/Cloudflare (or any host) details if intake chose something else
-- Leave debug tooling public in production
-- Invent live passwords or keys — ask the user to set GitHub Secret values
+- Deploy production without approval, or skip staging when the Profile has it (hotfix path excepted)
+- Seed production, leave staging indexable, or share one database/secret values across environments
+- Add a production env key without the same key in `.env.example` and in **both** GitHub Environments
+- Hardcode any API host in web or mobile source; leave debug tooling public

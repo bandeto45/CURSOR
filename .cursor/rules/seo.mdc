@@ -8,6 +8,9 @@ alwaysApply: false
 
 > Purpose: behavior follows Profile → SEO (`on`/`off`) and `settings.json` → `seo.enabled`.
 
+## Staging
+- Always `noindex` (header + meta + `robots.txt` disallow), regardless of the SEO toggle (`environments.mdc`)
+
 ## When SEO = `off`
 
 - Do not add title/meta/OG/Twitter/JSON-LD pipelines

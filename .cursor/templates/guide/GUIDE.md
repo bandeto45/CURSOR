@@ -38,12 +38,18 @@ cp .env.example .env            # keys only — never commit .env
 ## 6. Conventions
 IDs (`F R E T U`) · statuses · file anatomy: `.cursor/rules/format.mdc`. Styling: Tailwind tokens only. Forms: shared `components/ui/`.
 
-## 7. Environment & deploy
+## 7. Environments & deploy
+| Environment | URL | Branch | Deploys | Approval |
+|-------------|-----|--------|---------|----------|
+| local | {{url}} | — | manual | — |
+| staging | {{url}} | `develop` | auto (push) | none |
+| production | {{url}} | `main` | after approval | required reviewer |
+
 | Key | Purpose | Where it lives |
 |-----|---------|----------------|
-| {{KEY}} | {{purpose}} | `.env` (local) · GitHub Secret (live) |
+| {{KEY}} | {{purpose}} | `.env` (local) · GitHub Environment secrets `staging` / `production` |
 
-Deploy: `/deploy` — checklist in `.cursor/commands/deploy.md`.
+Deploy: `/deploy` — method {{ftp | ssh}}; checklist and rollback in `.cursor/commands/deploy.md`.
 
 ## 8. Troubleshooting
 | Symptom | Cause | Fix |

@@ -48,6 +48,10 @@ Everything lands in files: Profile in `CURSOR.md`, then `concept-domain.mdc` →
 
 One function at a time; each phase ends with `/phase-exit`.
 
+## Environments & deploy
+
+local · **staging** · production: `develop` deploys to staging automatically, `main` deploys to production after an **approval gate**. Secrets live in **GitHub Environments** (same key names, different values per environment — never in git or chat). Choose **FTP or SSH**; ready workflow templates (`.cursor/templates/ci/`) check secrets first, build with each environment's API host, write the server `.env` from secrets, run `db:up`, upload, and smoke-test. Staging is always `noindex`; production is never seeded. Run `/deploy setup`.
+
 ## Locked defaults
 
 Tailwind UI system with shared components · custom forms · client + server validation · migrations via the backend's own tool (Node, Python, PHP, Ruby, Go, Java, .NET…) · animated 404/error/empty, skeletons, lazy load · Material or Lottie icons · GitHub Secrets for live env · references leave no trace. Everything else is a recommendation.
@@ -76,6 +80,6 @@ AGENTS.md · CLAUDE.md      # Tiny pointers
 | `/install-cursor-pack` · `/project-intake` | Install / update (`--update`) |
 | `/phase-exit` | End-of-phase gate |
 | `/pr-review` · `/fix-issue` · `/lint` · `/test` | Review, diagnose, lint, test |
-| `/deploy` | Deploy — live values in **GitHub Secrets** |
+| `/deploy` | `setup` · `staging` · `production` · `rollback` — FTP or SSH, **GitHub Environments + Secrets** per environment, approval gate on production |
 
 Repository: [github.com/bandeto45/CURSOR](https://github.com/bandeto45/CURSOR)

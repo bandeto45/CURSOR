@@ -1,0 +1,37 @@
+# .github/workflows/ci.yml — checks on every PR and on develop/main pushes.
+# Replace the {{...}} commands with the project's real ones (Profile → stack, Migration tool).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- toolchain: keep the one the project uses, delete the rest ---
+      - uses: actions/setup-node@v4        # Node
+        with: { node-version: 22, cache: npm }
+      # - uses: actions/setup-python@v5    # Python
+      #   with: { python-version: "3.12", cache: pip }
+      # - uses: shivammathur/setup-php@v2  # PHP
+      #   with: { php-version: "8.3" }
+
+      - name: Install
+        run: {{INSTALL_CMD}}               # e.g. npm ci
+      - name: Lint
+        run: {{LINT_CMD}}                  # e.g. npm run lint
+      - name: Test
+        run: {{TEST_CMD}}                  # e.g. npm test
+      - name: Build
+        run: {{BUILD_CMD}}                 # e.g. npm run build
+        env:
+          API_BASE_URL: http://localhost   # placeholder so the build passes; real hosts come from Environment secrets at deploy

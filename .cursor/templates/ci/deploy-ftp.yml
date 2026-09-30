@@ -1,0 +1,99 @@
+# .github/workflows/deploy.yml — FTP/FTPS deploy. develop → staging (auto), main → production (approval gate).
+# Setup (dev, once): GitHub → Settings → Environments → create `staging` and `production`;
+#   production: add "Required reviewers" and restrict to branch `main`.
+#   Add the SAME secret names to each environment with that environment's own values (see .cursor/rules/environments.mdc).
+# Replace {{...}}; adapt build/migrate commands to the stack.
+name: Deploy
+
+on:
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Environment
+        type: choice
+        options: [staging, production]
+        default: staging
+
+concurrency:
+  group: deploy-${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}   # secrets + approval come from here
+    env:
+      APP_ENV:      ${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}
+      APP_URL:      ${{ secrets.APP_URL }}
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
+      DB_HOST:      ${{ secrets.DB_HOST }}
+      DB_PORT:      ${{ secrets.DB_PORT }}
+      DB_NAME:      ${{ secrets.DB_NAME }}
+      DB_USER:      ${{ secrets.DB_USER }}
+      DB_PASSWORD:  ${{ secrets.DB_PASSWORD }}
+      # add app keys here: JWT_SECRET: ${{ secrets.JWT_SECRET }} ...
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets (fail fast)
+        run: |
+          missing=0
+          for v in APP_URL API_BASE_URL DB_HOST DB_NAME DB_USER DB_PASSWORD FTP_HOST FTP_USER FTP_PASSWORD FTP_PATH; do
+            if [ -z "$(printenv "$v" || true)" ]; then echo "::error::Missing secret: $v"; missing=1; fi
+          done
+          exit $missing
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+
+      - name: Install
+        run: {{INSTALL_CMD}}
+      - name: Test
+        run: {{TEST_CMD}}
+      - name: Build (client gets THIS environment's API host)
+        run: {{BUILD_CMD}}
+
+      - name: Write server .env from secrets (never from git)
+        run: |
+          {
+            echo "APP_ENV=$APP_ENV"; echo "APP_URL=$APP_URL"; echo "CORS_ORIGINS=$CORS_ORIGINS"
+            echo "DB_HOST=$DB_HOST"; echo "DB_PORT=$DB_PORT"; echo "DB_NAME=$DB_NAME"; echo "DB_USER=$DB_USER"; echo "DB_PASSWORD=$DB_PASSWORD"
+          } > {{SERVER_DIR}}/.env
+
+      - name: Staging guards (noindex)
+        if: env.APP_ENV == 'staging'
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > {{PUBLIC_DIR}}/robots.txt
+
+      - name: Migrate (runs from CI against the remote DB — the DB must accept the runner's connection)
+        if: env.APP_ENV == 'staging' || env.APP_ENV == 'production'
+        run: |
+          # production: confirm a database backup exists BEFORE this step (environments.mdc §4)
+          {{DB_UP_CMD}}                      # e.g. npm run db:up
+        # Seeds: staging only, and only when intended -> {{DB_SEED_CMD}}. NEVER production.
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_PATH }}
+          local-dir: {{BUILD_OUTPUT_DIR}}/        # trailing slash required
+          protocol: ftps                          # use ftp only if the host has no FTPS
+          exclude: |
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+
+      - name: Smoke test
+        run: |
+          curl -fsS "$APP_URL" -o /dev/null && echo "OK $APP_URL"   # extend: health endpoint, one critical write path

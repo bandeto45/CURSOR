@@ -23,7 +23,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 - [ ] Layout strategy chosen; `route-layouts.mdc` `APPROVED` (every route `R`)
 - [ ] `phase-plan.mdc` filled (endpoints `E`, units `U` for P1–P5)
 - [ ] Proposal package drafted from `.cursor/templates/` (deck, Letter document + PDF, guide skeleton) and reviewed by the dev — may finish inside P1
-- [ ] Live env path confirmed: **GitHub Secrets** (`/deploy`)
+- [ ] Environments + deploy method chosen; live env path confirmed: **GitHub Environments/Secrets** (`/deploy setup`)
 - [ ] Pointer files generated; Handoff Log started; default rules untouched
 
 ---
@@ -31,7 +31,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 ## 2. Intake
 
 Ask **one topic at a time**, in this order — details, questions, and what the AI recommends for each: `.cursor/reference/intake.md` (read it during install only).
-**1** Concept · **2** Stack (+ frontend flavor, surface, backend) · **3** Layout · **4** Design · **5** Forms & UI · **6** Data (+ migration tool) · **7** SEO · **8** Proposal (P1) · **9** Delivery.
+**1** Concept · **2** Stack (+ frontend flavor, surface, backend) · **3** Layout · **4** Design · **5** Forms & UI · **6** Data (+ migration tool) · **7** SEO · **8** Proposal (P1) · **9** Environments & deploy · **10** Delivery.
 Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 
 ---
@@ -58,7 +58,9 @@ Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 | **SEO** | `off` \| `on` (Schema.org required when `on`) |
 | **i18n / analytics / testing** | TBD |
 | **Current phase** | `P1` \| `P2` \| `P3` \| `P4` \| `P5` \| `done` (default after install: `P1`) |
-| **Live env** | **GitHub Secrets** — `.env`, FTP/SSH, DB, API/app hosts |
+| **Environments** | `local+production` \| `local+staging+production` (`environments.mdc`) |
+| **Deploy method** | `ftp` \| `ssh` |
+| **Live env** | **GitHub Environments + Secrets** (per environment) — `.env`, FTP/SSH, DB, API/app hosts |
 | **v1 in / out of scope** | TBD / TBD |
 
 Locked, not asked: CSS = **Tailwind**; UX = simplified, easy to use, eye-comfortable (`ui-styling.mdc`).
@@ -100,7 +102,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
 | **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` |
 | **P4 integration** | `backend` · `validation` · `testing` + the P2 files for the screen being wired |
-| **P5 ship** | `testing` · `security` · `seo` (if on) · `/deploy` |
+| **Environments / deploy / P5 ship** | `environments` · `/deploy` · `templates/ci/` · `testing` · `security` · `seo` (if on) |
 | **A reference is given** | `references` |
 
 **Read project files by ID, not whole:** find `R-07`, `F-03`, `E-12`, `T-02`, `U-041` in `route-layouts` / `concept-domain` / `phase-plan` and read just that block or row.
@@ -115,6 +117,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Global | `restrictions.mdc` | Every hard ban (single list) |
 | Global | `multi-ai.mdc` | Any-AI operation, handoff, fallbacks |
 | Global | `references.mdc` | Using references without leaving traces |
+| Ops | `environments.mdc` | local · staging · production, GitHub Environments/Secrets, branches, promotion, FTP/SSH |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
 | Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`) |
 | Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
@@ -134,8 +137,8 @@ Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-e
 
 ---
 
-## 8. Live environment
+## 8. Live environments
 
-Production values live in **GitHub Secrets**, never git: FTP/SSH · database · `APP_URL` and the API host web/mobile call · CORS origins · every new env key (same key in `.env.example`, wired into CI in the same change). Checklist: `.cursor/commands/deploy.md`.
+Values live in **GitHub Environments → Secrets** (`staging`, `production`), never git: same key names, different values — FTP/SSH · database · `APP_URL` · `API_BASE_URL` · `CORS_ORIGINS` · app keys. Every new key: `.env.example` + secret in **each** environment + workflow wiring. Model: `.cursor/rules/environments.mdc` · execution: `/deploy` · workflows: `.cursor/templates/ci/`.
 
 Bans: `restrictions.mdc`.

@@ -1,0 +1,102 @@
+# .github/workflows/deploy.yml — SSH/rsync deploy. develop → staging (auto), main → production (approval gate).
+# Setup (dev, once): GitHub → Settings → Environments → create `staging` and `production`;
+#   production: "Required reviewers" + restrict to `main`. Same secret NAMES in each, different values.
+#   Secrets: SSH_HOST, SSH_USER, SSH_KEY (private key), SSH_PATH, SSH_KNOWN_HOSTS (output of `ssh-keyscan host`), + APP/DB keys.
+name: Deploy
+
+on:
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Environment
+        type: choice
+        options: [staging, production]
+        default: staging
+
+concurrency:
+  group: deploy-${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}
+    env:
+      APP_ENV:      ${{ github.event.inputs.target || (github.ref_name == 'main' && 'production' || 'staging') }}
+      APP_URL:      ${{ secrets.APP_URL }}
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
+      DB_HOST:      ${{ secrets.DB_HOST }}
+      DB_PORT:      ${{ secrets.DB_PORT }}
+      DB_NAME:      ${{ secrets.DB_NAME }}
+      DB_USER:      ${{ secrets.DB_USER }}
+      DB_PASSWORD:  ${{ secrets.DB_PASSWORD }}
+      SSH_HOST:     ${{ secrets.SSH_HOST }}
+      SSH_USER:     ${{ secrets.SSH_USER }}
+      SSH_PATH:     ${{ secrets.SSH_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets (fail fast)
+        run: |
+          missing=0
+          for v in APP_URL API_BASE_URL DB_HOST DB_NAME DB_USER DB_PASSWORD SSH_HOST SSH_USER SSH_PATH; do
+            if [ -z "$(printenv "$v" || true)" ]; then echo "::error::Missing secret: $v"; missing=1; fi
+          done
+          exit $missing
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - name: Install
+        run: {{INSTALL_CMD}}
+      - name: Test
+        run: {{TEST_CMD}}
+      - name: Build (client gets THIS environment's API host)
+        run: {{BUILD_CMD}}
+
+      - name: Staging guards (noindex)
+        if: env.APP_ENV == 'staging'
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > {{PUBLIC_DIR}}/robots.txt
+
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: Trust host
+        run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
+      - name: Upload (rsync to a new release dir)
+        run: |
+          rel="releases/$(date +%Y%m%d%H%M%S)"
+          ssh "$SSH_USER@$SSH_HOST" "mkdir -p '$SSH_PATH/$rel'"
+          rsync -az --delete {{BUILD_OUTPUT_DIR}}/ "$SSH_USER@$SSH_HOST:$SSH_PATH/$rel/"
+          echo "REL=$rel" >> "$GITHUB_ENV"
+
+      - name: Write server .env from secrets (never from git)
+        run: |
+          ssh "$SSH_USER@$SSH_HOST" "cat > '$SSH_PATH/$REL/.env'" <<EOF
+          APP_ENV=$APP_ENV
+          APP_URL=$APP_URL
+          CORS_ORIGINS=$CORS_ORIGINS
+          DB_HOST=$DB_HOST
+          DB_PORT=$DB_PORT
+          DB_NAME=$DB_NAME
+          DB_USER=$DB_USER
+          DB_PASSWORD=$DB_PASSWORD
+          EOF
+
+      - name: "Migrate — production: confirm a database backup exists BEFORE this step"
+        run: ssh "$SSH_USER@$SSH_HOST" "cd '$SSH_PATH/$REL' && {{DB_UP_CMD}}"
+        # Seeds: staging only, when intended -> {{DB_SEED_CMD}}. NEVER production.
+
+      - name: Switch release (atomic) and keep the last 5
+        run: |
+          ssh "$SSH_USER@$SSH_HOST" "cd '$SSH_PATH' && ln -sfn '$REL' current && ls -1dt releases/* | tail -n +6 | xargs -r rm -rf"
+
+      - name: Smoke test
+        run: |
+          curl -fsS "$APP_URL" -o /dev/null && echo "OK $APP_URL"
+
+  # Rollback: point `current` back to the previous releases/<timestamp> (see /deploy → Rollback).
