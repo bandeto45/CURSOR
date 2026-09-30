@@ -20,82 +20,45 @@
   "rules": {
     "enabled": true,
     "directory": ".cursor/rules",
-    "lockedDefaults": [
-      "restrictions.mdc",
+    "alwaysOn": [
       "format.mdc",
       "multi-ai.mdc",
-      "references.mdc",
-      "design-direction.mdc",
-      "layout-strategy.mdc",
-      "ui-styling.mdc",
-      "forms.mdc",
-      "icons-states.mdc",
-      "validation.mdc",
-      "database.mdc",
-      "implementation-phases.mdc",
-      "proposal.mdc"
+      "restrictions.mdc"
     ],
-    "autoApply": {
-      "restrictions.mdc": [
-        "**/*"
-      ],
-      "format.mdc": [
-        "**/*"
-      ],
-      "multi-ai.mdc": [
-        "**/*"
-      ],
-      "references.mdc": [
-        "**/*"
-      ],
-      "design-direction.mdc": [
-        "**/*"
-      ],
-      "layout-strategy.mdc": [
-        "**/*"
-      ],
-      "ui-styling.mdc": [
-        "**/*"
-      ],
-      "forms.mdc": [
-        "**/*"
-      ],
-      "icons-states.mdc": [
-        "**/*"
-      ],
-      "validation.mdc": [
-        "**/*"
-      ],
-      "database.mdc": [
-        "**/*"
-      ],
-      "implementation-phases.mdc": [
-        "**/*"
-      ],
-      "concept-domain.mdc": [
-        "**/*"
-      ],
-      "route-layouts.mdc": [
-        "**/*"
-      ],
-      "phase-plan.mdc": [
-        "**/*"
-      ],
+    "scoped": {
       "backend.mdc": [
         "api/**",
         "server/**",
         "backend/**",
-        "**/*.php"
+        "src/server/**",
+        "**/*.{php",
+        "py",
+        "rb",
+        "go",
+        "java",
+        "kt",
+        "cs",
+        "ex",
+        "rs}"
       ],
       "security.mdc": [
         "api/**",
         "server/**",
         "backend/**",
-        "**/*.php",
+        "src/server/**",
+        "**/*.{php",
+        "py",
+        "rb",
+        "go",
+        "java",
+        "kt",
+        "cs",
+        "ex",
+        "rs}",
         "**/services/**"
       ],
       "testing.mdc": [
-        "**/*.{test,spec}.{js,jsx,ts,tsx}",
+        "**/*.{test,spec}.{js,jsx,ts,tsx,py,go,rb,java}",
         "**/tests/**",
         "**/__tests__/**"
       ],
@@ -104,10 +67,15 @@
         "**/seo/**",
         "**/meta/**"
       ],
-      "proposal.mdc": [
-        "**/*"
+      "database.mdc": [
+        "migrations/**",
+        "seeds/**",
+        "db/**",
+        "prisma/**",
+        "alembic/**",
+        "**/migrations/**"
       ],
-      "project-structure.mdc": [
+      "ui-styling.mdc": [
         "**/*.{jsx,tsx,js,ts,vue,html,css}"
       ],
       "ui-components.mdc": [
@@ -115,13 +83,30 @@
       ],
       "transitions.mdc": [
         "**/*.{jsx,tsx,js,ts,vue,html,css}"
+      ],
+      "project-structure.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,html,css}"
       ]
+    },
+    "onDemand": {
+      "references.mdc": "user gives a reference/inspiration",
+      "design-direction.mdc": "intake · P1 design",
+      "layout-strategy.mdc": "intake · P1 layout",
+      "route-layouts.mdc": "P1 · P2 (read only the R-nn block being built)",
+      "concept-domain.mdc": "intake · any feature work (read by F/T id)",
+      "phase-plan.mdc": "every session (read only current-phase rows)",
+      "implementation-phases.mdc": "session start (framework) + reference/phases/<current>.md",
+      "proposal.mdc": "P1 proposal package",
+      "forms.mdc": "P2 forms",
+      "validation.mdc": "P2 client · P3 server",
+      "icons-states.mdc": "P1/P2 states, icons"
     },
     "projectFiles": [
       "concept-domain.mdc",
       "route-layouts.mdc",
       "phase-plan.mdc"
-    ]
+    ],
+    "loadMap": "CURSOR.md §6 Load map"
   },
   "skills": {
     "enabled": true,
@@ -195,5 +180,21 @@
       "proposal-doc/proposal.html",
       "guide/GUIDE.md"
     ]
+  },
+  "migrations": {
+    "tool": "TBD",
+    "sqlNative": false,
+    "commands": {
+      "new": "db:new",
+      "up": "db:up",
+      "down": "db:down",
+      "status": "db:status",
+      "seed": "db:seed"
+    },
+    "reference": ".cursor/reference/migrations.md"
+  },
+  "reference": {
+    "directory": ".cursor/reference",
+    "note": "Read on demand: components/<group>.md, phases/<P#>.md, layout-patterns.md, migrations.md"
   }
 }

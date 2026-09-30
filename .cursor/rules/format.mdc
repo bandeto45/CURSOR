@@ -86,6 +86,10 @@ Plan items reference these IDs (`U-041 → F-03, E-12, T-02`). No item without a
 
 Plan items: `todo` · `doing` · `done` · `deferred (reason)`. Files: `TEMPLATE` · `DRAFT` · `APPROVED`. Decisions: `pending` · `accepted` · `changed` · `AI-chosen`.
 
-## 7. Writing style
+## 7. Reading & size
+
+Rules are `alwaysApply: false` except `format`, `restrictions`, `multi-ai`; detail lives in `.cursor/reference/` and is read on demand (`CURSOR.md` §6 Load map). Keep project files scannable by ID so an AI can read one block, not the file.
+
+## 8. Writing style
 
 Imperative, present tense, concrete (name regions, functions, values). Tables for options and specs; short bullets for rules. No filler, no "should probably".

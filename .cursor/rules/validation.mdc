@@ -1,6 +1,6 @@
 ---
 description: Client UX validation + mandatory server validation
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Validation

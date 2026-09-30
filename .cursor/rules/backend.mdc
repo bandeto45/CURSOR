@@ -1,6 +1,6 @@
 ---
 description: Backend rules — API shape, authz, logging, and endpoint quality
-globs: "api/**,server/**,backend/**,**/*.php"
+globs: "api/**,server/**,backend/**,src/server/**,**/*.{php,py,rb,go,java,kt,cs,ex,rs}"
 alwaysApply: false
 ---
 

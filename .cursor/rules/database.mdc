@@ -1,30 +1,37 @@
 ---
-description: DB engine defaults (PHP migrations + seeds) and schema derived from the concept
-alwaysApply: true
+description: Database rules — schema follows the concept; migrations and seeds use the backend stack's own tool (Node, Python, PHP, Ruby, Go, Java, .NET, …)
+alwaysApply: false
+globs: "migrations/**,seeds/**,db/**,prisma/**,alembic/**,**/migrations/**,**/seeders/**,**/*.{sql,prisma}"
 ---
 
 # Database
 
-> Purpose: schema follows the concept; changes only through PHP migrations.
+> Purpose: schema follows the concept; every change goes through the migration tool that fits the backend language. Tool table and commands: `.cursor/reference/migrations.md`.
 
 ## Rules
 
-### Engine (permanent)
-1. Schema changes via **PHP migrations** only (`migrations/*.php` with `up()`/`down()`); seeds via **PHP** (`seeds/*.php`). **No `.sql`** as source of truth.
-2. **Prepared statements** / parameterized queries only.
-3. Never edit an already-applied migration in a shared environment — add a new one.
-4. Soft delete (`deleted_at`) when the concept keeps recoverable user data.
-5. Naming: `YYYYMMDDHHMM_create_<table>.php`; tables from `T-nn` in `concept-domain.mdc`.
+### Migration contract (same for every stack)
+1. **Use the stack's native migration tool** — the AI recommends it at intake (`REC-data-n`, from `reference/migrations.md`); the dev decides; Profile → **Migration tool** records the tool and its commands.
+2. **Schema changes only through migrations.** Never manual DDL in a shared environment, never edit an applied migration (add a new one). Seeds run through the tool's seeding mechanism.
+3. **`.sql` files** are allowed only when SQL is that tool's native format (goose, Flyway, golang-migrate, sqlx, Supabase CLI) and stay inside its migrations folder. No ad-hoc `.sql` scripts outside the tool.
+4. **One concern per migration**, named by the tool's convention (default `YYYYMMDDHHMM_<verb>_<table>`). Reversible (`down`) when the tool supports it; otherwise forward-only with a documented forward-fix and a fresh-database rebuild test.
+5. **Same command names on every stack** — wrap the tool in scripts (npm scripts / Makefile / composer / mix aliases) named `db:new` · `db:up` · `db:down` · `db:status` · `db:seed`, so any AI runs the same thing. Record the mapping in Profile and `docs/GUIDE.md`.
+6. **Seeds:** idempotent, demo data from the concept only, refuse to run in production unless explicitly flagged, never contain secrets.
+7. **Verify in P1 and CI:** up → down → up (or fresh rebuild) on an empty database.
+8. **Connection config from env only** (`DB_*` in `.env.example`; live values in GitHub Secrets — `/deploy`). Deploy runs pending migrations (seeds only when intended).
+9. **Parameterized queries only** (ORM or query builder counts).
 
 ### Schema quality (from the concept, not speculative)
+- Tables/columns from `T-nn` in `concept-domain.mdc` — never another product's schema
 - Indexes for real query paths; FK / unique / check constraints matching domain invariants
-- Ownership / tenant columns when the concept needs isolation
-- Audit/history tables for money, permissions, or irreversible actions *(when the domain needs them)*
+- Soft delete (`deleted_at`) when the concept keeps recoverable user data
+- Ownership/tenant columns when the concept needs isolation; audit/history tables for money, permissions, irreversible actions *(when the domain needs them)*
 - Expand/contract migrations for zero-downtime deploys *(when the deploy model needs it)*
-- Seeds: deterministic demo IDs, concept-relevant data only, never production secrets
 - Avoid N+1 in list queries; paginate large collections
 
 ## Flow
-1. Concept locked in `concept-domain.mdc` (entities `T-nn`)
-2. Write the migration → run up → seed if needed → verify down → up
-3. Keys only in `.env.example`; live `DB_*` in GitHub Secrets (`/deploy`)
+1. Concept locked (`T-nn`) → 2. AI recommends the tool for the stack (`REC-data-n`) → 3. write migrations → run `db:up` → `db:seed` if needed → verify `db:down` → `db:up` → 4. note commands in Profile + guide.
+
+## Do not
+- Mix two migration tools in one project
+- Run seeds against production by default

@@ -1,6 +1,6 @@
 ---
 description: Concept and domain rules — filled at install from the product concept; schema and scope follow this file
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Concept / domain

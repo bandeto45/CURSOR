@@ -1,6 +1,6 @@
 ---
 description: Unified custom form controls and chrome — permanent default, styled via ui-styling
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Forms

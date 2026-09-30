@@ -1,6 +1,6 @@
 ---
 description: Security defaults — auth, input, secrets, uploads
-globs: "api/**,server/**,backend/**,**/services/**,**/*.php"
+globs: "api/**,server/**,backend/**,src/server/**,**/*.{php,py,rb,go,java,kt,cs,ex,rs},**/services/**"
 alwaysApply: false
 ---
 

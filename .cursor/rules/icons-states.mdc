@@ -1,6 +1,6 @@
 ---
 description: Locked icons (Material or Lottie), state screens, skeleton loaders, lazy load
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Icons, states & loading

@@ -1,6 +1,6 @@
 ---
 description: Default implementation phases P1–P5 — detailed sub-tasks, function-by-function specs, exit gates
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Implementation phases
@@ -9,7 +9,7 @@ alwaysApply: true
 
 | Phase | Name | Focus |
 |-------|------|--------|
-| **P1** | Foundation | Concept lock, design + layout approved, tokens, skeleton, PHP migrations (+ seeds) |
+| **P1** | Foundation | Concept lock, design + layout approved, tokens, skeleton, migrations (+ seeds) |
 | **P2** | Mock UI + mock data | Every route built to `route-layouts.mdc` on mock adapters — no real API |
 | **P3** | API backend | Real API on applied schema, endpoint by endpoint — UI stays on mocks |
 | **P4** | Integration | Wire UI → API feature by feature; remove/replace mocks |
@@ -71,128 +71,15 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 
 ---
 
-## P1 — Foundation
+## Phase contents (read only the Current phase's file)
 
-**Goal:** everything later phases depend on is decided, written, and bootable — no feature UI yet.
-
-### Subs
-
-- [ ] P1.1 **Intake complete** — Profile + `concept-domain.mdc` filled (entities, roles, statuses/lifecycles, business rules)
-- [ ] P1.2 **Scope lock** — v1 in/out; feature list with IDs (`F-01…`) used by every later plan item
-- [ ] P1.3 **Design direction approved** (AI proposal) → `frontend-design` skill + **Tailwind theme** tokens (colors, type, radius, shadow, spacing, z-index)
-- [ ] P1.4 **Layout strategy chosen** + **`route-layouts.mdc`** filled and approved (every v1 route: mobile · tablet · desktop)
-- [ ] P1.5 **Route & feature inventory** — route list × role, endpoint list (method, path, purpose), function inventory per feature
-- [ ] P1.6 **`phase-plan.mdc` generated** — P2–P5 line items with Function Specs for the critical path; the rest as named stubs
-- [ ] P1.7 **Repo skeleton** from `project-structure.mdc` for the Profile surface (`web` \| `mobile` \| `web + mobile`, one project) and flavor (`react` \| `native`): `app/`, `api/`, `migrations/`, `seeds/`, `docs/`, `components/ui/`, `mocks/`, `tests/`, shared `types/contracts`
-- [ ] P1.7a **Proposal package** (`proposal.mdc`) — presentation (`react` \| `native`), **Letter-size proposal document** (+ PDF), and guide skeleton in `docs/`; dev reviews → `APPROVED`
-- [ ] P1.8 **Migrations** — one PHP migration per entity: `up()` creates table/indexes/FKs, `down()` reverses; naming `YYYYMMDDHHMM_create_<table>`; **no `.sql`**
-- [ ] P1.9 **Migration runner** — `migrate()`, `rollback()`, `status()`; verified up → down → up on an empty DB
-- [ ] P1.10 **Seeds** — `Seeder::run()` per entity, idempotent, demo data only from concept (if needed)
-- [ ] P1.11 **`.env.example`** (keys only) + config loader `env()`; app boots empty; production values in **GitHub Secrets** (`/deploy`)
-- [ ] P1.12 **UI scaffold** from `ui-components.mdc`: `components/ui/` groups + `lib/hooks/`, one stub per catalog component the concept needs (props + Component Spec header), plus the **component page** `/_components`; the `network/` group only if the concept has a networking/marketing plan
-- [ ] P1.13a **Transition system** (`transitions.mdc`): motion tokens in the theme, `PageTransition`, `Presence`, `useNavDirection()`, `useReducedMotion()`; `useSwipeBack()` / `usePullToRefresh()` when Layout Responsive
-- [ ] P1.13 **Layout shells scaffold** per strategy: `normal` → one `AppShell`; `layout` → `MobileShell`, `TabletShell`, `DesktopShell` + `ShellSwitcher`/`useViewClass()`; route folders (container + Mobile/Tablet/Desktop views) per `project-structure.mdc`
-- [ ] P1.14 **Icon system** recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
-- [ ] P1.15 **Tooling**: lint, format, test runner, hooks working (`/lint`, `/test`)
-
-### Exit (P1 → P2)
-
-Run **Phase exit gate**. Verify: schema matches concept; migrate up/down/up passes; theme + shells + primitives stubbed; every v1 route has an approved layout block; `phase-plan.mdc` exists; **proposal package approved** (deck opens, document prints to Letter PDF with no leftover `{{placeholders}}`, guide commands run); no feature UI pretending to be done.
-
----
-
-## P2 — Mock UI + mock data
-
-**Goal:** every v1 route works visually and behaviorally on **mocks**, built exactly to `route-layouts.mdc`.
-
-### Subs
-
-- [ ] P2.1 **Mock data layer** — `mocks/<entity>.ts` fixtures + `mockApi.<entity>.list()/get()/create()/update()/remove()` matching the *future real contract* (same shapes, same error format); simulated latency + error toggles
-- [ ] P2.2 **Contracts/types** — request/response types per endpoint (single source reused in P3/P4)
-- [ ] P2.3 **Components finished** — every catalog component the routes use is implemented, themed, keyboard + focus + a11y, with all states and its entry on the component page (light + dark, three widths)
-- [ ] P2.4 **Form system** — every control in `forms.mdc`; `FormField` error slots; client validators as named functions (`validateEmail()`, `validateRequired()`, … or schema per form)
-- [ ] P2.5 **Routing shells** — router, guards (`RequireAuth`, `RequireRole` on mock session), lazy-loaded route chunks, `PageTransition` wired with each route's `Transition:` from `route-layouts.mdc`
-- [ ] P2.6 **Route-by-route build** — for each route in `route-layouts.mdc`, in plan order:
-  - page component + its child components (each a plan line item)
-  - **mobile · tablet · desktop layout exactly as specified** (or reflow per `normal`)
-  - data hooks (`use<Entity>List()`, `use<Entity>()`, mutations) calling `mockApi`
-  - all states: **skeleton** → loaded · **empty** · **error** (retry) · success feedback
-  - tables: card list (mobile) · condensed table + drawer (tablet) · full table (desktop) where specified
-- [ ] P2.7 **Forms wired** — submit handlers (`onSubmit`), disabled/loading state, inline field errors, no double-submit
-- [ ] P2.8 **Shared screens** — animated **404**, status-error, empty data
-- [ ] P2.9 **Navigation** — navbar/rail/sidebar/bottom tabs per class, back behavior, tab pages
-- [ ] P2.10 **Layout & transition verification** — each route at 375 · 768 · 1280 against its block; transitions forward · back · deep link · refresh · rapid back-tap · reduced motion; fix drift
-- [ ] P2.11 **Mock inventory** — list every mock module + consumer (for P4 removal)
-- [ ] P2.12 **SEO stubs** only if Profile SEO = `on`
-
-### Exit (P2 → P3)
-
-Run **Phase exit gate**. Verify: every route matches its layout block on all three classes; no real API coupling; mock inventory written; ui primitives reused (no one-offs); 404/empty/skeleton/lazy present; contracts/types complete for P3.
-
----
-
-## P3 — API backend
-
-**Goal:** the real API, built **endpoint by endpoint**, matching the P2 contracts. UI still on mocks.
-
-### Subs
-
-- [ ] P3.1 **Bootstrap** — router, request/response helpers, `jsonSuccess()` / `jsonError()` (one consistent shape), error handler, CORS from env, request logging
-- [ ] P3.2 **DB access** — `Database::query()`/`execute()` with **prepared statements only**; transaction helper
-- [ ] P3.3 **Migrations applied** on local DB; seeds usable
-- [ ] P3.4 **Auth** — `register()`, `login()`, `logout()`, `refresh()`/session, `me()`, password hashing/verify, token/session issue + expiry
-- [ ] P3.5 **Middleware** — `authenticate()`, `requireRole(...roles)`, ownership check `canAccess(user, resource)`, rate limit on auth
-- [ ] P3.6 **Validation layer** — server validators per endpoint as named functions; **every write validated server-side**; errors map to field names matching the UI form fields
-- [ ] P3.7 **Endpoints, one by one** — for each row in the endpoint inventory, a Function Spec covering: route, handler function, service function(s), repository function(s), validator, authz, response shape, error cases, tests. Typical set per entity: `list` (filter/sort/paginate), `get`, `create`, `update`, `delete` (soft-delete if norm), plus concept-specific actions
-- [ ] P3.8 **Special endpoints** if in concept: file upload (type/size/path checks), payments, notifications, exports
-- [ ] P3.9 **Per-endpoint tests** — happy · validation fail (422 with field errors) · unauthenticated (401) · forbidden (403) · not found (404)
-- [ ] P3.10 **API smoke run** — Postman-style/manual collection covering every endpoint; saved in repo
-- [ ] P3.11 **Contract list** — final routes + payloads vs P2 contracts; diffs noted for P4
-
-### Exit (P3 → P4)
-
-Run **Phase exit gate**. Verify: every inventory endpoint `done` with tests; authz enforced server-side (not UI-only); prepared statements everywhere; contract diffs listed; UI still on mocks is OK.
-
----
-
-## P4 — Integration (API ↔ UI) + mock cleanup
-
-**Goal:** the UI runs on the real API, feature by feature, with no silent mock fallbacks.
-
-### Subs
-
-- [ ] P4.1 **API client** — `apiClient.request()` (base URL from env, auth header, JSON, timeout), typed wrappers per endpoint; error normalization
-- [ ] P4.2 **Auth wiring** — login/logout/refresh, session persistence, `RequireAuth`/`RequireRole` on real session, 401 → sign-out flow
-- [ ] P4.3 **Feature-by-feature cutover** (not big-bang): for each feature in plan order — swap `mockApi.<entity>.*` for real service functions, verify, then delete that mock's usage
-- [ ] P4.4 **Error mapping** — API field errors → form field errors; status codes → shared error/empty/404 screens
-- [ ] P4.5 **Loading/empty/error** verified on real latency and real empty data
-- [ ] P4.6 **Pagination / filters / infinite scroll** wired to real query params
-- [ ] P4.7 **Mocks removed or quarantined** — only behind an explicit dev flag, never in production builds
-- [ ] P4.8 **SEO meta + Schema.org** if SEO = `on`
-- [ ] P4.9 **End-to-end happy paths** per role on the real API
-- [ ] P4.10 **Layout re-check** — real data (long text, many rows) at 375 · 768 · 1280
-
-### Exit (P4 → P5)
-
-Run **Phase exit gate**. Verify: no silent mock fallbacks in prod builds; remaining mocks listed for P5 delete; integration bugs triaged; e2e paths pass.
-
----
-
-## P5 — Cleanup, documentation, final testing
-
-### Subs
-
-- [ ] P5.1 **Delete** dead code, unused routes/components, leftover mocks and flags
-- [ ] P5.2 **Docs** — README/setup/env, migrate + seed commands, API reference (endpoint list), GitHub Secret **names** (not values)
-- [ ] P5.3 **Regression pass** — roles × critical flows × three layout classes
-- [ ] P5.4 **a11y** spot-check (forms, focus, contrast, reduced motion) and **security** smoke (authz, uploads, injection, secrets scan)
-- [ ] P5.5 **Performance** sanity — main pages, bundle/lazy chunks, image sizes
-- [ ] P5.6 **Deploy checklist** from `/deploy` — GitHub Secrets complete (FTP, DB, API/app hosts, all env keys)
-- [ ] P5.7 **Phase notes closed**; `phase-plan.mdc` all `done`/`deferred`; Profile Current phase = `done`
-
-### Exit (P5 → done)
-
-Run **Phase exit gate**. No open P1–P4 carry items unless accepted as known backlog. Ship only when exit OK.
+| Phase | File |
+|-------|------|
+| **P1** | `.cursor/reference/phases/P1.md` |
+| **P2** | `.cursor/reference/phases/P2.md` |
+| **P3** | `.cursor/reference/phases/P3.md` |
+| **P4** | `.cursor/reference/phases/P4.md` |
+| **P5** | `.cursor/reference/phases/P5.md` |
 
 ---
 

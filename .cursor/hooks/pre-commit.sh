@@ -39,23 +39,28 @@ else
   echo "  → No package.json — skipping JS checks"
 fi
 
-# PHP syntax check (api, migrations, seeds, or any *.php under common roots)
+# PHP syntax check (only when the project has PHP files and php is installed)
 php_roots=()
 for d in api server backend migrations seeds; do
   [[ -d "$d" ]] && php_roots+=("$d")
 done
 
 if [[ ${#php_roots[@]} -gt 0 ]] && command -v php >/dev/null 2>&1; then
-  echo "  → PHP syntax check..."
-  while IFS= read -r -d '' file; do
-    php -l "$file" >/dev/null
-  done < <(find "${php_roots[@]}" -name '*.php' -print0 2>/dev/null)
+  if [[ -n "$(find "${php_roots[@]}" -name '*.php' -print -quit 2>/dev/null)" ]]; then
+    echo "  → PHP syntax check..."
+    while IFS= read -r -d '' file; do
+      php -l "$file" >/dev/null
+    done < <(find "${php_roots[@]}" -name '*.php' -print0 2>/dev/null)
+  fi
 fi
 
-# Reject committed .sql migrations/seeds (source of truth must be PHP)
-if git diff --cached --name-only | grep -E '(^|/)(migrations|seeds)/.*\.sql$' >/dev/null 2>&1; then
-  echo "❌ Staged .sql under migrations/ or seeds/ — use PHP migration/seed files only."
-  exit 1
+# .sql migrations/seeds are allowed only for SQL-native migration tools
+# (goose, Flyway, golang-migrate, sqlx, Supabase CLI). Set "migrations.sqlNative": true in .cursor/settings.json.
+if ! grep -Eq '"sqlNative"[[:space:]]*:[[:space:]]*true' .cursor/settings.json 2>/dev/null; then
+  if git diff --cached --name-only | grep -E '(^|/)(migrations|seeds)/.*\.sql$' >/dev/null 2>&1; then
+    echo "❌ Staged .sql under migrations/ or seeds/ — this project's migration tool is not SQL-native (see Profile → Migration tool)."
+    exit 1
+  fi
 fi
 
 # Secret scan

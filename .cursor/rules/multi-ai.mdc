@@ -10,7 +10,7 @@ alwaysApply: true
 ## Rules
 
 1. **One brain:** `CURSOR.md`. Pointer files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.windsurfrules`) stay tiny — never copy rules into them. Generate them with `.cursor/adapters/sync-ai-adapters.sh`.
-2. **Start of session:** read `CURSOR.md` → Profile, **Current phase**, **AI Handoff Log**; then `phase-plan.mdc`, `route-layouts.mdc`, `concept-domain.mdc`, and the `frontend-design` skill.
+2. **Start of session:** read `CURSOR.md` → Profile, **Current phase**, **AI Handoff Log**, then follow its **Load map** — read only the files the moment needs, and project files by ID (not whole).
 3. **Decisions live in files** (`format.mdc`). Do not reverse another AI's `APPROVED` decision unless the dev asks; edit the file first and log it.
 4. **Stay in the Current phase.** A second AI continues it; it does not restart intake (use `/project-intake --update`) or skip the exit gate.
 5. **End of session:** append one row to the **AI Handoff Log** — date, tool, phase, what changed, open/next.

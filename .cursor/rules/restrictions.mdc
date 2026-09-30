@@ -29,7 +29,7 @@ alwaysApply: true
 - Ship the proposal with leftover `{{placeholders}}`, invented numbers/dates, non-Letter page size, or colors/fonts outside the approved direction
 
 ## Code & data
-- Add `.sql` migrations/seeds; concatenate user input into SQL; edit applied migrations in shared envs
+- Change the schema outside the project's migration tool (manual DDL, ad-hoc `.sql`), mix two migration tools, or edit applied migrations in shared envs; concatenate user input into SQL
 - Hard-delete user records where soft delete (`deleted_at`) is the norm
 - Rely on the UI to hide controls instead of enforcing authorization server-side
 - Return HTTP `200` with an error-only payload when a proper status exists

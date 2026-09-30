@@ -50,8 +50,8 @@ Everything below is written in `react` names; `native` uses the mapping above wi
 │     ├─ styles/       theme tokens, globals
 │     └─ tests/
 ├─ api/                                # backend (backend.mdc)
-│  ├─ public/index.php   routes/   controllers/   services/   repositories/   validators/   middleware/   lib/
-├─ migrations/  seeds/                 # PHP only (database.mdc)
+│  ├─ <entry>   routes/   controllers/   services/   repositories/   validators/   middleware/   lib/   # language-neutral names
+├─ migrations/  seeds/                 # or the tool's folder (reference/migrations.md; database.mdc)
 └─ .env.example                        # keys only; live values in GitHub Secrets
 ```
 

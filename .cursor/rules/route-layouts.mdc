@@ -1,6 +1,6 @@
 ---
 description: Per-route layout map — mobile, tablet, desktop for every route (AI-filled after the layout strategy is chosen)
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Route layouts

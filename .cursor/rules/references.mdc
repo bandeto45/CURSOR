@@ -1,6 +1,6 @@
 ---
 description: How to use reference/inspiration material — take only what applies, keep the project fresh
-alwaysApply: true
+alwaysApply: false
 ---
 
 # References / inspiration
@@ -28,7 +28,7 @@ When the user gives something to copy or follow (screenshot, link, another repo,
 
 - The project must read as if it was authored **only for this project**
 - Adapt names to the project concept (`concept-domain.mdc`) and tokens (`frontend-design`)
-- Defaults still apply: unified custom forms, project styling, validation, PHP migrate/seed
+- Defaults still apply: unified custom forms, project styling, validation, migrations/seeds via the stack's tool
 - If the reference conflicts with a default rule or the concept, the **project wins** — say so and adapt
 
 ## In chat vs in files

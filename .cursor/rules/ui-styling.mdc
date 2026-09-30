@@ -1,6 +1,6 @@
 ---
 description: Locked Tailwind UI system and shared components — the look comes from design-direction.mdc, the structure from here
-alwaysApply: true
+alwaysApply: false
 ---
 
 # UI styling

@@ -12,7 +12,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 
 1. **Place files** — `cp CURSOR.md AGENTS.md CLAUDE.md /path/to/project/ && cp -R .cursor /path/to/project/`, then `bash .cursor/adapters/sync-ai-adapters.sh`. Skip if already in place.
 2. **Stop before feature coding** while Profile is `TBD`.
-3. **Run the intake (§2)** in batches. For each topic: **Ask** → **Recommend** (`REC-…` block) → **Decide** → **Write** to its file immediately → **Confirm** in 2–4 lines. "You decide" = take the Recommended option.
+3. **Run the intake (§2)** one topic at a time. For each topic: **Ask** → **Recommend** (`REC-…` block) → **Decide** → **Write** to its file immediately → **Confirm** in 2–4 lines. "You decide" = take the Recommended option.
 4. **Generate the plan files** in order: `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`. Set Current phase `P1`.
 5. **Confirm install complete** (checklist below), append the first **AI Handoff Log** row, then continue with the dev's build request.
 
@@ -28,21 +28,11 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 
 ---
 
-## 2. Intake (ask; the AI recommends wherever the dev is unsure)
+## 2. Intake
 
-| # | Topic | Ask | AI recommends | Writes to |
-|---|-------|-----|---------------|-----------|
-| 1 | **Concept** | Name + pitch · users/roles · v1 must-have features · out of scope · milestones | Feature list, roles, entities, domain rules, risks | `concept-domain.mdc`, Profile |
-| 2 | **Stack** | Frontend + **flavor** (`react` \| `native` = plain HTML/CSS/JS) · backend · database · auth · clients (`web` / `mobile` / `web + mobile` — always **one project**) · hosting · package-manager limits · separate API host? | A stack that fits the concept and constraints; the ready structure for the surface (`project-structure.mdc`) | Profile, `concept-domain.mdc` |
-| 3 | **Layout** | `web`: **Normal Responsive** \| **Layout Responsive** \| **Auto** · `mobile` / `web + mobile`: Layout Responsive is fixed (stated, not asked) — `layout-strategy.mdc` | Strategy + a layout for **every route** (mobile · tablet · desktop) | Profile, `route-layouts.mdc` |
-| 4 | **Design** | Brand constraints already decided (logo, colors, fonts, light/dark), tone words, references — all optional | 2–3 directions, one Recommended; icon system (`material` \| `lottie`); light/dark | `frontend-design/SKILL.md`, Tailwind theme, Profile |
-| 5 | **Forms & UI** | Extra field types or component variants beyond the standard set · validation library or hand-rolled | Confirms the locked primitives; picks validation approach | Profile, skill |
-| 6 | **Data** | Soft-delete preference · demo seed data | Tables `T` from the concept; naming | `concept-domain.mdc` |
-| 7 | **SEO** | On or off · public routes · locale · social image | On/off with reason; Schema.org types when on | Profile, `settings.json` |
-| 8 | **Proposal (P1)** | Audience (client / team / investor) · presentation flavor `react` \| `native` · date/version | Flavor (`REC-plan-n`); the deck, Letter-size proposal document, and guide from the approved decisions (`proposal.mdc`) | `docs/proposal/`, `docs/GUIDE.md`, Profile |
-| 9 | **Delivery** | Phases to skip/merge · i18n · analytics/observability · testing expectations · compliance (PII, payments, age gates) · anything else | The plan: build order, testing level, risks | `phase-plan.mdc`, Profile |
-
-Flow per topic is `format.mdc`. Locked defaults are **confirmed, not negotiated**: Tailwind, custom forms, server validation, PHP migrations/seeds, states/skeleton/lazy load, phases, GitHub Secrets for live env (`restrictions.mdc`).
+Ask **one topic at a time**, in this order — details, questions, and what the AI recommends for each: `.cursor/reference/intake.md` (read it during install only).
+**1** Concept · **2** Stack (+ frontend flavor, surface, backend) · **3** Layout · **4** Design · **5** Forms & UI · **6** Data (+ migration tool) · **7** SEO · **8** Proposal (P1) · **9** Delivery.
+Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 
 ---
 
@@ -56,6 +46,7 @@ Flow per topic is `format.mdc`. Locked defaults are **confirmed, not negotiated*
 | **One-line pitch** | TBD |
 | **Roles** | TBD |
 | **Stack — Frontend / Backend / Database / Auth** | TBD / TBD / TBD / TBD |
+| **Migration tool** | TBD — tool + `db:new/up/down/status/seed` mapping |
 | **Clients / surfaces** | `web` \| `mobile` \| `web + mobile` (one project; `web + mobile` → `layout`) |
 | **Frontend flavor** | `react` \| `native` (plain HTML/CSS/JS + Tailwind) |
 | **Proposal deck** | `react` \| `native` (`proposal.mdc`) |
@@ -98,7 +89,25 @@ Read at session start; append one row at session end. Do not reverse another AI'
 
 ---
 
-## 6. Rule map (the only index — each topic lives in exactly one file)
+## 6. Load map (token-lean: read only what the moment needs)
+
+**Always on:** this file · `format.mdc` · `restrictions.mdc` · `multi-ai.mdc`. Everything else is read **on demand** — never load the whole `.cursor/`.
+
+| Moment | Read |
+|--------|------|
+| **Every session** | Profile · Handoff Log · `implementation-phases.mdc` · `reference/phases/<Current phase>.md` · rows of `phase-plan.mdc` for the current phase |
+| **Intake / P1** | `reference/intake.md` · `concept-domain` · `design-direction` · `layout-strategy` (+ `reference/layout-patterns.md`) · `route-layouts` · `project-structure` · `database` (+ `reference/migrations.md`) · `proposal` (+ `templates/`) |
+| **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
+| **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` |
+| **P4 integration** | `backend` · `validation` · `testing` + the P2 files for the screen being wired |
+| **P5 ship** | `testing` · `security` · `seo` (if on) · `/deploy` |
+| **A reference is given** | `references` |
+
+**Read project files by ID, not whole:** find `R-07`, `F-03`, `E-12`, `T-02`, `U-041` in `route-layouts` / `concept-domain` / `phase-plan` and read just that block or row.
+
+---
+
+## 7. Rule map (the only index — each topic lives in exactly one file)
 
 | Kind | File | Owns |
 |------|------|------|
@@ -107,7 +116,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Global | `multi-ai.mdc` | Any-AI operation, handoff, fallbacks |
 | Global | `references.mdc` | Using references without leaving traces |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
-| Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints; pattern catalog |
+| Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`) |
 | Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
 | Deliverable | `proposal.mdc` | P1 proposal deck (React/native), Letter-size document, guide |
 | UI | `ui-styling.mdc` | Tailwind system, shared components, motion, frontend conventions |
@@ -116,16 +125,16 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | UI | `forms.mdc` | Custom form controls + patterns |
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
 | Logic | `validation.mdc` | Client + server validation |
-| Logic | `database.mdc` | PHP migrations/seeds; schema quality |
-| Logic | `implementation-phases.mdc` | P1–P5, Function Spec, exit gate |
+| Logic | `database.mdc` | Migration contract (any stack) + schema quality; tools in `reference/migrations.md` |
+| Logic | `implementation-phases.mdc` | P1–P5 framework, Function Spec, exit gate (contents: `reference/phases/`) |
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 
-## 7. Live environment
+## 8. Live environment
 
 Production values live in **GitHub Secrets**, never git: FTP/SSH · database · `APP_URL` and the API host web/mobile call · CORS origins · every new env key (same key in `.env.example`, wired into CI in the same change). Checklist: `.cursor/commands/deploy.md`.
 

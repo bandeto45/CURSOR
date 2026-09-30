@@ -62,7 +62,7 @@ Never: commit the value, put live passwords in docs/chat as the source of truth,
 - [ ] Split apps: web + mobile API base URLs set (the hosts each client calls)
 - [ ] Frontend production build succeeds (if applicable) — built with the live API host from secrets
 - [ ] Backend syntax / tests pass (if applicable)
-- [ ] Pending **PHP migrations** reviewed; no `.sql` deploy scripts as source of truth
+- [ ] Pending migrations reviewed (project's migration tool; no ad-hoc `.sql` outside it)
 - [ ] Server `.env` comes from GitHub Secrets (never from git): DB_*, secrets, APP_URL, CORS, upload paths
 - [ ] HTTPS / CDN SSL mode correct for the chosen host
 - [ ] Upload directories writable and not arbitrarily executable
@@ -74,14 +74,14 @@ Never: commit the value, put live passwords in docs/chat as the source of truth,
 1. Confirm GitHub Secrets keys match `.env.example` (no missing production keys)
 2. CI reads secrets → builds frontend with the live API host → uploads via FTP/SSH using secrets
 3. Write/update server `.env` from secrets (never from git)
-4. Run pending PHP migrations (and seeds only when intentional)
+4. Run pending migrations with `db:up` (and seeds only when intentional)
 5. Purge CDN cache if used
 6. Smoke test health, auth, and one critical write path — confirm the client is calling the live API host, not localhost
 
 ## Rollback
 
 1. Restore previous build artifact
-2. Prefer forward-fix migrations; use tested `down()` only when safe
+2. Prefer forward-fix migrations; use a tested `db:down` only when safe (or forward-fix when the tool has no down)
 3. Purge CDN cache
 
 ## Do Not

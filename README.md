@@ -50,7 +50,7 @@ One function at a time; each phase ends with `/phase-exit`.
 
 ## Locked defaults
 
-Tailwind UI system with shared components · custom forms · client + server validation · PHP migrations/seeds (no `.sql`) · animated 404/error/empty, skeletons, lazy load · Material or Lottie icons · GitHub Secrets for live env · references leave no trace. Everything else is a recommendation.
+Tailwind UI system with shared components · custom forms · client + server validation · migrations via the backend's own tool (Node, Python, PHP, Ruby, Go, Java, .NET…) · animated 404/error/empty, skeletons, lazy load · Material or Lottie icons · GitHub Secrets for live env · references leave no trace. Everything else is a recommendation.
 
 ## Files
 
@@ -58,7 +58,8 @@ Tailwind UI system with shared components · custom forms · client + server val
 CURSOR.md                  # Brain: install, intake, Profile, phases, handoff log, rule map
 AGENTS.md · CLAUDE.md      # Tiny pointers
 .cursor/
-  rules/                   # One file per topic (see the rule map in CURSOR.md)
+  rules/                   # One file per topic; only format · restrictions · multi-ai are always on
+  reference/               # On-demand detail: components/ · phases/ · layout-patterns.md · migrations.md
     format.mdc restrictions.mdc multi-ai.mdc references.mdc
     design-direction.mdc layout-strategy.mdc ui-styling.mdc ui-components.mdc transitions.mdc forms.mdc icons-states.mdc
     validation.mdc database.mdc implementation-phases.mdc

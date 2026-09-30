@@ -1,6 +1,6 @@
 ---
 description: P1 proposal package — presentation (React.js or Native), letter-size proposal document, and project guide
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Proposal package (part of P1)

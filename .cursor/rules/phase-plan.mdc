@@ -1,6 +1,6 @@
 ---
 description: Project-specific plan — features, endpoints, and function-level units per phase (AI-filled, kept current)
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Phase plan
@@ -29,7 +29,7 @@ alwaysApply: true
 ### Units (function / component) — ordered by dependency
 | U-ID | Phase | F / R / E / T | Unit | File | Depends on | Done when | Status |
 |------|-------|---------------|------|------|------------|-----------|--------|
-| U-001 | P1 | F-00 · T-01 | `create_<table>.up()/down()` | migrations/… | — | up→down→up passes | todo |
+| U-001 | P1 | F-00 · T-01 | migration `create_<table>` (tool's up/down) | migrations/… | — | `db:up` → `db:down` → `db:up` passes | todo |
 | U-002 | P2 | F-01 · R-01 | `mockApi.<entity>.list()` | mocks/… | contracts | same shape as real contract | todo |
 | U-003 | P3 | F-01 · E-01 | `<Entity>Controller.list()` | api/… | U-001 | 200 paginated; 401/403 tested | todo |
 | U-004 | P4 | F-01 · R-01 | `use<Entity>List()` → real service | web/… | U-002, U-003 | mock usage removed | todo |
