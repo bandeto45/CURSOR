@@ -32,7 +32,8 @@
       "icons-states.mdc",
       "validation.mdc",
       "database.mdc",
-      "implementation-phases.mdc"
+      "implementation-phases.mdc",
+      "proposal.mdc"
     ],
     "autoApply": {
       "restrictions.mdc": [
@@ -102,6 +103,12 @@
         "**/*.{jsx,tsx,js,ts,html,php}",
         "**/seo/**",
         "**/meta/**"
+      ],
+      "proposal.mdc": [
+        "**/*"
+      ],
+      "project-structure.mdc": [
+        "**/*.{jsx,tsx,js,ts,vue,html,css}"
       ]
     },
     "projectFiles": [
@@ -143,7 +150,19 @@
       "normal",
       "layout",
       "auto"
-    ]
+    ],
+    "frontendFlavors": [
+      "react",
+      "native"
+    ],
+    "surfaces": [
+      "web",
+      "mobile",
+      "web + mobile"
+    ],
+    "webPlusMobileLayout": "layout",
+    "proposalPageSize": "letter",
+    "proposalPackageInP1": true
   },
   "seo": {
     "enabled": false,
@@ -158,6 +177,17 @@
     "*.lock",
     ".env",
     ".env.*",
-    "!.env.example"
-  ]
+    "!.env.example",
+    "!.cursor/templates/**"
+  ],
+  "templates": {
+    "enabled": true,
+    "directory": ".cursor/templates",
+    "items": [
+      "deck-native/index.html",
+      "deck-react/",
+      "proposal-doc/proposal.html",
+      "guide/GUIDE.md"
+    ]
+  }
 }

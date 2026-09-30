@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  Proposal document — US LETTER (8.5 × 11 in), print-ready. Part of P1.
+  Fill from concept-domain.mdc, route-layouts.mdc, phase-plan.mdc, and the approved design direction.
+  Replace every {{placeholder}}. Keep IDs (F-nn, R-nn, T-nn, E-nn) identical to the project files.
+  Export: open in a browser → Print → Destination "Save as PDF" · Paper size "Letter" · Margins "Default" · enable "Background graphics".
+  Page numbers/running header are drawn by @page margin boxes (Chromium); fall back to the footer line if your browser ignores them.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{Project name}} — Proposal</title>
+<style>
+  /* ===== Tokens (replace from the approved design direction; keep names) ===== */
+  :root {
+    --fg: #23262b; --muted: #5d636b; --border: #dcdad4; --primary: #3b5bdb; --tint: #f3f2ee;
+    --font-body: Georgia, "Times New Roman", serif;          /* body text for print reading */
+    --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;  /* headings, tables, labels */
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e9e8e4; color: var(--fg); font: 11pt/1.5 var(--font-body); }
+
+  /* ===== Page: US Letter, 1in margins ===== */
+  @page { size: 8.5in 11in; margin: 1in 1in 1in 1in;
+    @top-left    { content: "{{Project name}} — Proposal"; font: 8.5pt var(--font-ui); color: #5d636b; }
+    @top-right   { content: "{{Month YYYY}}";              font: 8.5pt var(--font-ui); color: #5d636b; }
+    @bottom-right{ content: "Page " counter(page) " of " counter(pages); font: 8.5pt var(--font-ui); color: #5d636b; }
+  }
+  @page :first { margin: 0; @top-left{content:none} @top-right{content:none} @bottom-right{content:none} }
+
+  /* On screen: show pages as sheets */
+  .page { width: 8.5in; min-height: 11in; margin: .4in auto; padding: 1in; background: #fff; box-shadow: 0 1px 8px rgba(0,0,0,.12); }
+  .cover { padding: 1.4in 1in 1in; display: flex; flex-direction: column; }
+  @media print {
+    body { background: none; }
+    .page { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; break-after: page; }
+    .cover { width: 8.5in; height: 11in; padding: 1.4in 1in 1in; break-after: page; }
+    .page:last-child { break-after: auto; }
+    a { color: inherit; text-decoration: none; }
+  }
+
+  /* ===== Typography ===== */
+  h1, h2, h3, th, .label, .foot { font-family: var(--font-ui); }
+  h1 { font-size: 30pt; line-height: 1.1; margin: 0 0 .2in; letter-spacing: -.01em; }
+  h2 { font-size: 15pt; margin: 0 0 .12in; padding-bottom: .05in; border-bottom: 2px solid var(--primary); break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: .18in 0 .05in; break-after: avoid; }
+  p { margin: 0 0 .1in; orphans: 3; widows: 3; }
+  .label { font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); font-weight: 600; }
+  .lead { font-size: 13pt; color: var(--muted); }
+  ul, ol { margin: 0 0 .1in; padding-left: .22in; } li { margin-bottom: .03in; }
+  table { width: 100%; border-collapse: collapse; margin: .08in 0 .14in; font: 9.5pt/1.4 var(--font-ui); break-inside: auto; }
+  thead { display: table-header-group; } tr { break-inside: avoid; }
+  th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1.5px solid var(--border); padding: .05in .08in; }
+  td { border-bottom: 1px solid var(--border); padding: .05in .08in; vertical-align: top; }
+  .box { background: var(--tint); border-left: 3px solid var(--primary); padding: .1in .14in; margin: .1in 0; break-inside: avoid; }
+  .swatches { display: flex; gap: .12in; margin: .08in 0; }
+  .sw { width: 1.15in; font: 8pt var(--font-ui); color: var(--muted); } .sw i { display: block; height: .5in; border: 1px solid var(--border); border-radius: 4px; margin-bottom: .03in; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .14in; } .cols > div { border: 1px solid var(--border); border-radius: 6px; padding: .1in; font: 9pt/1.4 var(--font-ui); break-inside: avoid; } .cols b { display: block; margin-bottom: .04in; }
+  .sign { display: grid; grid-template-columns: 1fr 1fr; gap: .4in; margin-top: .5in; font: 9.5pt var(--font-ui); } .sign div { border-top: 1px solid var(--fg); padding-top: .05in; }
+  .foot { margin-top: auto; font-size: 9pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ===== Cover ===== -->
+<section class="page cover">
+  <span class="label">Project proposal</span>
+  <h1>{{Project name}}</h1>
+  <p class="lead">{{One-line pitch}}</p>
+  <div style="margin-top:.6in">
+    <p><b>Prepared for:</b> {{Client / stakeholder}}<br><b>Prepared by:</b> {{Team}}<br><b>Date:</b> {{Month DD, YYYY}} · <b>Version:</b> {{1.0}}</p>
+  </div>
+  <p class="foot">Confidential — for {{Client}} only.</p>
+</section>
+
+<!-- ===== 1 · Executive summary + Problem & goals ===== -->
+<section class="page">
+  <h2>1. Executive summary</h2>
+  <p>{{3–4 sentences: what it is, who it is for, the outcome, the plan, the ask.}}</p>
+  <div class="box"><b>The ask:</b> {{Approve scope and start P2 by DATE.}}</div>
+
+  <h2>2. Problem &amp; goals</h2>
+  <h3>The problem</h3>
+  <ul><li>{{Pain point 1}}</li><li>{{Pain point 2}}</li></ul>
+  <h3>Goals &amp; success measures</h3>
+  <table><thead><tr><th>Goal</th><th>Measure</th><th>Target</th></tr></thead>
+  <tbody><tr><td>{{goal}}</td><td>{{metric}}</td><td>{{value}}</td></tr></tbody></table>
+</section>
+
+<!-- ===== 3 · Solution, users, scope ===== -->
+<section class="page">
+  <h2>3. Solution &amp; features</h2>
+  <table><thead><tr><th>ID</th><th>Feature</th><th>What it does</th><th>Roles</th></tr></thead>
+  <tbody>
+    <tr><td>F-01</td><td>{{Feature}}</td><td>{{Benefit}}</td><td>{{Roles}}</td></tr>
+    <tr><td>F-02</td><td>{{Feature}}</td><td>{{Benefit}}</td><td>{{Roles}}</td></tr>
+  </tbody></table>
+
+  <h2>4. Users &amp; roles</h2>
+  <table><thead><tr><th>Role</th><th>Goals</th><th>Key screens</th></tr></thead>
+  <tbody><tr><td>{{Role}}</td><td>{{goal}}</td><td>{{R-01, R-02}}</td></tr></tbody></table>
+
+  <h2>5. Scope (v1)</h2>
+  <h3>In scope</h3><ul><li>{{item}}</li></ul>
+  <h3>Out of scope</h3><ul><li>{{item}}</li></ul>
+</section>
+
+<!-- ===== 6–7 · Design + Layout ===== -->
+<section class="page">
+  <h2>6. Design direction</h2>
+  <p><b>{{Direction name}}</b> — {{mood, 3 words}}. {{Why it fits the users and the concept.}}</p>
+  <div class="swatches">
+    <div class="sw"><i style="background:{{#hex}}"></i>Primary {{#hex}}</div>
+    <div class="sw"><i style="background:{{#hex}}"></i>Surface {{#hex}}</div>
+    <div class="sw"><i style="background:{{#hex}}"></i>Text {{#hex}}</div>
+    <div class="sw"><i style="background:{{#hex}}"></i>Accent {{#hex}}</div>
+  </div>
+  <p>Typography: {{UI font}} / {{Display font}} · Icons: {{Material | Lottie}} · Modes: {{light / dark}}. Comfort and accessibility: text contrast meets WCAG AA; no pure black on pure white; one accent for actions.</p>
+
+  <h2>7. Layout strategy</h2>
+  <p>Strategy: <b>{{Layout Responsive | Normal Responsive}}</b> — {{one-line reason}}. {{Web + mobile: one project, a distinct layout per screen class.}}</p>
+  <div class="cols">
+    <div><b>Mobile</b>{{navigation + primary layout}}</div>
+    <div><b>Tablet</b>{{navigation + primary layout}}</div>
+    <div><b>Desktop</b>{{navigation + primary layout}}</div>
+  </div>
+  <h3>Key screens</h3>
+  <table><thead><tr><th>ID</th><th>Route</th><th>Pattern</th><th>Mobile</th><th>Tablet</th><th>Desktop</th></tr></thead>
+  <tbody><tr><td>R-01</td><td>{{/route}}</td><td>{{pattern}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td></tr></tbody></table>
+</section>
+
+<!-- ===== 8–9 · Architecture, data ===== -->
+<section class="page">
+  <h2>8. Architecture &amp; stack</h2>
+  <table><thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Frontend</td><td>{{React | Native (plain HTML/CSS/JS)}} + Tailwind CSS</td><td>{{reason}}</td></tr>
+    <tr><td>Backend</td><td>{{…}}</td><td>{{reason}}</td></tr>
+    <tr><td>Database</td><td>{{…}} (PHP migrations + seeds)</td><td>{{reason}}</td></tr>
+    <tr><td>Auth · Hosting</td><td>{{…}}</td><td>{{reason}}</td></tr>
+  </tbody></table>
+  <p>Live credentials and hosts are kept in GitHub Secrets — never in the repository.</p>
+
+  <h2>9. Data model</h2>
+  <table><thead><tr><th>ID</th><th>Entity</th><th>Purpose</th><th>Key relations</th></tr></thead>
+  <tbody><tr><td>T-01</td><td>{{table}}</td><td>{{purpose}}</td><td>{{relations}}</td></tr></tbody></table>
+</section>
+
+<!-- ===== 10–12 · Plan, risks, approval ===== -->
+<section class="page">
+  <h2>10. Phases &amp; timeline</h2>
+  <table><thead><tr><th>Phase</th><th>Deliverable</th><th>Exit criteria</th><th>Timing</th></tr></thead>
+  <tbody>
+    <tr><td>P1 Foundation</td><td>Proposal, design + layouts, schema, plan</td><td>Approved by client</td><td>{{dates}}</td></tr>
+    <tr><td>P2 Mock UI</td><td>Every screen on sample data</td><td>Matches approved layouts</td><td>{{dates}}</td></tr>
+    <tr><td>P3 API</td><td>Endpoints with validation + authorization</td><td>All endpoint tests pass</td><td>{{dates}}</td></tr>
+    <tr><td>P4 Integration</td><td>Screens on the real API</td><td>End-to-end paths pass</td><td>{{dates}}</td></tr>
+    <tr><td>P5 Cleanup &amp; ship</td><td>Docs, regression, deployment</td><td>Deploy checklist complete</td><td>{{dates}}</td></tr>
+  </tbody></table>
+
+  <h2>11. Risks &amp; assumptions</h2>
+  <table><thead><tr><th>Risk / assumption</th><th>Impact</th><th>Mitigation</th></tr></thead>
+  <tbody><tr><td>{{risk}}</td><td>{{impact}}</td><td>{{mitigation}}</td></tr></tbody></table>
+
+  <h2>12. Approval</h2>
+  <p>Approving this proposal confirms the scope, design direction, and layouts above, and authorizes work to begin on P2.</p>
+  <div class="sign"><div>{{Client name}} — signature / date</div><div>{{Team lead}} — signature / date</div></div>
+</section>
+
+</body>
+</html>

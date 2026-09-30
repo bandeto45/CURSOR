@@ -22,6 +22,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 - [ ] Design direction recommended → approved → written to `frontend-design/SKILL.md` + Tailwind theme
 - [ ] Layout strategy chosen; `route-layouts.mdc` `APPROVED` (every route `R`)
 - [ ] `phase-plan.mdc` filled (endpoints `E`, units `U` for P1–P5)
+- [ ] Proposal package drafted from `.cursor/templates/` (deck, Letter document + PDF, guide skeleton) and reviewed by the dev — may finish inside P1
 - [ ] Live env path confirmed: **GitHub Secrets** (`/deploy`)
 - [ ] Pointer files generated; Handoff Log started; default rules untouched
 
@@ -32,15 +33,16 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 | # | Topic | Ask | AI recommends | Writes to |
 |---|-------|-----|---------------|-----------|
 | 1 | **Concept** | Name + pitch · users/roles · v1 must-have features · out of scope · milestones | Feature list, roles, entities, domain rules, risks | `concept-domain.mdc`, Profile |
-| 2 | **Stack** | Frontend · backend · database · auth · clients (`web` / `mobile` / `web + mobile`, one codebase) · hosting · package-manager limits · separate API host? | A stack that fits the concept and constraints | Profile, `concept-domain.mdc` |
-| 3 | **Layout** | **Normal Responsive** \| **Layout Responsive** \| **Auto** — see `layout-strategy.mdc` | Strategy + a layout for **every route** (mobile · tablet · desktop) | Profile, `route-layouts.mdc` |
+| 2 | **Stack** | Frontend + **flavor** (`react` \| `native` = plain HTML/CSS/JS) · backend · database · auth · clients (`web` / `mobile` / `web + mobile` — always **one project**) · hosting · package-manager limits · separate API host? | A stack that fits the concept and constraints; the ready structure for the surface (`project-structure.mdc`) | Profile, `concept-domain.mdc` |
+| 3 | **Layout** | `web`: **Normal Responsive** \| **Layout Responsive** \| **Auto** · `mobile` / `web + mobile`: Layout Responsive is fixed (stated, not asked) — `layout-strategy.mdc` | Strategy + a layout for **every route** (mobile · tablet · desktop) | Profile, `route-layouts.mdc` |
 | 4 | **Design** | Brand constraints already decided (logo, colors, fonts, light/dark), tone words, references — all optional | 2–3 directions, one Recommended; icon system (`material` \| `lottie`); light/dark | `frontend-design/SKILL.md`, Tailwind theme, Profile |
 | 5 | **Forms & UI** | Extra field types or component variants beyond the standard set · validation library or hand-rolled | Confirms the locked primitives; picks validation approach | Profile, skill |
 | 6 | **Data** | Soft-delete preference · demo seed data | Tables `T` from the concept; naming | `concept-domain.mdc` |
 | 7 | **SEO** | On or off · public routes · locale · social image | On/off with reason; Schema.org types when on | Profile, `settings.json` |
-| 8 | **Delivery** | Phases to skip/merge · i18n · analytics/observability · testing expectations · compliance (PII, payments, age gates) · anything else | The plan: build order, testing level, risks | `phase-plan.mdc`, Profile |
+| 8 | **Proposal (P1)** | Audience (client / team / investor) · presentation flavor `react` \| `native` · date/version | Flavor (`REC-plan-n`); the deck, Letter-size proposal document, and guide from the approved decisions (`proposal.mdc`) | `docs/proposal/`, `docs/GUIDE.md`, Profile |
+| 9 | **Delivery** | Phases to skip/merge · i18n · analytics/observability · testing expectations · compliance (PII, payments, age gates) · anything else | The plan: build order, testing level, risks | `phase-plan.mdc`, Profile |
 
-Locked defaults are **confirmed, not negotiated**: Tailwind, custom forms, server validation, PHP migrations/seeds, states/skeleton/lazy load, phases, GitHub Secrets for live env (`restrictions.mdc`).
+Flow per topic is `format.mdc`. Locked defaults are **confirmed, not negotiated**: Tailwind, custom forms, server validation, PHP migrations/seeds, states/skeleton/lazy load, phases, GitHub Secrets for live env (`restrictions.mdc`).
 
 ---
 
@@ -54,8 +56,10 @@ Locked defaults are **confirmed, not negotiated**: Tailwind, custom forms, serve
 | **One-line pitch** | TBD |
 | **Roles** | TBD |
 | **Stack — Frontend / Backend / Database / Auth** | TBD / TBD / TBD / TBD |
-| **Clients / surfaces** | `web` \| `mobile` \| `web + mobile` |
-| **Layout strategy** | `normal` \| `layout` \| `auto` — one codebase (`layout-strategy.mdc`) |
+| **Clients / surfaces** | `web` \| `mobile` \| `web + mobile` (one project; `web + mobile` → `layout`) |
+| **Frontend flavor** | `react` \| `native` (plain HTML/CSS/JS + Tailwind) |
+| **Proposal deck** | `react` \| `native` (`proposal.mdc`) |
+| **Layout strategy** | `normal` \| `layout` \| `auto` — one codebase; `mobile` and `web + mobile` are always `layout` (`layout-strategy.mdc`) |
 | **Layout resolved** | TBD — `normal` \| `layout` \| `mixed` + 1-line reason |
 | **Design direction** | TBD — name + mood + who chose (`design-direction.mdc`) |
 | **Theme / Typography** | TBD (from the approved direction → Tailwind theme) |
@@ -74,7 +78,7 @@ Locked, not asked: CSS = **Tailwind**; UX = simplified, easy to use, eye-comfort
 
 | Phase | Name | Build |
 |-------|------|-------|
-| **P1** | Foundation | Concept lock, design + layouts approved, tokens, skeleton, migrations/seeds, phase plan |
+| **P1** | Foundation | Concept lock, design + layouts approved, tokens, skeleton, migrations/seeds, phase plan, **proposal package (deck · Letter document · guide)** |
 | **P2** | Mock UI | Every route to its layout block on mocks; forms + client validation |
 | **P3** | API | Endpoint by endpoint; server validation + authz; UI stays on mocks |
 | **P4** | Integration | UI ↔ API feature by feature; mocks removed |
@@ -104,6 +108,8 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Global | `references.mdc` | Using references without leaving traces |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
 | Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints; pattern catalog |
+| Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
+| Deliverable | `proposal.mdc` | P1 proposal deck (React/native), Letter-size document, guide |
 | UI | `ui-styling.mdc` | Tailwind system, shared components, motion, frontend conventions |
 | UI | `forms.mdc` | Custom form controls + patterns |
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
@@ -113,7 +119,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 

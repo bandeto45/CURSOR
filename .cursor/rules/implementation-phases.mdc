@@ -81,19 +81,20 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 - [ ] P1.4 **Layout strategy chosen** + **`route-layouts.mdc`** filled and approved (every v1 route: mobile · tablet · desktop)
 - [ ] P1.5 **Route & feature inventory** — route list × role, endpoint list (method, path, purpose), function inventory per feature
 - [ ] P1.6 **`phase-plan.mdc` generated** — P2–P5 line items with Function Specs for the critical path; the rest as named stubs
-- [ ] P1.7 **Repo skeleton** per stack: `web/` (or `app/`), `api/`, `migrations/`, `seeds/`, `components/ui/`, `mocks/`, `tests/`, shared `types/contracts`
+- [ ] P1.7 **Repo skeleton** from `project-structure.mdc` for the Profile surface (`web` \| `mobile` \| `web + mobile`, one project) and flavor (`react` \| `native`): `app/`, `api/`, `migrations/`, `seeds/`, `docs/`, `components/ui/`, `mocks/`, `tests/`, shared `types/contracts`
+- [ ] P1.7a **Proposal package** (`proposal.mdc`) — presentation (`react` \| `native`), **Letter-size proposal document** (+ PDF), and guide skeleton in `docs/`; dev reviews → `APPROVED`
 - [ ] P1.8 **Migrations** — one PHP migration per entity: `up()` creates table/indexes/FKs, `down()` reverses; naming `YYYYMMDDHHMM_create_<table>`; **no `.sql`**
 - [ ] P1.9 **Migration runner** — `migrate()`, `rollback()`, `status()`; verified up → down → up on an empty DB
 - [ ] P1.10 **Seeds** — `Seeder::run()` per entity, idempotent, demo data only from concept (if needed)
 - [ ] P1.11 **`.env.example`** (keys only) + config loader `env()`; app boots empty; production values in **GitHub Secrets** (`/deploy`)
 - [ ] P1.12 **UI primitives scaffold** in `components/ui/`: `Button`, `Input` (+ all form controls), `Modal`, `Popover`, `Alert/Toast`, `Card`, `Tabs`, `Navbar`, `BottomToolbar`, `PageHeader`, `BackButton`, `Skeleton`, `EmptyState`, `ErrorState`, `NotFound` — stubs with props + story/preview
-- [ ] P1.13 **Layout shells scaffold** per strategy: `normal` → one `AppShell`; `layout` → `MobileShell`, `TabletShell`, `DesktopShell` + breakpoint switcher
+- [ ] P1.13 **Layout shells scaffold** per strategy: `normal` → one `AppShell`; `layout` → `MobileShell`, `TabletShell`, `DesktopShell` + `ShellSwitcher`/`useViewClass()`; route folders (container + Mobile/Tablet/Desktop views) per `project-structure.mdc`
 - [ ] P1.14 **Icon system** recorded (`material` \| `lottie`); 404/error/empty + skeleton + lazy-load plan noted
 - [ ] P1.15 **Tooling**: lint, format, test runner, hooks working (`/lint`, `/test`)
 
 ### Exit (P1 → P2)
 
-Run **Phase exit gate**. Verify: schema matches concept; migrate up/down/up passes; theme + shells + primitives stubbed; every v1 route has an approved layout block; `phase-plan.mdc` exists; no feature UI pretending to be done.
+Run **Phase exit gate**. Verify: schema matches concept; migrate up/down/up passes; theme + shells + primitives stubbed; every v1 route has an approved layout block; `phase-plan.mdc` exists; **proposal package approved** (deck opens, document prints to Letter PDF with no leftover `{{placeholders}}`, guide commands run); no feature UI pretending to be done.
 
 ---
 

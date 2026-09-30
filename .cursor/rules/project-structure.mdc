@@ -1,0 +1,86 @@
+---
+description: Ready structure per surface — web, mobile, or web + mobile in ONE project with Layout Responsive; React.js or Native flavor
+alwaysApply: false
+globs: "**/*.{jsx,tsx,js,ts,vue,html,css}"
+---
+
+# Project structure
+
+> Purpose: one ready folder/flow pattern per surface so every project — and every AI — builds the same shape. Read at P1 (skeleton) and whenever adding a route, shell, or feature.
+
+## Rules
+
+### 1. Surface profiles (from Profile → Clients / surfaces)
+| Surface | Layout strategy | Shells | Notes |
+|---------|-----------------|--------|-------|
+| **web** | `normal` \| `layout` \| `auto` (dev's choice, `layout-strategy.mdc`) | `normal` → `AppShell` · `layout` → Mobile + Tablet + Desktop | Public/marketing routes may be `normal` (`mixed`) |
+| **mobile** | `layout` (mobile-first) | `MobileShell` primary + `TabletShell`; `DesktopShell` optional | Bottom tabs, sheets, safe areas, gestures; app-ready |
+| **web + mobile** | **`layout` — required** (Normal Responsive is not allowed) | `MobileShell` + `TabletShell` + `DesktopShell` | **One project, one codebase.** Features are shared; only shells and per-route views differ. Never a separate mobile app or repo |
+
+### 2. Flavor (Profile → Frontend flavor: `react` \| `native`)
+| Concept | `react` (React.js) | `native` (plain HTML + CSS + JS, Tailwind) |
+|---------|--------------------|--------------------------------------------|
+| Component | `Name.jsx` / `.tsx` | `name.js` module exporting `render(el, props)` + `name.html` partial if needed |
+| Hook / state | `useX()` in `hooks/` | `x.store.js` (plain module / small store) |
+| Router | React Router (or stack equivalent) | `router.js` (hash or history, route table from `route-layouts.mdc`) |
+| View class switch | `useViewClass()` → `'mobile' \| 'tablet' \| 'desktop'` | `viewClass()` + `matchMedia` listener in `lib/view-class.js` |
+
+Everything below is written in `react` names; `native` uses the mapping above with the same folders.
+
+### 3. Shared tree (all surfaces)
+```
+<project>/
+├─ CURSOR.md  AGENTS.md  CLAUDE.md  .cursor/          # the pack
+├─ docs/
+│  ├─ proposal/   deck/  proposal.html  (→ proposal.pdf)   # P1 (proposal.mdc)
+│  └─ GUIDE.md                                             # P1 skeleton, P5 final
+├─ app/                                # frontend (one project for every surface)
+│  ├─ index.html   package.json   tailwind.config.*        # tokens from the approved direction
+│  └─ src/
+│     ├─ app/          Router, providers, ShellSwitcher
+│     │  └─ shells/    (see per-surface below)
+│     ├─ routes/       ONE folder per R-nn (see §4)
+│     ├─ features/     <feature>/ components · hooks · services · types   (F-nn, shared by all shells)
+│     ├─ components/
+│     │  ├─ ui/        Button, Input… (forms.mdc), Modal, Popover, Alert, Card, Tabs, Navbar, BottomToolbar, PageHeader
+│     │  └─ states/    NotFound, ErrorState, EmptyState, Skeleton (icons-states.mdc)
+│     ├─ lib/          apiClient, env, useViewClass, validators, format
+│     ├─ mocks/        <entity>.mock + mockApi   (P2; removed in P4/P5)
+│     ├─ styles/       theme tokens, globals
+│     └─ tests/
+├─ api/                                # backend (backend.mdc)
+│  ├─ public/index.php   routes/   controllers/   services/   repositories/   validators/   middleware/   lib/
+├─ migrations/  seeds/                 # PHP only (database.mdc)
+└─ .env.example                        # keys only; live values in GitHub Secrets
+```
+
+### 4. Route folder (Layout Responsive) — one per `R-nn`
+```
+routes/orders/                         # R-07
+├─ OrdersPage.jsx        # container: data hooks, state, handlers — NO layout markup
+├─ OrdersMobile.jsx      # regions from route-layouts.mdc → Mobile (<768)
+├─ OrdersTablet.jsx      # → Tablet (768–1023)
+├─ OrdersDesktop.jsx     # → Desktop (≥1024)
+└─ index.js              # lazy export
+```
+`OrdersPage` calls `useViewClass()` and renders the matching view, passing the same props to each. Views only compose `components/ui/` and `features/`; they never fetch. (`normal` mode: a single `OrdersPage.jsx` with responsive utilities.)
+
+### 5. Shells per surface
+| Surface | `app/shells/` |
+|---------|---------------|
+| web `normal` | `AppShell.jsx` |
+| web `layout` · mobile · web + mobile | `MobileShell.jsx` (bottom tabs, drawer, safe areas) · `TabletShell.jsx` (nav rail, split panes) · `DesktopShell.jsx` (sidebar/top bar) · `ShellSwitcher.jsx` (chooses by `useViewClass()`; one route tree, one feature tree) |
+| mobile-only | `MobileShell.jsx` + `TabletShell.jsx` (+ `DesktopShell.jsx` if requested) |
+
+### 6. Platform seams (web + mobile in one project)
+- Platform differences (share sheet, install prompt, haptics, back gesture) live behind `lib/platform/` adapters; features call the adapter, never `navigator.*` directly
+- Installable/PWA assets (`manifest`, icons, service worker) only when the Profile says app-ready
+- One design token set, one form system, one route table for all classes
+
+### 7. Naming & IDs
+Folder = route slug; add the ID in the file header comment (`// R-07`). Units in `phase-plan.mdc` (`U-nn`) point to these paths.
+
+## Do not
+- Create a separate mobile project/repo for `web + mobile`; pick `normal` for `web + mobile`
+- Put layout markup in the container, or fetch data inside a view
+- Fork components per surface — vary composition in shells/views, not the primitives

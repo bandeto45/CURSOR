@@ -36,7 +36,7 @@ alwaysApply: true
 | Page shell | Max-width container + safe areas; every new page reuses it |
 | Sections | Vertical rhythm; optional subtle band |
 
-Layout *strategy* (normal / layout / auto), breakpoints, and per-route layouts: `layout-strategy.mdc`, `route-layouts.mdc`. Under Layout Responsive, shells switch by breakpoint (`MobileShell` / `TabletShell` / `DesktopShell`) over one feature tree; tokens, forms, and components are shared.
+Layout *strategy* (normal / layout / auto), breakpoints, and per-route layouts: `layout-strategy.mdc`, `route-layouts.mdc`. Folder, shell, and route-folder structure per surface: `project-structure.mdc`. Under Layout Responsive, shells switch by breakpoint (`MobileShell` / `TabletShell` / `DesktopShell`) over one feature tree; tokens, forms, and components are shared.
 
 ### Typography
 Theme scale only (`text-xs`…`text-4xl+`); `h1`–`h6` map to the display scale; body `text-base leading-relaxed`; muted via token; links use brand color + underline-offset on hover; labels `text-sm font-medium`.

@@ -9,7 +9,7 @@ alwaysApply: true
 
 ## Rules
 
-### The three options (asked for every project)
+### The three options (asked when Clients = `web`; `mobile` and `web + mobile` are fixed to `layout`)
 | Option | Value | Meaning | Best for | Not for |
 |--------|-------|---------|----------|---------|
 | **Normal Responsive** | `normal` | One composition that reflows: columns collapse, nav folds. Mobile-friendly website — **not** mobile-app-ready | Marketing, blogs, simple forms, content/SEO-first | App-like/PWA UX, data-heavy dashboards, tablet workflows |
@@ -27,7 +27,7 @@ alwaysApply: true
 | Simple forms, read-only pages | `normal` |
 | Public site **and** an app area | `mixed` |
 
-`web + mobile` → strongly recommend `layout`; if the dev still picks `normal`, record it as an accepted trade-off (not app-ready), don't refuse.
+Surface rule: `web + mobile` → **`layout` is required** (one project; Normal Responsive is not available). `mobile` → `layout` (mobile-first). `web` → the dev's choice. Ready folder/shell structure per surface: `project-structure.mdc`.
 
 ### Breakpoints
 | Class | Range | Design at | Tailwind |
@@ -39,7 +39,7 @@ alwaysApply: true
 Nav by class (`layout`): mobile bottom tabs/drawer · tablet nav rail/collapsible side nav · desktop sidebar or top navbar.
 
 ## Flow (`format.mdc`)
-1. **Ask** the three-way choice in plain language (even if Clients is already known).
+1. **Ask** the three-way choice in plain language when Clients = `web`. For `mobile` and `web + mobile`, **state** that `layout` applies (and why) instead of asking.
 2. **Recommend** as `REC-layout-1` (strategy) — with reasons from the signals above.
 3. **Decide → Write** Profile: Layout strategy, Layout resolved, one-line reason.
 4. **Derive routes** `R-nn` from the concept (every v1 screen, per role).

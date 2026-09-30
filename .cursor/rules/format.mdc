@@ -55,7 +55,7 @@ globs: <only when scoped>
 - One topic per file. **No basic/advanced split** — everything a topic needs is in its one file; optional parts are marked *(when the concept needs it)*.
 - Say a thing **once**, in the file that owns it; elsewhere link by filename.
 
-## 4. Project file anatomy (AI-filled files: `concept-domain.mdc`, `route-layouts.mdc`, `phase-plan.mdc`, `frontend-design/SKILL.md`)
+## 4. Project file anatomy (AI-filled files: `concept-domain.mdc`, `route-layouts.mdc`, `phase-plan.mdc`, `frontend-design/SKILL.md`; the P1 deliverables in `docs/` carry the same `Status:` line)
 
 ```
 # <Title>

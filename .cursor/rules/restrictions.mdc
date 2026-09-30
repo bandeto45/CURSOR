@@ -22,7 +22,11 @@ alwaysApply: true
 - Require the dev to supply hex codes/fonts — the AI recommends the design
 - Ship harsh or manipulative design (pure black on pure white, big saturated fills, dark patterns)
 - Under Layout Responsive: ship one stretched layout, or split into separate mobile/web projects
+- Choose Normal Responsive for `web + mobile`; ignore the surface structure in `project-structure.mdc`
 - Copy a third-party brand, trademarks, copy, or a reference wholesale; leave any source trace in files (`references.mdc`)
+
+## Proposal package (P1)
+- Ship the proposal with leftover `{{placeholders}}`, invented numbers/dates, non-Letter page size, or colors/fonts outside the approved direction
 
 ## Code & data
 - Add `.sql` migrations/seeds; concatenate user input into SQL; edit applied migrations in shared envs

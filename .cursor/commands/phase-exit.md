@@ -20,6 +20,7 @@ Close the **current** implementation phase before starting the next.
 1. Read `CURSOR.md` → **Current phase** and `.cursor/rules/implementation-phases.mdc`.
 2. Open `phase-plan.mdc`: list this phase’s units (`U-nn`) — done / deferred / missing.
 3. Run the shared **Phase exit gate**:
+   - P1 only: proposal package approved (deck, Letter PDF, guide)
    - Default rules intact (`CURSOR.md` → Rule map)
    - Smoke/tests for this phase’s deliverables
    - Bugs: fix now vs carry

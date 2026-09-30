@@ -1,0 +1,56 @@
+---
+description: P1 proposal package — presentation (React.js or Native), letter-size proposal document, and project guide
+alwaysApply: true
+---
+
+# Proposal package (part of P1)
+
+> Purpose: turn the approved concept, design, and layouts into three deliverables the client can review and sign off. Templates: `.cursor/templates/` (`README.md` there).
+
+## Rules
+
+### 1. Deliverables (all in `docs/`)
+| Deliverable | Format | Template | Output |
+|-------------|--------|----------|--------|
+| **Proposal presentation** | `react` (Vite) **or** `native` (single HTML file) — dev picks; AI recommends | `deck-react/` · `deck-native/index.html` | `docs/proposal/deck/` |
+| **Proposal document** | **US Letter 8.5 × 11 in**, print-ready HTML → PDF | `proposal-doc/proposal.html` | `docs/proposal/proposal.html` + `proposal.pdf` |
+| **Guide** | Markdown | `guide/GUIDE.md` | `docs/GUIDE.md` (skeleton in P1, finished in P5) |
+
+### 2. Presentation flavor (Profile → Proposal deck: `react` \| `native`)
+| Choose | When |
+|--------|------|
+| `native` | Default recommendation: zero build, one file, opens anywhere, easiest to email/host |
+| `react` | The project frontend is React and the deck should reuse its tokens/components, or the deck will grow (many slides, live data) |
+
+Same 12-slide story either way (order below). "Native" = plain HTML/CSS/JS, no framework.
+
+### 3. Slide order (12) — the document follows the same order (§4)
+1 Title · 2 Problem & goal · 3 Solution & features (`F`) · 4 Users & roles · 5 Scope in/out · 6 Design direction · 7 Layout strategy (mobile · tablet · desktop) · 8 Key screens (`R`) · 9 Architecture & data (`T`) · 10 Phases P1–P5 · 11 Risks · 12 Next steps / approval
+
+### 4. Document sections (Letter)
+Cover · 1 Executive summary · 2 Problem & goals · 3 Solution & features · 4 Users & roles · 5 Scope (v1) · 6 Design direction · 7 Layout strategy · 8 Architecture & stack · 9 Data model · 10 Phases & timeline · 11 Risks & assumptions · 12 Approval (signatures).
+Print rules: `@page` Letter, 1in margins, running header/footer + page numbers, tables repeat headers and never split rows, headings never orphaned, cover has no header/footer.
+
+### 5. Content sources (never invent)
+| Section | From |
+|---------|------|
+| Problem, goals, features, roles, scope, entities | `concept-domain.mdc` (`F`, `T`) |
+| Design | approved `REC-design-n` + `frontend-design/SKILL.md` |
+| Layout, key screens | `route-layouts.mdc` (`R`) |
+| Stack, phases, timing | Profile + `phase-plan.mdc` |
+| Risks | `concept-domain.mdc` risk list |
+
+### 6. Guide (dev + user)
+Sections: what this is · quick start (commands the AI has run) · project map (from `project-structure.mdc`) · how to work here (add a screen / endpoint / migration / design change) · roles & walkthroughs · conventions · environment & deploy · troubleshooting.
+
+## Flow (`format.mdc`)
+1. **Ask** — audience (client / team / investor), deck flavor, desired length, date/version. AI recommends the flavor as `REC-plan-n`.
+2. **Write** in this order, after design and layouts are `APPROVED`: deck → document → guide skeleton. Replace **every** `{{placeholder}}`; tokens only from the approved direction (no pure black/white, one accent).
+3. **Verify** — open the deck (keys, swipe, print), print the document to PDF and check: Letter size, page count, no split rows, no clipped text, placeholders gone; run every guide command.
+4. **Confirm** — dev reviews; status `DRAFT` → `APPROVED`. The dev's approval of the proposal is the P1 exit input.
+
+## Do not
+- Invent features, numbers, or dates that are not in the project files
+- Ship with leftover `{{placeholders}}`, or with colors/fonts outside the approved direction
+- Use A4 or other page sizes for the proposal document
+- Put source/reference traces (`references.mdc`) or AI/model names in any deliverable
