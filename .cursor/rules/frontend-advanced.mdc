@@ -8,7 +8,7 @@ alwaysApply: false
 Enable when rule level includes `advanced`. Forms/UI/validation **defaults stay on**.
 
 - One UI baseline route owns the visual language; shells inherit Tailwind tokens
-- Layout from Profile: **adaptive** when required (`web + mobile`) or chosen (web-only option); else **responsive** for web-only
+- Layout from Profile (`normal` \| `layout` \| `mixed`) — per-route blocks in `route-layouts.mdc`
 - Page transitions, infinite scroll, slideshow, parallax: `ui-styling-advanced.mdc`
 - Motion budget; honor `prefers-reduced-motion`
 - Performance: lazy load routes/chunks; optimize LCP

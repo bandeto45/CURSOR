@@ -1,7 +1,7 @@
 ---
 name: frontend-design
 description: >-
-  Tailwind visual system — Modern, Premium, Professional. Theme, typography, icons, UI baseline.
+  Tailwind visual system — AI-proposed, dev-approved look (UX-first, modern, eye-comfortable, return-worthy). Theme, typography, icons, UI baseline.
   Triggers: theme, branding, tokens, landing, UI baseline, forms, buttons, modals, layout.
 triggers:
   - theme, branding, design tokens, colors, typography, tailwind
@@ -18,7 +18,9 @@ triggers:
 | Field | Value |
 |-------|--------|
 | Product name | TBD |
-| Visual direction | **Modern · Premium · Professional · Simplified** (locked baseline) |
+| Design direction | TBD — name + mood, **proposed by the AI from the concept, approved by dev** (`design-direction.mdc`) |
+| Direction chosen by | TBD (dev picked option X / dev tweaked / AI-chosen "you decide") |
+| Baseline goals | **UX-first · Modern · Eye-comfortable · Return-worthy · Simplified** (locked) |
 | UI / UX goal | **Beautiful and easy to use** — clear hierarchy, calm layouts, simple flows |
 | CSS stack | **Tailwind CSS** (locked) |
 | UI baseline route | TBD (e.g. marketing `/`) |
@@ -32,7 +34,9 @@ triggers:
 - **Accessible** — contrast, focus, labels, touch targets (~44px min where practical)
 - Full rules: `ui-styling.mdc` UX section
 
-## Theme tokens (fill from intake → map to `tailwind.config` / `@theme`)
+## Theme tokens (fill from the approved AI design proposal → map to `tailwind.config` / `@theme`)
+
+Include measured contrast for text/UI pairs. Comfort rules (no pure black on pure white, one accent, soft dark mode) live in `design-direction.mdc`.
 
 | Role | Hex | Tailwind / CSS variable |
 |------|-----|-------------------------|
@@ -47,7 +51,7 @@ triggers:
 | Danger | TBD | `destructive` |
 | Success | TBD | `success` |
 
-## Typography scale (locked structure — fill families at intake)
+## Typography scale (locked structure — families from the approved direction)
 
 | Token | Typical use |
 |-------|-------------|
@@ -70,16 +74,16 @@ triggers:
 - Header height token: TBD (e.g. `h-14` / `--header-height`)
 - Grid/flex/gap: per `ui-styling.mdc`
 - **Clients / surfaces:** TBD — `web` \| `mobile` \| `web + mobile`
-- **Layout strategy:** TBD — `responsive` \| `adaptive`
-  - `web + mobile` → `adaptive` required; single codebase
-  - `web` only → default `responsive`; optional `adaptive` if chosen at intake (distinct mobile · tablet · desktop shells)
-- See `ui-styling.mdc` Layout strategy
+- **Layout strategy:** TBD — `normal` \| `layout` \| `auto` (resolved: `normal` \| `layout` \| `mixed`)
+  - `normal` → one composition reflowing · `layout` → distinct mobile · tablet · desktop layouts · `auto` → AI recommends, dev confirms
+  - Always single codebase; per-route layouts in `route-layouts.mdc`
+- See `layout-strategy.mdc`
 
 ## Icons & brand
 
 | Item | Choice |
 |------|--------|
-| Icon system | TBD — `material` \| `lottie` (locked after intake) |
+| Icon system | TBD — `material` \| `lottie` (AI recommends in the design proposal; locked after intake) |
 | Lottie asset path | TBD if `lottie` |
 | Logo / mark | TBD |
 | Wordmark rules | TBD |
@@ -109,5 +113,7 @@ Add brand-specific Tailwind theme keys, marketing gradients, extra component var
 - Skip shared modal/nav/form/button primitives
 - Emoji as product chrome
 - Unstyled native form controls
-- When Layout strategy = **adaptive**: fluid-only responsive or separate mobile/web projects against Profile
-- When web-only: ignore intake choice of responsive vs adaptive
+- When Layout strategy = `layout`: stretch one layout instead of distinct mobile · tablet · desktop layouts, or split into separate projects
+- Build screens that are not in `route-layouts.mdc`
+- Use colors/fonts that are not from the approved design direction
+- Harsh pairs (pure black on pure white), large saturated fills, or manipulative patterns

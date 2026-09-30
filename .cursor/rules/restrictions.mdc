@@ -1,5 +1,5 @@
 ---
-description: Hard bans for every project using this Cursor pack
+description: Hard bans for every project using this pack (any AI)
 alwaysApply: true
 ---
 
@@ -34,9 +34,13 @@ alwaysApply: true
 - Copy a reference wholesale — take only the parts needed for the requested work
 - Write where a design or pattern came from inside files (code, comments, docs, commits, UI copy)
 - Run destructive git/db commands without explicit user confirmation
-- When Layout strategy = **adaptive**: use fluid-only responsive instead of distinct mobile · tablet · desktop shells
+- When Layout strategy = `layout`: use fluid-only stretched layouts instead of distinct mobile · tablet · desktop layouts
 - When Clients = **web + mobile**: split into separate mobile and web projects/repos when Profile requires a **single codebase**
-- For **web** only: skip asking responsive vs adaptive, or ignore the recorded Layout strategy
+- Skip asking the Layout strategy choice (`normal` \| `layout` \| `auto`), or ignore the recorded choice
+- Build P1 screens before `route-layouts.mdc` is filled and approved
+- Require the dev to hand over hex codes/fonts — the AI proposes the design; dev approves
+- Ship harsh or manipulative design (pure black on pure white, big saturated fills, dark patterns)
+- Assume a single AI/tool, keep decisions only in chat, or skip the AI Handoff Log
 
 ## Prefer
 
@@ -46,5 +50,6 @@ alwaysApply: true
 - Documented env in `.env.example` only (keys + placeholders — never live values)
 - Production/live values in **GitHub Secrets**: FTP/SSH, database, `APP_URL` / API hosts (web **and** mobile when split), and every new env key — CI injects at deploy (`/deploy`)
 - Concept → domain file → migrations → API → UI
-- **web + mobile** or Layout = **adaptive:** one project with adaptive shells; shared tokens/forms/components across surfaces
-- **web** only + **responsive:** mobile-first reflow of one composition
+- Layout = `layout`: one project, distinct per-class layouts; shared tokens/forms/components across surfaces
+- Layout = `normal`: mobile-first reflow of one composition
+- Build from `route-layouts.mdc`; edit it first when a layout changes

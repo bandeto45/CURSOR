@@ -1,5 +1,5 @@
 ---
-description: Locked Tailwind UI system — Modern, Premium, Professional; extensible, not replaceable
+description: Locked Tailwind UI system and shared components — look & feel is AI-suggested (design-direction.mdc); extensible, not replaceable
 alwaysApply: true
 ---
 
@@ -8,7 +8,7 @@ alwaysApply: true
 ## Lock policy
 
 - **Stack:** **Tailwind CSS** is the styling engine for product UI (locked).
-- **Direction:** **Modern · Premium · Professional** — calm spacing, clear hierarchy, refined surfaces, no noisy clutter.
+- **Direction:** **UX-first · Modern · Eye-comfortable · Return-worthy** — calm spacing, clear hierarchy, refined surfaces, no noisy clutter. The concrete palette/type/mood is **suggested by the AI and approved by the dev** (`design-direction.mdc`); it is not fixed by this pack.
 - **UI + UX (locked):** **Simplified, beautiful, easy to use** — see UX principles below.
 - **Cannot replace** this base system with another CSS framework, bare browser chrome, or per-page one-off skins.
 - **Can extend:** add project tokens in `tailwind.config` / `@theme`, CSS variables, and **additive** utility layers or component variants — never delete or bypass the locked primitives below.
@@ -44,8 +44,8 @@ Design must be **simple, beautiful, and easy to use**. Pretty means clear — no
 | **Touch & click** | Comfortable targets (min ~44px touch); spacing that prevents mis-taps |
 | **Calm beauty** | Whitespace, type rhythm, subtle borders/shadows — not decoration overload |
 | **Accessible** | Contrast, focus, keyboard — beauty includes usability |
-| **Layout strategy** | Follow Profile: **adaptive** when required or chosen; **responsive** when web-only default — see Layout strategy below |
-| **Mobile-first** | When Layout = **responsive**: small screens first; progressive enhancement |
+| **Layout strategy** | Follow Profile (`normal` \| `layout` \| `auto`) and the approved per-route map — `layout-strategy.mdc`, `route-layouts.mdc` |
+| **Mobile-first** | Design the smallest screen first in every mode; progressive enhancement |
 
 **Do not:** cram dashboards, stack 5+ CTAs, hide core actions, or ship “pretty but confusing” UI.
 
@@ -53,40 +53,15 @@ Design must be **simple, beautiful, and easy to use**. Pretty means clear — no
 
 ## Layout strategy (from Project Profile)
 
-| Clients | Layout strategy | Behavior |
-|---------|-----------------|----------|
-| **web + mobile** | **`adaptive` (required)** | Distinct shells for mobile · tablet · desktop; **single codebase** — not fluid-only responsive; not separate projects |
-| **web** only | **`responsive` (default)** | One layout that reflows to mobile/tablet; mobile-first progressive enhancement |
-| **web** only | **`adaptive` (optional)** | Ask at intake; if chosen, distinct mobile · tablet · desktop shells in the same web project |
-| **mobile** only | Platform-native / single surface | Progressive within that surface |
+Chosen at intake: **Normal Responsive** (`normal`) · **Layout Responsive** (`layout`) · **Auto** (`auto` → AI recommends → resolved). Full rules, breakpoints, and pattern catalog: `layout-strategy.mdc`. **Per-route** mobile · tablet · desktop layouts: `route-layouts.mdc` (build from it).
 
-### Adaptive layout (when Layout strategy = `adaptive`)
+| Mode | Behavior |
+|------|----------|
+| `normal` | One composition that reflows (columns collapse, nav folds). Mobile-friendly website — not app-ready |
+| `layout` | Distinct layout per class: mobile (touch-first: bottom tabs, stacked, sheets) · tablet (mid density: rail/split panes) · desktop (full chrome, multi-column, hover). **One codebase**, shared tokens/forms/components; only shell/composition differ |
+| `mixed` (from Auto) | Named route groups use `normal` or `layout` as recorded |
 
-Applies when Clients = **web + mobile** (always), or Clients = **web** and the user chose **adaptive** at intake:
-
-| Rule | Apply |
-|------|--------|
-| **Strategy** | **Adaptive** — different layout structure per class, not the same layout scaled |
-| **Breakpoints** | Mobile (~375), tablet (~768), desktop (~1024 / 1280+) — map to Tailwind screens |
-| **Mobile layout** | Touch-first: bottom toolbar / tabs, stacked content, drawer nav when needed |
-| **Tablet layout** | Mid density: optional side nav or split panes; not a stretched phone UI |
-| **Desktop / web layout** | Full chrome: top navbar, multi-column where useful, hover-friendly targets |
-| **Codebase** | **One single project** — shared tokens, forms, components; layout shells switch by breakpoint/platform. Do **not** create separate mobile and web apps/repos for the same product unless Profile explicitly says so |
-| **Shared** | Same design tokens, form chrome, icons-states; only **shell / composition** differ |
-
-**Do not (when adaptive):**
-
-- Treat “responsive” as enough (same DOM stretched with only `w-full` / flex wrap)
-- Duplicate the product into two projects (“mobile app” + “web app”) when Profile requires one codebase
-- Ship phone layout on desktop or desktop chrome on phone without an adaptive shell
-
-### Responsive layout (when Layout strategy = `responsive`)
-
-Default for **web-only** projects (unless the user opted into adaptive):
-
-- Mobile-first reflow of one composition; breakpoints for spacing/columns/nav collapse
-- Shared primitives still required; no orphan page skins
-- At intake the AI **must ask** whether to upgrade to **adaptive** (distinct mobile/tablet layouts) or keep responsive
+**Do not:** under `layout`, ship the same DOM merely stretched; split into separate mobile/web projects; put a wide desktop table on mobile.
 
 ---
 
@@ -184,9 +159,9 @@ Forms-specific controls: `forms.mdc` (input, text, editor, checkbox, **radio**, 
 
 ---
 
-## Aesthetic — Modern · Premium · Professional · Simplified
+## Aesthetic — UX-first · Modern · Eye-comfortable · Simplified
 
-- Generous whitespace; limited font weights; restrained color (primary + neutrals)
+- Generous whitespace; limited font weights; restrained color (one accent + neutrals); comfort rules in `design-direction.mdc`
 - Soft shadows / hairline borders — not heavy skeuomorphism
 - Consistent 8px (or 4px) spacing rhythm
 - **Less on screen, better on screen** — every block earns its place
@@ -211,8 +186,9 @@ Add without replacing locked base:
 - Inline styles for colors/spacing that bypass tokens (except rare dynamic values)
 - Skip shared components for modals, alerts, nav, buttons, forms
 - Remove focus rings or back affordances for aesthetics
-- When Layout strategy = **adaptive**: ship fluid-only responsive instead of adaptive mobile · tablet · desktop shells
-- When Clients = **web + mobile**: split into separate mobile/web projects contrary to **single codebase**
-- Skip asking web-only projects whether they want **responsive** (default) or **adaptive**
+- Under Layout strategy = `layout`: ship fluid-only stretched layouts instead of distinct mobile · tablet · desktop layouts
+- Split the product into separate mobile/web projects (single codebase)
+- Skip asking the Layout strategy choice, or build screens not in `route-layouts.mdc`
+- Hardcode a look (colors/fonts) that is not from the approved design direction
 
 Advanced: `ui-styling-advanced.mdc`. Forms detail: `forms.mdc`.

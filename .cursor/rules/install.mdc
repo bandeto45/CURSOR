@@ -13,11 +13,14 @@ When installing this pack or Profile/`concept-domain` is still `TBD`:
    - `CURSOR.md` Project Profile
    - `.cursor/rules/concept-domain.mdc` (**concept** → domain rules + entities)
    - `.cursor/settings.json` project + seo
-   - `.cursor/skills/frontend-design/SKILL.md`
+   - `.cursor/skills/frontend-design/SKILL.md` (from the **AI's design proposal** the dev approved — `design-direction.mdc`)
+   - `.cursor/rules/route-layouts.mdc` (layout strategy + per-route layouts — `layout-strategy.mdc`)
 4. Keep **default rules** intact (forms, ui-styling, validation, database engine, icons-states).
 5. Confirm live/production: `.env` values, FTP, DB, and API hosts (web + mobile if split) go in **GitHub Secrets** — `/deploy`.
-6. If Clients = **web + mobile**: set Profile **Layout strategy** to **adaptive** + **single codebase**.
-7. If Clients = **web** only: ask **responsive** (default) vs **adaptive** (distinct mobile/tablet layouts); write the choice into Profile.
-8. Summarize. Do not feature-build until required fields are filled (or explicitly deferred).
+6. **Design:** do not ask the dev for hex/fonts. From the concept, **propose 2–3 directions with one Recommended**; dev picks/tweaks; write it down (`design-direction.mdc`).
+7. **Layout:** ask **Normal Responsive** \| **Layout Responsive** \| **Auto** for every project (`layout-strategy.mdc`); if Auto, recommend + confirm; write strategy + resolved value into Profile. Clients = `web + mobile` → strongly recommend Layout Responsive. Always **single codebase**.
+8. **Then generate per-route layouts** (mobile · tablet · desktop, or reflow notes for `normal`) into `route-layouts.mdc`; dev approves before P1.
+9. Append the first row to **AI Handoff Log**; run `.cursor/adapters/sync-ai-adapters.sh` so other AIs find `CURSOR.md`.
+10. Summarize. Do not feature-build until required fields are filled (or explicitly deferred).
 
-DB schema and domain rules **follow the concept**. Defaults **never** go away (including Material/Lottie choice, 404/error/empty, skeleton, lazy load; adaptive when Profile says so).
+DB schema and domain rules **follow the concept**. Defaults **never** go away (including Material/Lottie choice, 404/error/empty, skeleton, lazy load; design direction and route layouts once approved).

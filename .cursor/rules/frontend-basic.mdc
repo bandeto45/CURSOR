@@ -8,16 +8,16 @@ alwaysApply: false
 
 - Obey permanent defaults: `ui-styling.mdc`, `forms.mdc`, `validation.mdc`, `icons-states.mdc`
 - **Tailwind CSS** for all product UI; theme from `frontend-design` skill / `tailwind.config`
-- Aesthetic: **Modern · Premium · Professional · Simplified**
+- Aesthetic: **UX-first · Modern · Eye-comfortable · Simplified** — palette/type from the approved design direction (`design-direction.mdc`)
 - **UI + UX:** beautiful **and** easy — clear hierarchy, simple flows, consistent patterns, visible feedback
 - Shared primitives: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, forms, skeleton
 - Icons: Profile — **Material** or **Lottie**
 - 404 / status-error / empty · skeleton · lazy-loaded routes
 - Semantic HTML; visible focus
-- **Layout:** follow Profile **Layout strategy** (see `ui-styling.mdc`)
-  - `web + mobile` → **adaptive** required (distinct mobile · tablet · desktop); **single codebase**
-  - `web` only + **responsive** (default) → mobile-first reflow; breakpoints ~375 · 768 · 1024 · 1280
-  - `web` only + **adaptive** (intake choice) → distinct mobile · tablet · desktop shells in one project
+- **Layout:** follow Profile **Layout strategy** (`layout-strategy.mdc`) and build each screen from its block in `route-layouts.mdc`
+  - `normal` → one composition reflowing; breakpoints ~375 · 768 · 1024 · 1280
+  - `layout` → distinct mobile · tablet · desktop layouts per route; **single codebase**
+  - `mixed` → per route group as recorded
 - `components/ui/` — compose utilities; no orphan page skins
 - API base URL / host from env — never hardcode production hosts (web **and** mobile)
 - When backend is separate: the URL each client calls (`VITE_*` / `NEXT_PUBLIC_*` / `EXPO_PUBLIC_*` or stack equivalent) lives in env + **GitHub Secrets** (`/deploy`)

@@ -2,7 +2,7 @@
   "version": "1.0",
   "project": {
     "name": "TBD",
-    "description": "Reusable Cursor setup — ask + fill during install; defaults locked; concept drives DB/domain."
+    "description": "Reusable AI-agnostic setup (Claude, Kimi, Grok, Gemini, Copilot, Cursor…) — ask + fill during install; defaults locked; concept drives DB/domain/design/layout."
   },
   "agents": {
     "enabled": true,
@@ -31,7 +31,11 @@
       "implementation-phases.mdc",
       "references.mdc",
       "icons-states.mdc",
-      "concept-domain.mdc"
+      "concept-domain.mdc",
+      "multi-ai.mdc",
+      "design-direction.mdc",
+      "layout-strategy.mdc",
+      "route-layouts.mdc"
     ],
     "autoApply": {
       "defaults.mdc": ["**/*"],
@@ -45,6 +49,10 @@
       "references.mdc": ["**/*"],
       "icons-states.mdc": ["**/*"],
       "concept-domain.mdc": ["**/*"],
+      "multi-ai.mdc": ["**/*"],
+      "design-direction.mdc": ["**/*"],
+      "layout-strategy.mdc": ["**/*"],
+      "route-layouts.mdc": ["**/*"],
       "planning-basic.mdc": ["**/*"],
       "planning-advanced.mdc": ["**/*"],
       "forms-advanced.mdc": [
@@ -123,6 +131,12 @@
   "behavior": {
     "alwaysReadClaudeMd": true,
     "claudeMdPath": "CURSOR.md",
+    "aiAgnostic": true,
+    "multiAiHandoffLog": true,
+    "aiProposesDesign": true,
+    "layoutStrategyOptions": ["normal", "layout", "auto"],
+    "requireRouteLayouts": true,
+    "pointerFiles": ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".github/copilot-instructions.md", ".windsurfrules"],
     "preferEditOverCreate": true,
     "confirmDestructiveActions": true,
     "autoRunLintOnSave": true,

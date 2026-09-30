@@ -43,7 +43,8 @@ If anything fails: fix or document carry-over — do **not** silently advance.
 
 - [ ] P0.1 Intake complete — Profile + `concept-domain.mdc` filled
 - [ ] P0.2 Scope lock — v1 in/out of scope
-- [ ] P0.3 Design tokens + `frontend-design` skill + **Tailwind theme** filled
+- [ ] P0.3 **AI design proposal** (2–3 options, one Recommended) approved; tokens + `frontend-design` skill + **Tailwind theme** filled
+- [ ] P0.3b **Layout strategy** chosen (`normal` \| `layout` \| `auto`) + **`route-layouts.mdc`** filled and approved (per-route mobile · tablet · desktop)
 - [ ] P0.4 Repo skeleton (web/api/migrations/seeds per stack)
 - [ ] P0.5 PHP migrations for concept entities (`up`/`down`) — **no `.sql`**
 - [ ] P0.6 Seed.php / seeds for baseline demo data (if needed)
@@ -71,7 +72,7 @@ Run **Phase exit gate**. Especially verify: schema matches concept; Tailwind the
 - [ ] P1.8 **Skeleton loaders** on async list/detail regions
 - [ ] P1.9 **Lazy-loaded** routes/chunks wired
 - [ ] P1.10 Page shell: navbar/toolbar/back + tab pages where concept needs
-- [ ] P1.11 Layout check per Profile: **adaptive** → distinct shells at mobile · tablet · desktop; **responsive** → progressive reflow on agreed breakpoints
+- [ ] P1.11 Layout check against `route-layouts.mdc`: `layout` → distinct mobile · tablet · desktop layouts per route; `normal` → reflow as specified
 - [ ] P1.12 SEO stubs only if Profile SEO = `on` (full Schema.org can wait for P3/P4 if noted)
 
 ### Exit (P1 → P2)

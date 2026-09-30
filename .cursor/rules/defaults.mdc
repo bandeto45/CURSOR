@@ -12,7 +12,10 @@ These apply to **every** project. Do **not** delete, disable, or “skip for thi
 | Install intake | `install.mdc` | Ask + fill Profile before building |
 | Restrictions | `restrictions.mdc` | Secrets, GitHub Secrets for live env, authz, no `.sql`, etc. |
 | Forms UI | `forms.mdc` | Unified **custom** form controls |
-| UI styling | `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · locked components; layout = Profile **responsive** \| **adaptive** |
+| UI styling | `ui-styling.mdc` | **Tailwind** · simplified beautiful UX · locked components |
+| Design direction | `design-direction.mdc` | AI proposes look & feel; UX · modern · eye-comfortable · return-worthy; dev approves |
+| Layout | `layout-strategy.mdc` + `route-layouts.mdc` | `normal` \| `layout` \| `auto`; per-route mobile · tablet · desktop layouts |
+| Multi-AI | `multi-ai.mdc` | Any AI; several AIs share one project via files + handoff log |
 | Validation | `validation.mdc` | Client + server validation |
 | DB engine | `database.mdc` | PHP migrate/seed only; prepared statements |
 | Phases | `implementation-phases.mdc` | P0–P4 + subs + exit gates |

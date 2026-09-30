@@ -1,6 +1,6 @@
 # CURSOR — Reusable project setup pack
 
-Portable **Cursor** configuration for current and future projects: `CURSOR.md` + `.cursor/` (rules, agents, commands, hooks, skills).
+Portable, **AI-agnostic** configuration for current and future projects: `CURSOR.md` + `.cursor/` (rules, agents, commands, hooks, skills). Works with **Claude, Kimi, Grok, Gemini, Copilot, Cursor**, and others — and **several AIs can share one project** through files and an AI Handoff Log.
 
 **Install ≠ copy only.** The AI must **ask** during install, **fill** the Project Profile and concept domain from your answers, then use those answers for all work.
 
@@ -14,7 +14,7 @@ cp CURSOR.md /path/to/project/
 cp -R .cursor /path/to/project/
 ```
 
-In Cursor, run:
+In Cursor (or any AI with slash commands), run:
 
 ```text
 /install-cursor-pack
@@ -26,17 +26,34 @@ or:
 /project-intake
 ```
 
-or tell the agent: *“Install this Cursor pack and run intake.”*
+or tell any agent: *“Install this pack and run intake.”* (Tools without slash commands: the agent reads `.cursor/commands/project-intake.md` and follows it.)
+
+### Use with other AIs
+
+```bash
+bash .cursor/adapters/sync-ai-adapters.sh   # creates AGENTS.md, CLAUDE.md, GEMINI.md, Copilot + Windsurf pointers
+```
+
+| Tool | Finds the pack via |
+|------|--------------------|
+| Cursor | `.cursor/rules/`, `CURSOR.md` |
+| Claude | `CLAUDE.md` → `CURSOR.md` |
+| Kimi · Grok · Codex · others | `AGENTS.md` → `CURSOR.md` |
+| Gemini | `GEMINI.md` |
+| Copilot / Windsurf | `.github/copilot-instructions.md` / `.windsurfrules` |
+
+Pointer files stay tiny — `CURSOR.md` is the single source of truth. Fallbacks for tools without rules/commands/hooks/agents: `.cursor/rules/multi-ai.mdc`. When several AIs work on the same project, each reads and appends to the **AI Handoff Log** in `CURSOR.md`.
 
 ### What the AI does
 
 1. Places `CURSOR.md` + `.cursor/` (if missing)
-2. Asks about concept, stack (including web / mobile / web+mobile), theme, forms, DB, SEO, rules, etc.
+2. Asks about concept, stack (including web / mobile / web+mobile), **layout strategy**, forms, DB, SEO, rules, etc. — and **proposes** the design itself (no need to know colors or fonts)
 3. Writes answers into:
    - `CURSOR.md` — Project Profile
    - `.cursor/rules/concept-domain.mdc` — business rules + entities
    - `.cursor/settings.json` — project name, SEO flag
-   - `.cursor/skills/frontend-design/SKILL.md` — theme tokens
+   - `.cursor/skills/frontend-design/SKILL.md` — theme tokens (from the design option you approved)
+   - `.cursor/rules/route-layouts.mdc` — layout for **every route** (mobile · tablet · desktop)
 4. Keeps **default rules** on, then continues your build request
 
 Full detail: [`CURSOR.md`](./CURSOR.md)
@@ -63,15 +80,29 @@ Details: [`CURSOR.md`](./CURSOR.md) · `.cursor/rules/implementation-phases.mdc`
 
 | Layer | Behavior |
 |-------|----------|
-| **Default (never remove)** | Tailwind ui-styling (Modern/Premium/Pro/**Simplified**, beautiful UX), forms, validation, PHP migrate/seed, phases, references, icons-states, install + restrictions |
+| **Default (never remove)** | Tailwind ui-styling (UX-first, modern, eye-comfortable, **Simplified**), design direction, layout strategy, multi-AI, forms, validation, PHP migrate/seed, phases, references, icons-states, install + restrictions |
 | **Concept-driven** | Domain rules and DB schema follow the product concept (`concept-domain.mdc` → migrations) |
 | **Advanced (optional)** | Extra packs for planning, backend, frontend, forms, validation, database, security |
 
+### Design — the AI suggests, you approve
+
+You do not need to know colors, fonts, or styles. From your **concept** the AI proposes **2–3 design directions** (mood, palette with contrast ratios, type pairing, shape/density, icon system, motion) and marks **one Recommended**. You pick, tweak, or say "you decide". Every suggestion must be **UX-first, modern, easy on the eyes** (no pure black on pure white, one accent, soft dark mode, comfortable type) and **worth coming back to** (fast, consistent, remembers your place, small delight — no dark patterns). Brand values you already have (logo, colors, fonts) are respected as constraints. See `.cursor/rules/design-direction.mdc`.
+
 ### UI styling (locked — Tailwind)
 
-**Tailwind CSS** + **Modern · Premium · Professional · Simplified** aesthetic. **UI + UX locked:** design must be **beautiful and easy to use** — clear hierarchy, simple flows, consistent patterns, visible feedback; not cluttered or confusing. Shared components: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transitions, infinite scroll, images, slideshow/parallax (marketing). **Can extend** theme/variants; **cannot replace** the base system — `.cursor/rules/ui-styling.mdc`.
+**Tailwind CSS** + shared components: modal, popover, popup, alerts, navbar, bottom toolbar, tabs, cards, headers, back, buttons, typography, grid/flex/gap, forms, loaders, page transitions, infinite scroll, images, slideshow/parallax (marketing). **Can extend** theme/variants; **cannot replace** the base system — `.cursor/rules/ui-styling.mdc`.
 
-**Layout:** **web + mobile** → **adaptive** (distinct mobile · tablet · desktop) in a **single codebase**. **Web only** → **responsive** by default; at intake ask if they want optional **adaptive** layouts for mobile and tablet.
+### Layout strategy — you choose, then every route gets a layout
+
+Asked for every project:
+
+| Option | Meaning |
+|--------|---------|
+| **Normal Responsive** | One layout that reflows on mobile. A mobile-friendly website — **not** mobile-app-ready |
+| **Layout Responsive** | A different layout per view: mobile ≠ tablet ≠ desktop. App-ready. One codebase |
+| **Auto** | The AI recommends the ideal layouting from your concept; you confirm |
+
+After you choose, the AI writes a **layout concept for each route** — recommended pattern plus explicit **mobile · tablet · desktop** layouts (including how data tables behave on each) — into `.cursor/rules/route-layouts.mdc`. You approve it before any screen is built. Details: `.cursor/rules/layout-strategy.mdc`.
 
 ### Default forms (always)
 
@@ -99,13 +130,15 @@ Toggle `on` / `off` in Project Profile. When `on`, **Schema.org** JSON-LD is req
 ## Layout
 
 ```text
-CURSOR.md                 # Project brain + intake + profile
+CURSOR.md                 # Project brain + intake + profile + AI handoff log
+AGENTS.md / CLAUDE.md     # Tiny pointers for Kimi, Grok, Claude, …
 .cursor/
   settings.json           # Metadata, globs, behavior flags
   rules/                  # defaults, concept, basic + advanced
   agents/                 # reviewer, debugger, security, …
   commands/               # install, intake, pr-review, deploy, …
   hooks/                  # pre-commit, lint-on-save
+  adapters/               # sync-ai-adapters.sh (pointer files for other AIs)
   skills/frontend-design/ # Theme skill (fill at install)
 ```
 
