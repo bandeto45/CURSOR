@@ -35,6 +35,8 @@ alwaysApply: true
 - Desktop (≥1024): <columns/panes · sidebar/top bar · density · hover/keyboard extras>
 - Table / list:    <mobile card list · tablet condensed table + drawer · desktop full table>
 - Transition:      <mobile push|sheet|fade|none · tablet … · desktop …  (transitions.mdc §2; entering + leaving/back)>
+- Components:      <catalog components used, with variants: Card(interactive) · DataTable · FilterBar …>
+- Overrides:       <Component → classes / classNames.slot → why  (ui-components.mdc §1b) — or "none">
 - States:          <loading skeleton shape · empty · error>
 - Notes:           <sticky elements · infinite scroll vs pagination · safe-area · gestures (edge-swipe back, pull-to-refresh)>
 ```
@@ -46,6 +48,7 @@ alwaysApply: true
 - Reflow:          <columns at base / md / lg · what stacks · what hides/collapses>
 - Nav:             <navbar → menu button at what width>
 - Transition:      <fade (normal mode: crossfade only)>
+- Components / Overrides: <as above, or "none">
 - Table / list:    <horizontal scroll with sticky first column, or stacked rows>
 - States:          <loading skeleton shape · empty · error>
 ```

@@ -42,6 +42,8 @@ During install (after concept + routes are known) the AI writes the concrete pla
 - Side effects: <db writes, events, cache, files>
 - UI states (if UI): <loading skeleton · empty · error · success>
 - Layout (if UI): <route block in route-layouts.mdc + mobile/tablet/desktop notes>
+- Components:   <catalog components + variants used (ui-components.mdc)>
+- Overrides:    <Component → className / classNames.slot → why, or none (ui-components.mdc §1b)>
 - Tests: <cases: happy · validation fail · authz fail · edge>
 - Done when: <checkable criteria>
 - Status: todo

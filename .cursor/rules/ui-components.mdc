@@ -20,8 +20,34 @@ globs: "**/*.{jsx,tsx,js,ts,vue,html,css}"
 - Layout:      Mobile <…> · Tablet <…> · Desktop <…>   (Layout Responsive) — or reflow note (Normal)
 - A11y:        <role · keyboard · label · focus behavior>
 - Tokens:      <color · radius · shadow · spacing it uses>
+- Customize:   className (root) · classNames slots (<anatomy keys>) · pass-through attrs — see §1b
 ```
 The catalog below is the *minimum* each component must cover; the full spec goes in the component's file header or on the component page.
+
+### 1b. Customization contract — follow the catalog; adjust per usage with `className`
+The catalog component is always the starting point. When **one specific piece of content** needs a different look, the AI adds classes to that usage instead of forking or hand-building a lookalike.
+
+1. **Follow first:** use the catalog component and its variants/props. Never re-create a component that exists.
+2. **API every component exposes:** `className` (applied to the root, merged **last** so it wins) · `classNames` for multi-part components (keys = the anatomy names in its spec, e.g. `{ root, header, body, footer, icon, label }`) · `...rest` (native attributes, `data-*`, `aria-*`) · `ref`. Merge with `cn()` = `twMerge(clsx(base, variant, className))`, so precedence is **base < variant < className**.
+3. **Choose the right scope:**
+   | Change is needed… | Do this |
+   |-------------------|---------|
+   | in **one usage** | `className` / `classNames` at that usage |
+   | in **3+ usages** | promote to a variant/prop (cva) in the component; update its spec and component-page entry |
+   | **everywhere** / brand-wide | change the theme token |
+4. **Allowed in an override:** spacing · sizing (keep touch targets ≥ 44px) · layout/position/alignment · responsive variants (`md:` `lg:`) · typography from the scale · colors from tokens (`bg-card`, `text-muted-foreground`) · radius/shadow tokens · visibility per class · motion tokens · grid/flex.
+   **Not allowed:** raw hex or arbitrary color values · `!important` / `!` prefix · inline `style` for color/spacing · removing focus ring/outline · shrinking below touch target · hiding required labels · changing semantic roles · z-index outside the scale.
+5. **Specify it where the content is defined** (spec first, `format.mdc`): each override is recorded in the route block's `Overrides:` line (`route-layouts.mdc`) or the unit's Function Spec (`implementation-phases.mdc`) as `Component → classes → why`. The code carries exactly those classes. An override with no spec line is not allowed.
+6. **The AI may add or change `className` itself** whenever the content calls for it, and updates the `Overrides:` line in the same change. Later-added classes replace earlier ones for that usage only; other usages are unaffected.
+7. **Native flavor:** `cn()` lives in `lib/cn.js` (tailwind-merge or an ordered class-join); components accept a `className` string (and `classNames` object) the same way.
+
+```jsx
+// R-07 OrdersMobile.jsx — a denser summary card on mobile only
+<Card className="p-3 md:p-5 bg-card/60" classNames={{ header: 'pb-2', footer: 'justify-between' }}>
+```
+```
+Overrides: Card (order summary) → p-3 md:p-5 bg-card/60; header: pb-2; footer: justify-between → denser on mobile, roomy from tablet up
+```
 
 ### 2. Organization
 ```
@@ -265,12 +291,13 @@ Plan types: **unilevel** (unlimited width, levels deep), **binary** (2 legs: lef
 | `useToast()` | Queue + dismiss for `Alert` toasts |
 | `useForm()` / `validators` | Field state, errors mapped from API (`validation.mdc`) |
 | `useLocalPref()` | Persist theme/filters/last view (try/catch storage) |
-| `cn()` | Class merge helper; `formatDate/Number/Currency` locale helpers |
+| `cn()` | `twMerge(clsx(...))` — later classes win (§1b); plus `formatDate/Number/Currency` locale helpers |
 | `PageTransition` · `Presence` · `useNavDirection()` · `useReducedMotion()` · `useSwipeBack()` · `usePullToRefresh()` | Transition system — `transitions.mdc` |
 | `useOnline()` · `useMediaQuery()` · `useScrollLock()` · `useCopy()` · `useShare()` | Network state, breakpoints, body-scroll lock, clipboard, native share |
 
 ## Do not
-- Build a component outside this organization, or a second copy of one that exists (add a variant)
+- Build a component outside this organization, or a second copy of one that exists (add a variant, or override with `className` per §1b)
+- Edit a component's internals for a one-off look, or apply a `className` override that is not written in the content's `Overrides:` line
 - Ship a component without states, keyboard support, and its entry on the component page
 - Use `position: absolute` without a `relative` parent, ad-hoc z-index numbers, or page-level horizontal scroll
 - Show a wide table or full tree on mobile — use the mobile layout in the catalog
