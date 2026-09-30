@@ -7,7 +7,27 @@
 - Decisions are written to files (Profile in `CURSOR.md`, `concept-domain`, `route-layouts`, `phase-plan`, design skill) — so any AI can continue and you never repeat yourself.
 - Work runs in **5 phases** (P1 foundation → P5 ship), **one small unit at a time**. `/phase-exit` closes a phase.
 
-## 2. Prompts you can copy
+## 2. Shortcuts (short prompts — write in any language)
+Start a message with `.key`; add an ID and, if you like, a few words in **any language** (Tagalog, Taglish, Cebuano, English, …). `.?` lists them all.
+
+| Shortcut | Example |
+|----------|---------|
+| `.go` continue | `.go` |
+| `.st` status | `.st` |
+| `.b R-07` build screen | `.b R-07` · `.b R-07 gawing mas compact sa mobile` |
+| `.e E-12` build endpoint | `.e E-12` |
+| `.w F-03` wire to API | `.w F-03` |
+| `.fix ID text` | `.fix R-07 sira ang filter sa mobile` |
+| `.chg ID text` | `.chg R-07 tablet split view` |
+| `.add text` | `.add wishlist para sa users` |
+| `.yd` / `.ok` / `.no` / `.alt` | `ikaw na bahala` works too |
+| `.px` · `.dep s\|p` | close phase · deploy staging / production |
+| `.brief` · `.full` | short replies · detailed |
+| `+plan` | `.b R-07 +plan` = plan only, no code |
+
+Chain with `;`: `.b R-01; .b R-02`. Deploy/delete/push always ask you to confirm. Aliases in other languages: `.cursor/reference/shortcuts-i18n.md`.
+
+## 3. Prompts you can copy (long form)
 | When | Say this |
 |------|----------|
 | **Install** | `Install this pack and run the intake.` |
@@ -27,20 +47,20 @@
 | Switch AI | `Read CURSOR.md and continue. Append to the Handoff Log when you finish.` |
 | Show this guide | `/guide` · `/guide tokens` · `/guide prompts` |
 
-## 3. Save tokens (and money)
+## 4. Save tokens (and money)
 1. **Name the ID.** `Build R-07` beats "build the orders page" — the AI reads one block, not the whole project.
 2. **One task per prompt**, one phase at a time; don't ask for "the whole app".
 3. **Start a fresh chat per phase or big task.** Memory lives in files (Handoff Log, phase-plan), so a new chat costs little and avoids a bloated context.
 4. **Don't paste files or screenshots the AI already has.** Say the path or ID; approved decisions are already in the project files.
 5. **Answer in batches** (intake) and use **"you decide"** instead of long back-and-forth.
-6. **Keep replies short:** `Reply briefly. No recap. Show only changed files.`
+6. **Keep replies short:** `.brief` (no recap, changed files only). Shortcuts themselves are shorter prompts.
 7. **Run lint/tests yourself** and paste only the failing lines, not whole logs.
 8. **Fix the file, not the chat.** If a decision changes, say "update <file> first" so it isn't re-explained later.
 9. **Match the model to the job:** stronger model for P1 (concept, design, layout, plan) and architecture; a cheaper/faster one for mechanical units (CRUD endpoints, tests, wiring). Switching is safe — see the Handoff Log.
 10. **Trim what you don't use:** SEO off, no networking/marketing plan, no mobile → those rules and component groups are never read.
 11. **Never say** "read the whole repo" or "read all rules". The **Load map** in `CURSOR.md` already says what to read per moment.
 
-## 4. Tips for an easier build
+## 5. Tips for an easier build
 - **Approve early, change rarely.** Design direction, layout strategy, and routes are cheapest to change in P1; later edits ripple.
 - **Look at the component page** (`/_components`) after P2.3 — spot style issues before screens multiply.
 - **Review the proposal deck/document** before P2; it is the client-ready summary of everything decided.
@@ -49,11 +69,11 @@
 - **When the AI drifts** (invents scope, skips a file): `Stop. Re-read CURSOR.md and restrictions.mdc, then redo it per the plan.`
 - **When unsure what to ask:** `What do you need from me to finish this phase?`
 
-## 5. Working with several AIs
+## 6. Working with several AIs
 - Same project, any mix (Claude, Kimi, Grok, Gemini, Cursor…). Each reads `CURSOR.md`, does its unit, and **appends one row to the Handoff Log**.
 - Tell each AI the same starting line (see "Switch AI" above). Don't paste one AI's chat into another — the files are the handoff.
 
-## 6. Quick fixes
+## 7. Quick fixes
 | Symptom | Try |
 |---------|-----|
 | AI asks things already decided | `It is in the project files — read CURSOR.md and concept-domain, then continue.` |

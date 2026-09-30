@@ -23,7 +23,8 @@
     "alwaysOn": [
       "format.mdc",
       "multi-ai.mdc",
-      "restrictions.mdc"
+      "restrictions.mdc",
+      "shortcuts.mdc"
     ],
     "scoped": {
       "backend.mdc": [
@@ -157,7 +158,11 @@
     "proposalPackageInP1": true,
     "showGuideAfterInstall": true,
     "guideTips": "on",
-    "guideCommand": "/guide"
+    "guideCommand": "/guide",
+    "shortcutPrefix": ".",
+    "acceptAnyLanguage": true,
+    "replyInDevLanguage": true,
+    "filesLanguage": "en"
   },
   "seo": {
     "enabled": false,

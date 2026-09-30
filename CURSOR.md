@@ -15,7 +15,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 3. **Run the intake (§2)** one topic at a time. For each topic: **Ask** → **Recommend** (`REC-…` block) → **Decide** → **Write** to its file immediately → **Confirm** in 2–4 lines. "You decide" = take the Recommended option.
 4. **Generate the plan files** in order: `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`. Set Current phase `P1`.
 5. **Confirm install complete** (checklist below), append the first **AI Handoff Log** row.
-6. **Show the Getting Started guide** (`reference/usage-guide.md`, short version, in the dev's language): what to do next for the Current phase, 3 copy-paste prompts, and the top token-saving tips. Offer to save it as `docs/USING-THE-PACK.md` (`/guide save`). It is optional advice — then continue with the dev's build request.
+6. **Show the Getting Started guide** (`reference/usage-guide.md`, short version, in the dev's language): what to do next for the Current phase, the shortcuts (`.?`), and the top token-saving tips. Offer to save it as `docs/USING-THE-PACK.md` (`/guide save`). It is optional advice — then continue with the dev's build request.
 
 ### Install complete when
 - [ ] Profile has no `TBD` (except items the dev deferred)
@@ -96,7 +96,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 
 ## 6. Load map (token-lean: read only what the moment needs)
 
-**Always on:** this file · `format.mdc` · `restrictions.mdc` · `multi-ai.mdc`. Everything else is read **on demand** — never load the whole `.cursor/`.
+**Always on:** this file · `format.mdc` · `restrictions.mdc` · `multi-ai.mdc` · `shortcuts.mdc`. Everything else is read **on demand** — never load the whole `.cursor/`.
 
 | Moment | Read |
 |--------|------|
@@ -120,6 +120,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Format | `format.mdc` | Signature: flow, Recommendation Block, file anatomy, IDs, statuses |
 | Global | `restrictions.mdc` | Every hard ban (single list) |
 | Global | `multi-ai.mdc` | Any-AI operation, handoff, fallbacks |
+| Global | `shortcuts.mdc` | Prompt shortcuts (`.b .e .fix .go` …) and any-language input (aliases: `reference/shortcuts-i18n.md`) |
 | Global | `references.mdc` | Using references without leaving traces |
 | Ops | `environments.mdc` | local · staging · production, GitHub Environments/Secrets, branches, promotion, FTP/SSH |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |

@@ -7,6 +7,7 @@ description: Show the Getting Started guide — how to prompt, save tokens, and 
 
 ```
 /guide             # short version (next steps + 3 prompts + token tips)
+/guide keys        # shortcuts (same as .?)
 /guide prompts     # full prompt cookbook
 /guide tokens      # token-saving tips
 /guide save        # write docs/USING-THE-PACK.md from the full guide

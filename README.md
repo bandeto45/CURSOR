@@ -25,6 +25,10 @@ Then tell any AI: *"Install this pack and run intake"* (or `/install-cursor-pack
 
 When the install finishes, the AI shows a short **Getting Started guide** in your language: what to do next, copy-paste prompts, and **token-saving tips** — all optional. Re-open it any time with `/guide` (`/guide prompts`, `/guide tokens`, `/guide save` → `docs/USING-THE-PACK.md`). Full text: `.cursor/reference/usage-guide.md`.
 
+## Shortcuts & any language
+
+Write short prompts with shortcuts — `.go` continue · `.b R-07` build a screen · `.e E-12` build an endpoint · `.fix` · `.chg` · `.add` · `.yd` (you decide) · `.px` (phase exit) · `.dep s|p` (deploy) — plus any words in **any language** (Tagalog, Taglish, English, …). The AI replies in your language; files and code stay English. Deploy/delete/push always ask for confirmation. `.?` lists everything (`.cursor/rules/shortcuts.mdc`).
+
 ## What the AI does at install
 
 1. **Concept** — asks what you are building; recommends features, roles, entities, domain rules

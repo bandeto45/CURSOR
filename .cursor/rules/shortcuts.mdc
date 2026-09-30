@@ -1,0 +1,51 @@
+---
+description: Prompt shortcuts (.b .e .fix .go …) and language handling — the dev may write in any language, mixed, or with typos; the AI replies in the dev's language
+alwaysApply: true
+---
+
+# Shortcuts & language
+
+> Purpose: short, clean prompts that work in every AI (plain text, no slash-command support needed). Aliases in other languages: `.cursor/reference/shortcuts-i18n.md`. Full cookbook: `/guide`.
+
+## Rules
+
+### 1. Shortcuts — start a message with `.key` (also accepted: `/key`, or the bare key when unambiguous)
+| Key | Args | The AI does |
+|-----|------|-------------|
+| `.go` | — | Resume: Load map → Handoff Log → Current phase → do the next `todo` unit |
+| `.st` | — | Status: phase, done / next / blockers (from `phase-plan`) |
+| `.b` | `R-nn` | Build that screen exactly per its `route-layouts` block |
+| `.e` | `E-nn` | Build that endpoint per `phase-plan` (validation, authz, tests) |
+| `.u` | `U-nn` | Build that unit |
+| `.w` | `F-nn` | Wire the feature from mocks to the real API |
+| `.fix` | ID + text | Fix only that; minimal diff |
+| `.chg` | ID + text | Change it: **update the project file first**, then the code |
+| `.add` | text | New feature: update `concept-domain` + `phase-plan` first; wait for OK |
+| `.ov` | Component, ID, classes | `className` override; record it in `Overrides:` |
+| `.yd` | — | "You decide": take the Recommended option and continue |
+| `.ok` · `.no` · `.alt` | — / note | Accept the last recommendation · reject and re-recommend using my note · show alternatives |
+| `.px` | `[P#]` | `/phase-exit` |
+| `.dep` | `s` `p` `setup` `rb` | `/deploy` staging · production · setup · rollback |
+| `.hand` | — | Switch AI: read `CURSOR.md`, continue, log the handoff |
+| `.rev` | `[ID]` | Review the current diff for bugs |
+| `.brief` · `.full` | — | Reply style: short (no recap, changed files only) · detailed |
+| `.g` | `[keys\|tokens\|prompts\|save]` | `/guide` |
+| `.?` | — | List these shortcuts |
+
+- **Modifier** `+plan`: plan only, no code (`.b R-07 +plan`).
+- **Chain** with `;` or new lines (`.b R-01; .b R-02`): run in order, stop at the first failure.
+- IDs and keys are language-independent (`R-07`, `E-12`, `.b`); text after them can be any language.
+- `.dep p`, deletes, pushes, and anything outward-facing **always echo the target and ask for explicit confirmation** — a shortcut never confirms by itself.
+
+### 2. Language — the dev can write in any language
+1. **Understand any language, mixed languages (e.g. Taglish), slang, typos, and voice-to-text.** Never ask the dev to rephrase or switch to English unless the meaning is truly unclear.
+2. **Reply in the dev's language** (follow a switch mid-conversation). Code, file contents, commit messages, and identifiers stay English.
+3. **Natural-language equivalents of shortcuts work** ("ituloy", "ayusin mo R-07", "ikaw na bahala"…) — examples in `reference/shortcuts-i18n.md`; the list is not exhaustive, infer the intent.
+4. **Ambiguous or risky intent** (deploy, delete, overwrite, spend): restate it in one short line in the dev's language and wait for a clear yes. A vague "sige"/"ok" after an unrelated message is not confirmation.
+5. **Product UI language is not the chat language.** UI copy follows Profile → i18n (a product decision); the dev's chat language only affects replies.
+6. Short answers are valid intake answers ("react", "ssh", "oo", "hindi", "ikaw na").
+
+## Do not
+- Ask the dev to use English or the exact shortcut syntax
+- Write the dev's chat language into files, code, or UI copy unless Profile → i18n says so
+- Treat a shortcut as confirmation for deploy/delete/push
