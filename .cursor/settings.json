@@ -101,7 +101,8 @@
       "forms.mdc": "P2 forms",
       "validation.mdc": "P2 client · P3 server",
       "icons-states.mdc": "P1/P2 states, icons",
-      "environments.mdc": "intake topic 9 · /deploy · P1.11 · P5"
+      "environments.mdc": "intake topic 9 · /deploy · P1.11 · P5",
+      "error-log.mdc": "debugging · P1 flags · P2 popup · P3 debug envelope + /health"
     },
     "projectFiles": [
       "concept-domain.mdc",
@@ -190,7 +191,8 @@
       "guide/GUIDE.md",
       "ci/ci.yml",
       "ci/deploy-ftp.yml",
-      "ci/deploy-ssh.yml"
+      "ci/deploy-ssh.yml",
+      "error-console/"
     ]
   },
   "migrations": {
@@ -226,5 +228,20 @@
     ],
     "workflowTemplates": ".cursor/templates/ci/",
     "productionApproval": true
+  },
+  "errorConsole": {
+    "flag": "VITE_DEBUG_PANEL",
+    "serverFlag": "APP_DEBUG",
+    "defaults": {
+      "local": "on",
+      "staging": "off",
+      "production": "stripped"
+    },
+    "toggle": [
+      "?debug=1",
+      "Ctrl+Shift+D",
+      ".dbg"
+    ],
+    "template": ".cursor/templates/error-console/"
   }
 }

@@ -45,7 +45,7 @@ Everything below is written in `react` names; `native` uses the mapping above wi
 │     │  ├─ ui/        grouped per `ui-components.mdc`: foundations · layout · nav · actions · overlays · inputs · lists · media · network
 │     │  └─ states/    NotFound, ErrorState, EmptyState (icons-states.mdc)
 │     ├─ routes/_components/   component page (dev only) — every component × variant × state
-│     ├─ lib/          apiClient, env, useViewClass, validators, format
+│     ├─ lib/          apiClient, env, useViewClass, validators, format, error-log (dev only; templates/error-console)
 │     ├─ mocks/        <entity>.mock + mockApi   (P2; removed in P4/P5)
 │     ├─ styles/       theme tokens, globals
 │     └─ tests/

@@ -28,6 +28,7 @@ alwaysApply: true
 | `.dep` | `s` `p` `setup` `rb` | `/deploy` staging · production · setup · rollback |
 | `.hand` | — | Switch AI: read `CURSOR.md`, continue, log the handoff |
 | `.rev` | `[ID]` | Review the current diff for bugs |
+| `.dbg` | `on` `off` `log` | Error console: turn the dev flag on/off (local `.env`) · `log` = read the pasted log and fix it |
 | `.brief` · `.full` | — | Reply style: short (no recap, changed files only) · detailed |
 | `.g` | `[keys\|tokens\|prompts\|save]` | `/guide` |
 | `.?` | — | List these shortcuts (or run `bash .cursor/adapters/help.sh` in a terminal — **0 tokens**) |

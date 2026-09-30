@@ -56,6 +56,10 @@ Everything lands in files: Profile in `CURSOR.md`, then `concept-domain.mdc` →
 
 One function at a time; each phase ends with `/phase-exit`.
 
+## Error console (dev)
+
+A switch that shows an **error-log popup** for UI errors, failed backend/API calls (with the server's debug block), and status problems (404/401/5xx, offline, slow, `/health`). Off = nothing captured. Local: on; staging: available (`?debug=1`); **production: stripped**. Each entry has **Copy for AI** (a ready `.fix R-07 …` line, secrets redacted). `.dbg on|off`; rules `.cursor/rules/error-log.mdc`, code `.cursor/templates/error-console/`.
+
 ## Environments & deploy
 
 local · **staging** · production: `develop` deploys to staging automatically, `main` deploys to production after an **approval gate**. Secrets live in **GitHub Environments** (same key names, different values per environment — never in git or chat). Choose **FTP or SSH**; ready workflow templates (`.cursor/templates/ci/`) check secrets first, build with each environment's API host, write the server `.env` from secrets, run `db:up`, upload, and smoke-test. Staging is always `noindex`; production is never seeded. Run `/deploy setup`.

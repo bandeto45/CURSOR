@@ -47,7 +47,7 @@ Use the project's real names from `.env.example`. **Split frontend + backend / w
 - [ ] Pending migrations reviewed (Migration tool; no ad-hoc `.sql` outside it); **production: backup confirmed before migrating**
 - [ ] Server `.env` is written from this environment's secrets (never from git)
 - [ ] HTTPS / CDN SSL mode correct; SPA fallback rules if an SPA; uploads writable but not executable
-- [ ] Debug tooling and one-time runners not publicly reachable
+- [ ] Debug tooling and one-time runners not publicly reachable; **production: `APP_DEBUG=false`, no `debug` in error responses, error-console code absent from the build** (`error-log.mdc`)
 - [ ] **Staging:** `noindex` (header + meta + `robots.txt`), STAGING banner, sandbox payments, mail sink, analytics off
 - [ ] **Production:** staging verified this exact change; approval given; error tracking + backups on; seeds **not** run
 

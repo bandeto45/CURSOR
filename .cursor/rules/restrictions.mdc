@@ -39,6 +39,7 @@ alwaysApply: true
 - Turn SEO on without Schema.org JSON-LD
 
 ## Secrets & deploy
+- Enable the error console or `debug` error responses in production, or log secrets/PII in them (`error-log.mdc`)
 - Commit secrets, keys, or a filled `.env`; log passwords/tokens/payment data
 - Hardcode production hosts, FTP, or DB credentials (web **or** mobile)
 - Add an env key without the same key in `.env.example` **and** in every GitHub Environment (`staging`, `production`)

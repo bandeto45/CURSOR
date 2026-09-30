@@ -1,0 +1,58 @@
+---
+description: Error Console — a dev toggle that shows an error-log popup for UI, backend/API, and status problems; off by default, never in production
+alwaysApply: false
+globs: "**/*.{jsx,tsx,js,ts,vue,html},api/**,server/**,backend/**"
+---
+
+# Error console
+
+> Purpose: when switched **on**, any UI error, failed API call, or bad status pops up in a log the dev can read and copy to an AI — so broken things are found immediately. When **off**, nothing is captured or shown. Starter code: `.cursor/templates/error-console/`.
+
+## Rules
+
+### 1. The toggle
+| Where | How | Default |
+|-------|-----|---------|
+| **local** | env flag (`VITE_DEBUG_PANEL=true` / stack equivalent) enables it; then `?debug=1`, **Ctrl+Shift+D**, or the popup's *Turn off* (saved as a preference) | available, **on** in local `.env` |
+| **staging** | flag available but **off by default**; turn on at runtime (`?debug=1` / shortcut) | off |
+| **production** | **disabled and stripped from the build** — the console hard-stops when `env=production` | never |
+
+Ask the AI: `.dbg on` · `.dbg off` (sets the local flag) — see `shortcuts.mdc`.
+
+### 2. What it captures (one store, three sources)
+| Source | Captured |
+|--------|----------|
+| **ui** | `window.onerror`, unhandled promise rejections, React/Vue **render errors** (ErrorBoundary), failed resources (images/scripts/css), `console.error` |
+| **api** (backend) | failed responses **400/422/5xx** with message, field errors, `requestId`, the server's **`debug` block**; invalid JSON |
+| **status** | **401/403/404/408/429**, network errors/timeouts, **offline**, slow responses (> 3 s), **`/health`** (API up/down, latency, env, version) |
+
+Every entry: `id · time · source · level · title · message · status · method + url · requestId · stack · context (route ID `R-nn`, view class, role) · count (de-duplicated)`.
+
+### 3. The popup
+- A floating badge (`● 7 errors`) appears when on; the popup **auto-opens on a new error** (option) — bottom sheet on mobile, floating panel on tablet/desktop; non-modal, `Esc` closes, keyboard accessible
+- Tabs **All · UI · API · STATUS**, newest first, duplicates merged (×n), health pill in the header
+- Detail view + **Copy for AI**: a ready `.fix R-07 <error>` line with status, request, `requestId`, context, field errors, and server debug — **secrets redacted**
+- Clear · pause/turn off · never blocks the app; z-index above everything (`debug`, top of the scale)
+
+### 4. Backend contract (any language)
+- Error responses: JSON, correct HTTP status, `{ error: { message, code, fields }, requestId, debug? }`; `X-Request-Id` header; every request has an id in the server log
+- **`debug` (exception class, file:line, top trace frames) only when `APP_DEBUG=true` and `APP_ENV != production`.** Never secrets, tokens, or SQL with values
+- `GET /health` → `{ ok, env, version, db }` (public, no sensitive data)
+- Examples (Node, PHP, Python): `templates/error-console/README.md`. Consistent shape: `backend.mdc`
+
+### 5. Safety
+- **Redact** keys matching password/token/secret/authorization/cookie/card/cvv/otp/pin/ssn/api-key and `Bearer …`; truncate bodies; no PII beyond ids
+- The console is read-only and cannot bypass authorization; it never shows server details to end users
+- Ship **no** debug envelope, popup code, or verbose errors in production (check in `/deploy`)
+
+## Flow
+1. **P1:** `.env.example` keys (`APP_DEBUG`, `VITE_DEBUG_PANEL`/equivalent, `APP_ENV`), copy the template, `errorLog.init` behind the flag
+2. **P2:** `<ErrorConsole/>` + `ErrorBoundary`; `getContext` returns the route ID and view class; mock API can simulate errors (`mockApi` error toggles)
+3. **P3:** error handler with `requestId` + guarded `debug`; `GET /health`
+4. **P4:** `apiClient` keeps `requestId`; verify real failures show up correctly
+5. **P5:** production build contains no console code; `APP_DEBUG=false` on production
+
+## Do not
+- Enable it, or `debug` responses, in production
+- Log secrets/PII, or show raw stack traces to end users
+- Swallow errors silently — log to the console, then show the friendly state (`icons-states.mdc`)

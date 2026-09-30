@@ -12,7 +12,7 @@ alwaysApply: false
 
 1. Implement only endpoints in the concept (`E-nn` in `phase-plan.mdc`).
 2. **Authenticate, then authorize** every protected endpoint (role + ownership).
-3. One JSON shape for success and one for errors (`jsonSuccess()` / `jsonError()`); correct HTTP status codes; explicit pagination on list endpoints.
+3. One JSON shape for success and one for errors (`jsonSuccess()` / `jsonError()`): errors carry `{ error, requestId, debug? }` (`debug` only when `APP_DEBUG=true` and not production) plus `GET /health` — `error-log.mdc`; correct HTTP status codes; explicit pagination on list endpoints.
 4. Config from env only; new env keys go in `.env.example` **and** GitHub Secrets in the same change (`/deploy`).
 5. Idempotent writes where retries are likely (payments, webhooks); rate-limit auth and expensive endpoints.
 6. Audit trail for admin / money / PII changes *(when the domain needs it)*; queue/background jobs only when the concept needs them.

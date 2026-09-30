@@ -104,9 +104,10 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | **Every session** | Profile · Handoff Log · `implementation-phases.mdc` · `reference/phases/<Current phase>.md` · rows of `phase-plan.mdc` for the current phase |
 | **Intake / P1** | `reference/intake.md` · `concept-domain` · `design-direction` · `layout-strategy` (+ `reference/layout-patterns.md`) · `route-layouts` · `project-structure` · `database` (+ `reference/migrations.md`) · `proposal` (+ `templates/`) |
 | **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
-| **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` |
+| **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` · `error-log` (debug envelope, `/health`) |
 | **P4 integration** | `backend` · `validation` · `testing` + the P2 files for the screen being wired |
 | **Environments / deploy / P5 ship** | `environments` · `/deploy` · `templates/ci/` · `testing` · `security` · `seo` (if on) |
+| **Debugging / error popup / broken UI or API** | `error-log` (+ `templates/error-console/`) |
 | **A reference is given** | `references` |
 
 **Read project files by ID, not whole:** find `R-07`, `F-03`, `E-12`, `T-02`, `U-041` in `route-layouts` / `concept-domain` / `phase-plan` and read just that block or row.
@@ -122,6 +123,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Global | `multi-ai.mdc` | Any-AI operation, handoff, fallbacks |
 | Global | `shortcuts.mdc` | Prompt shortcuts (`.b .e .fix .go` …) and any-language input (aliases: `reference/shortcuts-i18n.md`) |
 | Global | `references.mdc` | Using references without leaving traces |
+| Dev tool | `error-log.mdc` | Error console: toggle, popup for UI · API · status errors, redaction, backend debug envelope, `/health` |
 | Ops | `environments.mdc` | local · staging · production, GitHub Environments/Secrets, branches, promotion, FTP/SSH |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
 | Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`) |
@@ -138,7 +140,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/adapters/help.sh` (token-free shortcuts/commands/tips in a terminal) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide, ci, error-console) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/adapters/help.sh` (token-free shortcuts/commands/tips in a terminal) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 

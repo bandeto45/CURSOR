@@ -12,9 +12,9 @@ alwaysApply: false
 ### 1. The environments (Profile → **Environments**)
 | Environment | Purpose | Deploys from | Secrets live in | Data | Debug | Indexing |
 |-------------|---------|--------------|-----------------|------|-------|----------|
-| **local** | Development | — | local `.env` (never committed) | seeds/demo OK | on | — |
-| **staging** | Prod-like verification, client review | `develop` (auto on push) | GitHub Environment **`staging`** | separate DB; seeds/demo OK | off | **`noindex`** + robots disallow |
-| **production** | Live | `main` or tag `vX.Y.Z` (after approval) | GitHub Environment **`production`** | separate DB; **never seeded** | off | per SEO Profile |
+| **local** | Development | — | local `.env` (never committed) | seeds/demo OK | on · **error console on** | — |
+| **staging** | Prod-like verification, client review | `develop` (auto on push) | GitHub Environment **`staging`** | separate DB; seeds/demo OK | off · error console **available, off by default** (`?debug=1`) | **`noindex`** + robots disallow |
+| **production** | Live | `main` or tag `vX.Y.Z` (after approval) | GitHub Environment **`production`** | separate DB; **never seeded** | off · error console **stripped**, `APP_DEBUG=false` | per SEO Profile |
 
 The AI recommends `local + staging + production` for anything with a database, users, payments, or more than one developer; `local + production` only for tiny/static sites (`REC-plan-n`, dev decides, recorded in Profile).
 

@@ -21,6 +21,7 @@ Start a message with `.key`; add an ID and, if you like, a few words in **any la
 | `.chg ID text` | `.chg R-07 tablet split view` |
 | `.add text` | `.add wishlist para sa users` |
 | `.yd` / `.ok` / `.no` / `.alt` | `ikaw na bahala` works too |
+| `.dbg on\|off\|log` | error console flag · read a pasted error log and fix it |
 | `.px` · `.dep s\|p` | close phase · deploy staging / production |
 | `.brief` · `.full` | short replies · detailed |
 | `+plan` | `.b R-07 +plan` = plan only, no code |

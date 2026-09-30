@@ -18,6 +18,7 @@
 | Phase exit (`.px`) | tapos na ang phase · i-close na natin | human na ang phase | cierra la fase | close the phase |
 | Deploy (`.dep`) | i-deploy sa staging/production | i-deploy sa staging/production | despliega a staging/producción | deploy to staging/production |
 | Brief reply (`.brief`) | sagot na maikli lang · wag mo nang ulitin | mubo ra ang tubag | responde breve | short answer only |
+| Error console (`.dbg`) | buksan/isara ang error console · may error, tingnan mo ang log | buksi/sirad-i ang error console · tan-awa ang log | activa/desactiva la consola de errores | turn the error console on/off · look at this error log |
 | Guide (`.g`) | paano gamitin · tips | unsaon paggamit | cómo se usa · consejos | how to use · tips |
 
 ## Notes
