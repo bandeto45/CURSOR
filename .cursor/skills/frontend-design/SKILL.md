@@ -19,7 +19,8 @@ triggers:
 | Field | Value |
 |-------|--------|
 | Product name | TBD |
-| Design direction | TBD — name + mood (`REC-design-n`) |
+| Design style | TBD — one of editorial · futuristic · soft product · warm commerce · utilitarian · calm clinical · bold campaign (`design-direction.mdc`) |
+| Design direction | TBD — that style + mood (`REC-design-n`) |
 | Decision | TBD — `accepted` \| `changed` \| `AI-chosen`, date |
 | UI baseline route | TBD (e.g. marketing `/`) |
 | Default mode | TBD (light / dark / both) |

@@ -38,6 +38,8 @@ Surface rule: `web + mobile` → **`layout` is required** (one project; Normal R
 
 Nav by class (`layout`): mobile bottom tabs/drawer · tablet nav rail/collapsible side nav · desktop sidebar or top navbar.
 
+**Landing under `layout`:** mobile and tablet use a getting-started slide deck (animated step progress, one section per step). Desktop uses the same sections as a long page. The AI chooses which sections fit the concept and writes them on the landing route. Footer is always last. Chrome: `reference/layout-patterns.md` → Landing.
+
 ## Flow (`format.mdc`)
 1. **Ask** the three-way choice in plain language when Clients = `web`. For `mobile` and `web + mobile`, **state** that `layout` applies (and why) instead of asking.
 2. **Recommend** as `REC-layout-1` (strategy) — with reasons from the signals above.

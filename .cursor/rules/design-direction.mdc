@@ -5,7 +5,7 @@ alwaysApply: false
 
 # Design direction
 
-> Purpose: the dev needs no design knowledge. The AI recommends the look from the concept; structure stays locked in `ui-styling.mdc`.
+> Purpose: the dev needs no design knowledge. The AI chooses the look from the concept and writes it into the project files. Structure stays locked in `ui-styling.mdc`. The pack rules never name a palette.
 
 ## Flow (`format.mdc`: Ask → Recommend → Decide → Write → Confirm)
 
@@ -13,15 +13,31 @@ alwaysApply: false
 2. **Recommend** 2–3 directions as `REC-design-n` blocks, one **Recommended**. Each direction carries:
    | Part | Content |
    |------|---------|
-   | Name + mood | 3 words, and why it fits **this** concept and its users |
+   | Style | One name from the style list below, and why it fits **this** concept |
    | Palette | Primary, neutral ramp, surface/card/border, success/warn/danger — hex + role + measured contrast |
    | Mode | Light / dark / both (recommend both when users work long or at night) |
    | Type | UI/body + display pairing, weights, base size, line-height |
    | Shape & density | Radius, shadow/border style, spacing rhythm, compact vs airy |
    | Icons & motion | One icon key from `icons-states.mdc` (`material` · `fontawesome` · `flaticon` · `sf-symbols` · `lottie`). If the installer did not choose, recommend from the concept. Motion character |
    | Feel | One paragraph: what the main screen feels like |
-3. **Decide** — dev picks, tweaks ("A but warmer"), or says "you decide" (Recommended, recorded `AI-chosen`). Re-recommend only what changed.
-4. **Write** to `frontend-design/SKILL.md` (tokens, type, icons), the Tailwind theme, and Profile → **Design direction**. Status `DRAFT` → `APPROVED`.
+3. **Decide** — the AI takes the **Recommended** direction and records it `AI-chosen`, in the same turn. Do not wait for the dev to name a style, a palette, or a font. A brand they already stated still wins. They may later say "warmer" or pick another option; then update the same files.
+4. **Write** that decision into `frontend-design/SKILL.md` (style name, tokens, type, icons), the Tailwind theme, and Profile → **Design direction**. Status `DRAFT` until they approve it; the look is still in those files, not only in chat.
+
+## Style (the AI picks one)
+
+The style is the named look (editorial, futuristic, and the others). The AI picks **one** from this list for the concept. It does not ask the dev to name it. Palette, type, radius, and motion must match that style. A second style is not mixed in.
+
+| Style | Use when the product feels like | Look |
+|-------|----------------------------------|------|
+| **Editorial** | Reading, stories, magazines, long content | Serif display, airy measure, strong headlines, few colors, quiet cards |
+| **Futuristic** | Tech, tools, data, “what’s next” | Geometric sans, tight tracking on labels, hairline borders, cool neutrals, one sharp accent, restrained glow |
+| **Soft product** | Everyday apps people open often | Rounded sans, soft radius, warm off-white, friendly empty states |
+| **Warm commerce** | Shops, bookings, food, services | Rounded cards, clear price hierarchy, warm neutrals, one appetizing accent |
+| **Utilitarian** | Admin, ops, dense tables | Compact density, tabular numbers, neutral surfaces, accent only on actions |
+| **Calm clinical** | Health, finance, trust | Cool neutrals, generous space, plain language, no decoration |
+| **Bold campaign** | A short marketing story | Large display type, one saturated accent, big sections, still readable body |
+
+If none fits, name the closest and say what was adjusted. Do not invent a style that breaks the four goals below.
 
 ## Every recommendation must satisfy four goals
 
