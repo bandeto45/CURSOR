@@ -6,12 +6,11 @@ alwaysApply: false
 # Phase plan
 
 > Status: TEMPLATE — filled by —, —; approved by —
-> Purpose: the function-by-function version of `implementation-phases.mdc` for this project. Read it to know what is done; add new units **here first**.
+> Purpose: the functions under each P-item. **What gets implemented is the checklist in `implementation-phases.mdc`.** This file only says which functions (`U-nn`), files, and tests carry out those boxes. Do not add a deliverable here that has no P-item there.
 
 ## Decisions
 | Field | Value |
 |-------|--------|
-| Current phase | TBD (mirror of Profile) |
 | Build order | TBD — `REC-plan-1` accepted here (which features first, why) |
 
 ## Content
@@ -49,3 +48,6 @@ alwaysApply: false
 ## Do not
 - Build a unit with no row / *Done when*, or leave statuses stale
 - Add scope outside the feature list
+- Invent a deliverable that is not a P-item in `implementation-phases.mdc`
+- Leave a P-item's checkbox open after its functions are done, or check a box while its functions are still `todo`
+- Store a second "current phase" here; Profile owns that

@@ -36,7 +36,7 @@ Write short prompts with shortcuts — `.go` continue · `.b R-07` build a scree
 3. **Layout** — you pick **Normal Responsive** (one layout that reflows; not app-ready) · **Layout Responsive** (different layout per mobile/tablet/desktop) · **Auto** (AI decides); then it writes a **layout for every route**
 4. **Design** — you need no design knowledge: it recommends 2–3 looks (UX-first, modern, easy on the eyes, worth coming back to), one marked Recommended
 5. **Plan** — writes a function-by-function plan for P1–P5
-6. **Proposal (P1)** — builds the proposal package from ready templates: a **presentation** (React.js or Native), a **US Letter proposal document** (print → PDF), and a **guide**
+6. **Proposal (P1)** — builds the proposal package from ready templates: a **React** presentation (not HTML), a **US Letter proposal document** (print → PDF), and a **guide**
 
 UI: a **component catalog** (`ui-components.mdc`) — 100+ components (buttons, alerts, forms, pickers, modal/popover, slides, player, camera, charts, lists, feeds, ticket cards, navbars/tabs/toolbars, panels, network trees for unilevel/binary/affiliate, hooks…), each with a spec and a mobile · tablet · desktop layout, shown on a dev-only component page — plus a **transition system** (`transitions.mdc`): native-feel push/pop, sheets and swipe-back gestures on mobile, quiet crossfades on desktop, reduced-motion safe, one transition defined per route.
 
@@ -77,7 +77,7 @@ CURSOR.md                  # Brain: install, intake, Profile, phases, handoff lo
 AGENTS.md · CLAUDE.md      # Tiny pointers
 .cursor/
   rules/                   # One file per topic; only format · restrictions · multi-ai are always on
-  reference/               # On-demand detail: components/ · phases/ · layout-patterns.md · migrations.md
+  reference/               # On-demand detail: components/ · layout-patterns.md · migrations.md
     format.mdc restrictions.mdc multi-ai.mdc references.mdc
     design-direction.mdc layout-strategy.mdc ui-styling.mdc ui-components.mdc transitions.mdc forms.mdc icons-states.mdc
     validation.mdc database.mdc implementation-phases.mdc
@@ -85,7 +85,7 @@ AGENTS.md · CLAUDE.md      # Tiny pointers
     backend.mdc security.mdc testing.mdc seo.mdc        # scoped by globs
     concept-domain.mdc route-layouts.mdc phase-plan.mdc # AI-filled per project
   skills/frontend-design/  # AI-filled visual tokens
-  templates/               # deck-native · deck-react · proposal-doc (Letter) · guide
+  templates/               # deck-react · proposal-doc (Letter) · guide
   commands/  agents/  hooks/  adapters/  settings.json
 ```
 

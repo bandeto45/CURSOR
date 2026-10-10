@@ -51,7 +51,7 @@ Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 | **Migration tool** | TBD — tool + `db:new/up/down/status/seed` mapping |
 | **Clients / surfaces** | `web` \| `mobile` \| `web + mobile` (one project; `web + mobile` → `layout`) |
 | **Frontend flavor** | `react` \| `native` (plain HTML/CSS/JS + Tailwind) |
-| **Proposal deck** | `react` \| `native` (`proposal.mdc`) |
+| **Proposal deck** | `react` only (`proposal.mdc`) — not HTML, not a native deck |
 | **Layout strategy** | `normal` \| `layout` \| `auto` — one codebase; `mobile` and `web + mobile` are always `layout` (`layout-strategy.mdc`) |
 | **Layout resolved** | TBD — `normal` \| `layout` \| `mixed` + 1-line reason |
 | **Design direction** | TBD — name + mood + who chose (`design-direction.mdc`) |
@@ -70,7 +70,7 @@ Locked, not asked: CSS = **Tailwind**; UX = simplified, easy to use, eye-comfort
 
 ---
 
-## 4. Phases (detail: `implementation-phases.mdc` · project plan: `phase-plan.mdc`)
+## 4. Phases (what to implement: `implementation-phases.mdc` · functions under each item: `phase-plan.mdc`)
 
 | Phase | Name | Build |
 |-------|------|-------|
@@ -80,7 +80,7 @@ Locked, not asked: CSS = **Tailwind**; UX = simplified, easy to use, eye-comfort
 | **P4** | Integration | UI ↔ API feature by feature; mocks removed |
 | **P5** | Cleanup & ship | Dead code, docs, regression, security/perf, deploy checklist |
 
-One phase at a time. Each ends with `/phase-exit` — units done, tests, leftovers, carry-over, dev says **exit OK** — then bump Current phase.
+One phase at a time. Each phase ends with `/phase-exit`: code review, find gaps, fix them, then the dev says **exit OK**. The next phase does not start until that gate is **passed**.
 
 ---
 
@@ -94,6 +94,10 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | 2026-10-10 | Cursor | pack | Admin is a CMS: CRUD on records and content (pages, posts, media, site settings) | — |
 | 2026-10-10 | Cursor | pack | FAB + infinite-scroll specs; loader guide (skeleton, button, top bar, progress, splash) in `icons-states.mdc` | — |
 | 2026-10-10 | Cursor | pack | Icon choices: Material, Font Awesome, Flaticon, SF Symbols, Lottie; AI recommends one from the concept when install leaves it blank | — |
+| 2026-10-11 | Cursor | pack | One work base: `phase-plan.mdc`. `implementation-phases.mdc` is rules only; `reference/phases/` is an install seed | — |
+| 2026-10-11 | Cursor | pack | Implementation list is back in `implementation-phases.mdc` (P1–P5 checkboxes). `phase-plan.mdc` only splits each item into functions | — |
+| 2026-10-11 | Cursor | pack | Every phase exit is review → find gaps → fix → pass. Next phase stays closed until the dev says exit OK | — |
+| 2026-10-11 | Cursor | pack | Proposal presentation is React only. HTML and native decks are not allowed | — |
 
 ---
 
@@ -104,7 +108,8 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Moment | Read |
 |--------|------|
 | **Dev asks how to use it / tips** | `reference/usage-guide.md` (`/guide`) |
-| **Every session** | Profile · Handoff Log · `implementation-phases.mdc` · `reference/phases/<Current phase>.md` · rows of `phase-plan.mdc` for the current phase |
+| **Every session** | Profile · Handoff Log · the current phase's checkboxes in **`implementation-phases.mdc`** (what is implemented) · `phase-plan.mdc` only for the functions under the open checkbox |
+| **Phase exit** | Checkboxes in `implementation-phases.mdc` · `/phase-exit` |
 | **Intake / P1** | `reference/intake.md` · `concept-domain` · `design-direction` · `layout-strategy` (+ `reference/layout-patterns.md`) · `route-layouts` · `project-structure` · `database` (+ `reference/migrations.md`) · `proposal` (+ `templates/`) |
 | **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
 | **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` · `error-log` (debug envelope, `/health`) |
@@ -131,7 +136,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
 | Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`) |
 | Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
-| Deliverable | `proposal.mdc` | P1 proposal deck (React/native), Letter-size document, guide |
+| Deliverable | `proposal.mdc` | P1 proposal deck (React only), Letter-size document, guide |
 | UI | `ui-styling.mdc` | Tailwind system, shared components, motion, frontend conventions |
 | UI | `ui-components.mdc` | Component catalog + Component Spec + **customization contract** (follow the catalog; per-usage `className` overrides specified in the content): foundations, layout, nav, actions, overlays, inputs/pickers, lists, media, network/marketing, hooks |
 | UI | `transitions.mdc` | Page/element transitions: push/pop, sheets, gestures, tokens, reduced motion, per-route map |
@@ -140,11 +145,11 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
 | Logic | `validation.mdc` | Client + server validation |
 | Logic | `database.mdc` | Migration contract (any stack) + schema quality; tools in `reference/migrations.md` |
-| Logic | `implementation-phases.mdc` | P1–P5 framework, Function Spec, exit gate (contents: `reference/phases/`) |
+| Logic | `implementation-phases.mdc` | **What gets implemented** — P1–P5 checkboxes. Check a box when that deliverable is done |
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
-| **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions (`TEMPLATE` → `DRAFT` → `APPROVED`) |
+| **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions. `phase-plan.mdc` is the function split under each P-item, not a second implementation list |
 
-Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, phases, layout patterns, migrations) · `.cursor/templates/` (deck-native, deck-react, proposal-doc, guide, ci, error-console) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/adapters/help.sh` (token-free shortcuts/commands/tips in a terminal) · `.cursor/settings.json` (metadata, globs, flags).
+Other: `.cursor/commands/` (`/install-cursor-pack`, `/project-intake`, `/guide`, `/phase-exit`, `/pr-review`, `/fix-issue`, `/deploy`, `/test`, `/lint`) · `.cursor/agents/` (review, debug, test, docs, security, refactor personas) · `.cursor/hooks/` (pre-commit, lint-on-save) · `.cursor/reference/` (on-demand detail: components, layout patterns, migrations) · `.cursor/templates/` (deck-react, proposal-doc, guide, ci, error-console) · `.cursor/adapters/sync-ai-adapters.sh` (pointer files) · `.cursor/adapters/help.sh` (token-free shortcuts/commands/tips in a terminal) · `.cursor/settings.json` (metadata, globs, flags).
 
 ---
 

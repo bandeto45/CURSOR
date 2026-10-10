@@ -63,9 +63,15 @@ function Slide({ s }) {
 
 export default function Deck() {
   const [i, setI] = useState(fromHash);
+  const [hint, setHint] = useState(true);
   const touch = useRef(null);
   const go = useCallback((d) => setI((n) => Math.max(0, Math.min(slides.length - 1, n + d))), []);
   const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.());
+
+  useEffect(() => {
+    const t = setTimeout(() => setHint(false), 4000);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => { history.replaceState(null, '', `#${i + 1}`); }, [i]);
   useEffect(() => {
@@ -84,11 +90,23 @@ export default function Deck() {
     return () => { removeEventListener('keydown', onKey); removeEventListener('hashchange', onHash); };
   }, [go]);
 
+  function onDeckClick(e) {
+    if (e.target.closest('button, a')) return;
+    const x = e.clientX / window.innerWidth;
+    if (x > 0.72) go(1);
+    else if (x < 0.28) go(-1);
+  }
+
+  const pad = (n) => String(n).padStart(2, '0');
+
   return (
     <>
+      <div className="progress-top" style={{ width: `${((i + 1) / slides.length) * 100}%` }} />
+      {hint ? <p className="hint">← → · click the sides · F fullscreen · P print</p> : null}
       <main
         className="deck"
         aria-roledescription="presentation"
+        onClick={onDeckClick}
         onTouchStart={(e) => { touch.current = e.touches[0].clientX; }}
         onTouchEnd={(e) => {
           if (touch.current === null) return;
@@ -106,7 +124,7 @@ export default function Deck() {
       <nav className="bar" aria-label="Slide controls">
         <button className="btn" onClick={() => go(-1)} aria-label="Previous slide">‹</button>
         <div className="progress" role="progressbar" aria-label="Progress"><i style={{ width: `${((i + 1) / slides.length) * 100}%` }} /></div>
-        <span className="count" aria-live="polite">{i + 1} / {slides.length}</span>
+        <span className="count" aria-live="polite">{pad(i + 1)} / {pad(slides.length)}</span>
         <button className="btn" onClick={() => go(1)} aria-label="Next slide">›</button>
         <button className="btn" onClick={fullscreen} aria-label="Fullscreen">⛶</button>
       </nav>

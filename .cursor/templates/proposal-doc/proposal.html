@@ -63,109 +63,107 @@
 </head>
 <body>
 
-<!-- ===== Cover ===== -->
+<!-- Locked outline: proposal.mdc §4. Do not rename, drop, or reorder. -->
 <section class="page cover">
-  <span class="label">Project proposal</span>
+  <span class="label">Project Development Proposal</span>
   <h1>{{Project name}}</h1>
-  <p class="lead">{{One-line pitch}}</p>
+  <p class="lead">{{Tagline}}</p>
   <div style="margin-top:.6in">
-    <p><b>Prepared for:</b> {{Client / stakeholder}}<br><b>Prepared by:</b> {{Team}}<br><b>Date:</b> {{Month DD, YYYY}} · <b>Version:</b> {{1.0}}</p>
+    <p><b>Prepared for:</b> {{Client}}<br><b>Prepared by:</b> {{Developer}}<br><b>Date:</b> {{Month DD, YYYY}} · <b>Version:</b> {{1.0}}</p>
   </div>
   <p class="foot">Confidential — for {{Client}} only.</p>
 </section>
 
-<!-- ===== 1 · Executive summary + Problem & goals ===== -->
 <section class="page">
-  <h2>1. Executive summary</h2>
-  <p>{{3–4 sentences: what it is, who it is for, the outcome, the plan, the ask.}}</p>
-  <div class="box"><b>The ask:</b> {{Approve scope and start P2 by DATE.}}</div>
+  <h2>Contents</h2>
+  <ol>
+    <li>Executive Summary</li>
+    <li>Project Background &amp; Objectives</li>
+    <li>Scope of Work (Phase 0–4)</li>
+    <li>Out of Scope</li>
+    <li>What You Receive</li>
+    <li>Payment Terms &amp; Schedule</li>
+    <li>Maintenance Retainer</li>
+    <li>Delivery Timeline</li>
+    <li>Client Costs &amp; Third-party Items</li>
+    <li>Assumptions &amp; Dependencies</li>
+    <li>Risk Management</li>
+    <li>Acceptance Criteria</li>
+    <li>Terms &amp; Conditions — Development Engagement</li>
+    <li>Acceptance &amp; Signatures</li>
+  </ol>
+  <h2>Quick reference</h2>
+  <table><thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+  <tbody><tr><td>{{Term}}</td><td>{{Meaning for this project}}</td></tr></tbody></table>
+</section>
 
-  <h2>2. Problem &amp; goals</h2>
-  <h3>The problem</h3>
-  <ul><li>{{Pain point 1}}</li><li>{{Pain point 2}}</li></ul>
-  <h3>Goals &amp; success measures</h3>
+<section class="page">
+  <h2>1. Executive Summary</h2>
+  <p>{{What it is, who it is for, the outcome, the fee ask.}}</p>
+  <h2>2. Project Background &amp; Objectives</h2>
+  <ul><li>{{Pain point}}</li></ul>
   <table><thead><tr><th>Goal</th><th>Measure</th><th>Target</th></tr></thead>
   <tbody><tr><td>{{goal}}</td><td>{{metric}}</td><td>{{value}}</td></tr></tbody></table>
 </section>
 
-<!-- ===== 3 · Solution, users, scope ===== -->
 <section class="page">
-  <h2>3. Solution &amp; features</h2>
-  <table><thead><tr><th>ID</th><th>Feature</th><th>What it does</th><th>Roles</th></tr></thead>
-  <tbody>
-    <tr><td>F-01</td><td>{{Feature}}</td><td>{{Benefit}}</td><td>{{Roles}}</td></tr>
-    <tr><td>F-02</td><td>{{Feature}}</td><td>{{Benefit}}</td><td>{{Roles}}</td></tr>
-  </tbody></table>
-
-  <h2>4. Users &amp; roles</h2>
-  <table><thead><tr><th>Role</th><th>Goals</th><th>Key screens</th></tr></thead>
-  <tbody><tr><td>{{Role}}</td><td>{{goal}}</td><td>{{R-01, R-02}}</td></tr></tbody></table>
-
-  <h2>5. Scope (v1)</h2>
-  <h3>In scope</h3><ul><li>{{item}}</li></ul>
-  <h3>Out of scope</h3><ul><li>{{item}}</li></ul>
+  <h2>3. Scope of Work — Phase 0 through Phase 4</h2>
+  <table><thead><tr><th>Phase</th><th>Deliverable</th></tr></thead>
+  <tbody><tr><td>{{Phase 0}}</td><td>{{deliverable}}</td></tr></tbody></table>
+  <h2>4. Out of Scope</h2>
+  <ul><li>{{Not included in this fee}}</li></ul>
+  <h2>5. What You Receive</h2>
+  <ul><li>Admin access</li><li>Browsable live platform</li><li>Documentation</li><li>Source code</li></ul>
+  <p>{{What is not handed over, or “None.”}}</p>
 </section>
 
-<!-- ===== 6–7 · Design + Layout ===== -->
 <section class="page">
-  <h2>6. Design direction</h2>
-  <p><b>{{Direction name}}</b> — {{mood, 3 words}}. {{Why it fits the users and the concept.}}</p>
-  <div class="swatches">
-    <div class="sw"><i style="background:{{#hex}}"></i>Primary {{#hex}}</div>
-    <div class="sw"><i style="background:{{#hex}}"></i>Surface {{#hex}}</div>
-    <div class="sw"><i style="background:{{#hex}}"></i>Text {{#hex}}</div>
-    <div class="sw"><i style="background:{{#hex}}"></i>Accent {{#hex}}</div>
-  </div>
-  <p>Typography: {{UI font}} / {{Display font}} · Icons: {{Material | Lottie}} · Modes: {{light / dark}}. Comfort and accessibility: text contrast meets WCAG AA; no pure black on pure white; one accent for actions.</p>
-
-  <h2>7. Layout strategy</h2>
-  <p>Strategy: <b>{{Layout Responsive | Normal Responsive}}</b> — {{one-line reason}}. {{Web + mobile: one project, a distinct layout per screen class.}}</p>
-  <div class="cols">
-    <div><b>Mobile</b>{{navigation + primary layout}}</div>
-    <div><b>Tablet</b>{{navigation + primary layout}}</div>
-    <div><b>Desktop</b>{{navigation + primary layout}}</div>
-  </div>
-  <h3>Key screens</h3>
-  <table><thead><tr><th>ID</th><th>Route</th><th>Pattern</th><th>Mobile</th><th>Tablet</th><th>Desktop</th></tr></thead>
-  <tbody><tr><td>R-01</td><td>{{/route}}</td><td>{{pattern}}</td><td>{{…}}</td><td>{{…}}</td><td>{{…}}</td></tr></tbody></table>
+  <h2>6. Payment Terms &amp; Schedule</h2>
+  <p>Project fee {{amount}}. Kickoff {{amount}} starts the work. Later installments: {{milestone → amount}}. Project-fee payments are non-refundable.</p>
+  <h2>7. Maintenance Retainer</h2>
+  <p>{{Amount / period after warranty, or “Not offered.”}} Separate from the project fee. Decline in writing.</p>
+  <h2>8. Delivery Timeline</h2>
+  <p>The schedule starts when the kickoff payment is received, not when this proposal is signed.</p>
+  <table><thead><tr><th>Phase</th><th>When</th><th>Deliverable</th></tr></thead>
+  <tbody><tr><td>{{Phase}}</td><td>{{weeks or dates}}</td><td>{{deliverable}}</td></tr></tbody></table>
 </section>
 
-<!-- ===== 8–9 · Architecture, data ===== -->
 <section class="page">
-  <h2>8. Architecture &amp; stack</h2>
-  <table><thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
-  <tbody>
-    <tr><td>Frontend</td><td>{{React | Native (plain HTML/CSS/JS)}} + Tailwind CSS</td><td>{{reason}}</td></tr>
-    <tr><td>Backend</td><td>{{…}}</td><td>{{reason}}</td></tr>
-    <tr><td>Database</td><td>{{…}} (PHP migrations + seeds)</td><td>{{reason}}</td></tr>
-    <tr><td>Auth · Hosting</td><td>{{…}}</td><td>{{reason}}</td></tr>
-  </tbody></table>
-  <p>Live credentials and hosts are kept in GitHub Secrets — never in the repository.</p>
-
-  <h2>9. Data model</h2>
-  <table><thead><tr><th>ID</th><th>Entity</th><th>Purpose</th><th>Key relations</th></tr></thead>
-  <tbody><tr><td>T-01</td><td>{{table}}</td><td>{{purpose}}</td><td>{{relations}}</td></tr></tbody></table>
-</section>
-
-<!-- ===== 10–12 · Plan, risks, approval ===== -->
-<section class="page">
-  <h2>10. Phases &amp; timeline</h2>
-  <table><thead><tr><th>Phase</th><th>Deliverable</th><th>Exit criteria</th><th>Timing</th></tr></thead>
-  <tbody>
-    <tr><td>P1 Foundation</td><td>Proposal, design + layouts, schema, plan</td><td>Approved by client</td><td>{{dates}}</td></tr>
-    <tr><td>P2 Mock UI</td><td>Every screen on sample data</td><td>Matches approved layouts</td><td>{{dates}}</td></tr>
-    <tr><td>P3 API</td><td>Endpoints with validation + authorization</td><td>All endpoint tests pass</td><td>{{dates}}</td></tr>
-    <tr><td>P4 Integration</td><td>Screens on the real API</td><td>End-to-end paths pass</td><td>{{dates}}</td></tr>
-    <tr><td>P5 Cleanup &amp; ship</td><td>Docs, regression, deployment</td><td>Deploy checklist complete</td><td>{{dates}}</td></tr>
-  </tbody></table>
-
-  <h2>11. Risks &amp; assumptions</h2>
-  <table><thead><tr><th>Risk / assumption</th><th>Impact</th><th>Mitigation</th></tr></thead>
+  <h2>9. Client Costs &amp; Third-party Items</h2>
+  <table><thead><tr><th>Item</th><th>Who pays</th><th>Notes</th></tr></thead>
+  <tbody><tr><td>{{Hosting / domain / email / stores}}</td><td>Client</td><td>{{amount or “as billed by the vendor”}}</td></tr></tbody></table>
+  <h2>10. Assumptions &amp; Dependencies</h2>
+  <ul><li>{{Assumption or client input}}</li></ul>
+  <h2>11. Risk Management</h2>
+  <table><thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
   <tbody><tr><td>{{risk}}</td><td>{{impact}}</td><td>{{mitigation}}</td></tr></tbody></table>
+  <h2>12. Acceptance Criteria</h2>
+  <ul><li>{{Done when}}</li></ul>
+</section>
 
-  <h2>12. Approval</h2>
-  <p>Approving this proposal confirms the scope, design direction, and layouts above, and authorizes work to begin on P2.</p>
-  <div class="sign"><div>{{Client name}} — signature / date</div><div>{{Team lead}} — signature / date</div></div>
+<section class="page">
+  <h2>13. Terms &amp; Conditions — Development Engagement</h2>
+  <h3>13.1 Relationship</h3><p>{{Developer}} provides the services in this proposal to {{Client}}. Each party handles its own taxes. Withholding only if the law requires it.</p>
+  <h3>13.2 Intellectual property</h3><p>After the full project fee is received, the client owns the custom deliverables. The developer keeps pre-existing tools and generic components. Portfolio use unless the client opts out in writing. Third-party licenses stay with their vendors.</p>
+  <h3>13.3 Confidentiality</h3><p>Non-public information stays confidential. The obligation survives 3 years after termination.</p>
+  <h3>13.4 Payment terms</h3><p>The fee and schedule are Section 6. A billing statement per installment. Work or handover may wait until an open amount is cleared. Project-fee payments are non-refundable.</p>
+  <h3>13.5 Payment &amp; timeline dependency</h3><p>Work starts when the kickoff payment is received, not when this proposal is signed. Handover follows clearance of the remaining fee.</p>
+  <h3>13.6 Timeline schedule conditions</h3><ul><li>The schedule starts at kickoff.</li><li>It moves if client inputs are late.</li><li>Work may pause if an installment or a prerequisite is still open.</li></ul>
+  <h3>13.7 Client responsibilities</h3><p>The client supplies materials and a primary contact. UAT feedback is due within 3 business days. Client delay extends the timeline under 13.6.</p>
+  <h3>13.8 Change control</h3><p>Work outside Section 3 needs a written change order before it starts.</p>
+  <h3>13.9 Warranty</h3><p>Deliverables match Section 3 for {{N}} calendar days from final handover. Defects on existing scope only.</p>
+  <h3>13.10 Limitation of liability</h3><p>This is a software build, not a guarantee of business outcomes. Liability is capped at fees actually paid, except for confidentiality breaches or willful misconduct.</p>
+  <h3>13.11 Termination</h3><p>Either party may terminate with 14 days written notice. Amounts already paid are not refunded. Completed artifacts follow within 7 business days after amounts due are paid.</p>
+  <h3>13.12 Acceptance &amp; handover</h3><p>Criteria are Section 12. Deemed accepted if there is no written rejection with specific defects within 5 business days. Handover items are held until the final payment is cleared.</p>
+  <h3>13.13 End-user legal content</h3><p>The developer implements consent screens. The client writes end-user terms and privacy text and is the personal-information controller.</p>
+  <h3>13.14 End-user contact — Developer not customer-facing</h3><p>End users are not sent to the developer. The client’s primary contact reports defects.</p>
+  <h3>13.15 Governing law &amp; disputes</h3><p>Republic of the Philippines. 30 days of good-faith negotiation, then Philippine courts.</p>
+</section>
+
+<section class="page">
+  <h2>14. Acceptance &amp; Signatures</h2>
+  <p>By signing, both parties agree to this Project Development Proposal (Sections 1–13).</p>
+  <div class="sign"><div>For {{Client}} — name, title, signature, date</div><div>For {{Developer}} — name, title, signature, date</div></div>
 </section>
 
 </body>

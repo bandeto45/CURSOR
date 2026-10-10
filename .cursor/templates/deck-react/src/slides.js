@@ -1,53 +1,25 @@
-// Proposal content — data only. Fill from concept-domain.mdc, route-layouts.mdc, and the approved design direction.
-// Slide types: title · points · cards · table · swatches · devices · phases · split
-// Replace every {{placeholder}}. Keep IDs (F-nn, R-nn, T-nn) identical to the project files.
+// Deck walks the locked Letter sections in proposal.mdc §4. Do not reorder.
+// Fill from this project's files. Do not reuse another project's fees or names.
 
 export const meta = { title: '{{Project name}}', date: '{{Month YYYY}}' };
 
 export const slides = [
-  { type: 'title', eyebrow: 'Proposal', title: '{{Project name}}', lead: '{{One-line pitch}}', sub: 'Prepared for {{Client}} · by {{Team}}' },
-
-  { type: 'points', eyebrow: 'Why', title: '{{The problem in one sentence}}', points: ['{{Pain point 1}}', '{{Pain point 2}}', '{{Pain point 3}}'], lead: 'Goal: {{Measurable outcome}}' },
-
-  { type: 'cards', eyebrow: 'Solution', title: '{{Solution headline}}', cards: [
-    { h: 'F-01 {{Feature}}', p: '{{Benefit}}' },
-    { h: 'F-02 {{Feature}}', p: '{{Benefit}}' },
-    { h: 'F-03 {{Feature}}', p: '{{Benefit}}' },
+  { type: 'title', eyebrow: 'Project Development Proposal', title: '{{Project name}}', lead: '{{Tagline}}', sub: 'Prepared for {{Client}} · by {{Developer}} · {{Version}}' },
+  { type: 'points', eyebrow: '1 · Executive Summary', title: '{{Outcome in one line}}', points: ['{{Who it is for}}', '{{What they can do}}', '{{Fee ask}}'] },
+  { type: 'points', eyebrow: '2 · Background & Objectives', title: '{{The problem}}', points: ['{{Pain}}', '{{Goal}}', '{{Measure}}'] },
+  { type: 'phases', eyebrow: '3 · Scope — Phase 0 through Phase 4', title: 'What this fee builds', phases: [
+    ['0', '{{Set-up}}'], ['1', '{{Sample screens}}'], ['2', '{{Live records}}'], ['3', '{{Live connections}}'], ['4', '{{Turn-over}}'],
   ] },
-
-  { type: 'cards', eyebrow: 'Who', title: 'Built for {{n}} kinds of users', cards: [
-    { h: '{{Role}}', p: '{{What they do here}}' },
-    { h: '{{Role}}', p: '{{What they do here}}' },
-  ] },
-
-  { type: 'split', eyebrow: 'Scope · v1', title: 'What is in — and what is not',
-    left: { h: 'In scope', points: ['{{item}}', '{{item}}'] },
-    right: { h: 'Out of scope', points: ['{{item}}', '{{item}}'] } },
-
-  { type: 'swatches', eyebrow: 'Design', title: '{{Direction name}} — {{mood, 3 words}}', lead: '{{Why it fits the users}}',
-    swatches: [{ name: 'Primary', hex: '#3b5bdb' }, { name: 'Surface', hex: '#f7f6f3' }, { name: 'Text', hex: '#23262b' }, { name: 'Accent', hex: '#3b5bdb' }],
-    foot: 'Type: {{UI font}} / {{Display font}} · Icons: {{Material | Lottie}} · Modes: {{light / dark}}' },
-
-  { type: 'devices', eyebrow: 'Layout · {{Layout Responsive | Normal Responsive}}', title: 'Designed for every screen',
-    devices: [{ h: 'Mobile', p: '{{nav + primary layout}}' }, { h: 'Tablet', p: '{{nav + primary layout}}' }, { h: 'Desktop', p: '{{nav + primary layout}}' }],
-    lead: 'One project · shared components · a layout per screen class.' },
-
-  { type: 'table', eyebrow: 'Screens', title: 'Key screens',
-    head: ['ID', 'Route', 'Pattern', 'Mobile', 'Tablet', 'Desktop'],
-    rows: [['R-01', '{{/route}}', '{{pattern}}', '{{…}}', '{{…}}', '{{…}}']] },
-
-  { type: 'points', eyebrow: 'Under the hood', title: '{{Frontend}} · {{Backend}} · {{Database}}',
-    points: ['Entities: {{T-01, T-02, …}}', 'Auth: {{model}} · Hosting: {{target}}', 'Live secrets in GitHub Secrets — never in git'] },
-
-  { type: 'phases', eyebrow: 'Plan', title: 'Five phases, one function at a time', phases: [
-    ['P1', 'Foundation — concept, design, layouts, schema, plan'],
-    ['P2', 'Mock UI — every screen on sample data'],
-    ['P3', 'API — endpoint by endpoint'],
-    ['P4', 'Integration — screens on the real API'],
-    ['P5', 'Cleanup & ship — docs, regression, deploy'],
-  ] },
-
-  { type: 'table', eyebrow: 'Risks', title: 'What could go wrong — and the answer', head: ['Risk', 'Impact', 'Mitigation'], rows: [['{{risk}}', '{{impact}}', '{{mitigation}}']] },
-
-  { type: 'points', eyebrow: 'Next', title: 'Approve to start P2', points: ['{{Decision needed}}', '{{Input needed}}', '{{Date}}'], lead: '{{Contact}}' },
+  { type: 'split', eyebrow: '4 · Out of scope', title: 'Not in this fee',
+    left: { h: 'Out', points: ['{{item}}'] },
+    right: { h: '5 · What you receive', points: ['Admin access', 'Live platform', 'Documentation', 'Source code'] } },
+  { type: 'table', eyebrow: '6 · Payment', title: '{{Project fee}}', head: ['When', 'Amount'], rows: [['Kickoff — work starts', '{{amount}}'], ['{{Milestone}}', '{{amount}}'], ['Handover', '{{amount}}']] },
+  { type: 'points', eyebrow: '7 · Retainer', title: 'After the warranty', points: ['{{Amount and period, or “Not offered”}}', 'Separate from the project fee', 'Decline in writing'] },
+  { type: 'points', eyebrow: '8 · Timeline', title: 'Starts at kickoff, not at signature', points: ['{{Window}}', '{{Phase → when}}'] },
+  { type: 'table', eyebrow: '9 · Client costs', title: 'Vendor bills the client pays', head: ['Item', 'Notes'], rows: [['{{Hosting / domain / email / stores}}', '{{as billed}}']] },
+  { type: 'split', eyebrow: '10–12', title: 'Assumptions, risks, acceptance',
+    left: { h: 'Depends on', points: ['{{Client input}}'] },
+    right: { h: 'Done when', points: ['{{Acceptance item}}'] } },
+  { type: 'points', eyebrow: '13 · Terms', title: 'Development engagement', points: ['13.1–13.15 — same clauses in every proposal', 'Full text is on the Letter page', 'Philippine law · 14-day termination · non-refundable project fee'] },
+  { type: 'points', eyebrow: '14 · Signatures', title: 'Approve Sections 1–13', points: ['{{Client}} — name, title, signature, date', '{{Developer}} — name, title, signature, date'] },
 ];

@@ -1,5 +1,5 @@
 ---
-description: P1 proposal package — presentation (React.js or Native), letter-size proposal document, and project guide
+description: P1 proposal package — React presentation only, letter-size proposal document, and project guide
 alwaysApply: false
 ---
 
@@ -12,39 +12,91 @@ alwaysApply: false
 ### 1. Deliverables (all in `docs/`)
 | Deliverable | Format | Template | Output |
 |-------------|--------|----------|--------|
-| **Proposal presentation** | `react` (Vite) **or** `native` (single HTML file) — dev picks; AI recommends | `deck-react/` · `deck-native/index.html` | `docs/proposal/deck/` |
-| **Proposal document** | **US Letter 8.5 × 11 in**, print-ready HTML → PDF | `proposal-doc/proposal.html` | `docs/proposal/proposal.html` + `proposal.pdf` |
+| **Proposal presentation** | **React only** (Vite). Not HTML, not a single static file, not another framework | `deck-react/` | `docs/proposal/deck/` |
+| **Proposal document** | **React route** `/proposal` in the same Vite app. US Letter 8.5 × 11 in, Print → PDF. Not a standalone HTML file | `deck-react/` (document view) · section outline in `proposal-doc/proposal.html` | `docs/proposal/deck/` · `proposal.pdf` |
 | **Guide** | Markdown | `guide/GUIDE.md` | `docs/GUIDE.md` (skeleton in P1, finished in P5) |
 
-### 2. Presentation flavor (Profile → Proposal deck: `react` \| `native`)
-| Choose | When |
-|--------|------|
-| `native` | Default recommendation: zero build, one file, opens anywhere, easiest to email/host |
-| `react` | The project frontend is React and the deck should reuse its tokens/components, or the deck will grow (many slides, live data) |
+### 2. Presentation (locked)
+Profile → **Proposal deck** is `react`. There is no flavor choice.
 
-Same 12-slide story either way (order below). "Native" = plain HTML/CSS/JS, no framework.
+- Build it from `deck-react/` (Vite + React).
+- Do not ship `deck-native`, a standalone `.html` deck, or a non-React slide file.
+- Same 12-slide story (order below). The product app may still be `native` HTML; that does not change this deck.
 
-### 3. Slide order (12) — the document follows the same order (§4)
-1 Title · 2 Problem & goal · 3 Solution & features (`F`) · 4 Users & roles · 5 Scope in/out · 6 Design direction · 7 Layout strategy (mobile · tablet · desktop) · 8 Key screens (`R`) · 9 Architecture & data (`T`) · 10 Phases P1–P5 · 11 Risks · 12 Next steps / approval
+### 2b. Format to retain
+The deck and the Letter page follow this chrome. Fill copy from the project files. Do not copy another product’s name, colors, prices, or screenshots.
 
-### 4. Document sections (Letter)
-Cover · 1 Executive summary · 2 Problem & goals · 3 Solution & features · 4 Users & roles · 5 Scope (v1) · 6 Design direction · 7 Layout strategy · 8 Architecture & stack · 9 Data model · 10 Phases & timeline · 11 Risks & assumptions · 12 Approval (signatures).
-Print rules: `@page` Letter, 1in margins, running header/footer + page numbers, tables repeat headers and never split rows, headings never orphaned, cover has no header/footer.
+| Keep | Deck | Letter page (`/proposal`) |
+|------|------|---------------------------|
+| App | Separate Vite + React app, not the product `app/` | Same app, route `/proposal` |
+| Frame | One full-viewport slide. Kicker, title, lead. Cards, numbered steps, 2- and 3-column grids | Screen toolbar (hidden in print): **Print / Save as PDF**, link back to the deck |
+| Motion | Top progress bar, padded counter `01 / 12`, fading hint, prev/next | Body scroll. Cover is its own first sheet |
+| Keys | ← → Space PageUp/Down Home End · **F** fullscreen · **P** print · hash `#n` · swipe · click left/right edges | Print dialog hint: paper **Letter**, margins default or none, **Background graphics** on |
+| Cover | Title slide may be dark; the rest stay on the page surface | Doc type, name, tagline, prepared for, prepared by, date, revised, version |
+| Print | One slide per landscape page; chrome hidden | `@page` Letter, running header/footer, page numbers, tables do not split a row |
+| Reduced motion | No slide animation | No smooth-scroll requirement |
+
+### 3. Slide order
+The deck walks the same headings as the Letter document (§4), in the same order. Do not invent a different slide story.
+
+### 4. Document sections (locked — every proposal, same order)
+Do not rename, drop, merge, or reorder these. Fill the blanks from this project. A section with nothing to say still appears, with one line that it does not apply.
+
+Cover (doc type, name, tagline, prepared for, prepared by, date, version) · Contents · Quick reference (term / meaning).
+
+| # | Heading | Holds |
+|---|---------|--------|
+| 1 | Executive Summary | What it is, who it is for, the outcome, the fee ask |
+| 2 | Project Background & Objectives | Problem, goals, success measures |
+| 3 | Scope of Work — Phase 0 through Phase 4 | In-scope build steps and deliverables (`F`) |
+| 4 | Out of Scope | What this fee does not include |
+| 5 | What You Receive | Handover list: admin access, live platform, documentation, source code — and what is not handed over |
+| 6 | Payment Terms & Schedule | Fee, kickoff, later installments, what starts work, non-refundable note |
+| 7 | Maintenance Retainer | After warranty; separate from the project fee; how to decline |
+| 8 | Delivery Timeline | Phases with weeks or dates, from kickoff not from signature |
+| 9 | Client Costs & Third-party Items | Hosting, domain, email, stores, and other vendor bills the client pays |
+| 10 | Assumptions & Dependencies | What must be true, and what the client must supply |
+| 11 | Risk Management | Risk, impact, mitigation |
+| 12 | Acceptance Criteria | Checklist that defines done |
+| 13 | Terms & Conditions — Development Engagement | Clauses 13.1–13.15 below, same numbers and titles |
+| 14 | Acceptance & Signatures | Both parties: name, title, signature, date. Agreement covers Sections 1–13 |
+
+**13. Terms — same clause numbers every time**
+
+| Clause | Title | What it must say |
+|--------|--------|------------------|
+| 13.1 | Relationship | Developer provides the services; client owns operations; each party handles its own taxes; billing statement and/or official receipt; withholding only if the law requires it |
+| 13.2 | Intellectual property | After the full project fee is received, client owns the custom deliverables. Developer keeps pre-existing tools and generic components. Portfolio use unless the client opts out in writing. Third-party licenses stay with their vendors |
+| 13.3 | Confidentiality | Non-public business, technical, and financial information. Survives **3 years** after termination |
+| 13.4 | Payment terms | Fee and schedule point at Section 6. A billing statement per installment. Work or handover may wait until an open amount is cleared. No interest unless the law requires it. **Project-fee payments are non-refundable** |
+| 13.5 | Payment & timeline dependency | Work starts when the kickoff payment is received, not when the proposal is signed. Handover follows clearance of the remaining fee |
+| 13.6 | Timeline schedule conditions | Schedule starts at kickoff. It moves with late client inputs. Work may pause if an installment or a prerequisite is open |
+| 13.7 | Client responsibilities | Timely materials and a primary contact. UAT feedback within **3 business days**. Client delay extends the timeline under 13.6 |
+| 13.8 | Change control | Work outside Section 3 needs a written change order (timeline and cost) before it starts. Chat alone does not change scope |
+| 13.9 | Warranty | Deliverables materially match Section 3 for the stated calendar days, starting at **final handover**. Defects on existing scope only — not new features, vendor outages, or client changes |
+| 13.10 | Limitation of liability | The build is software, not a guarantee of business outcomes. Except for confidentiality breaches or willful misconduct, liability is capped at fees actually paid. No indirect or lost-profit damages to the extent the law allows |
+| 13.11 | Termination | Either party, **14 days** written notice. Client pays for work done. **Amounts already paid are not refunded.** Completed artifacts within **7 business days** after amounts due are paid |
+| 13.12 | Acceptance & handover | Criteria are Section 12. Deemed accepted if the client does not send a written rejection with specific defects within **5 business days** of delivery notice. Handover items are held until the final payment is cleared |
+| 13.13 | End-user legal content | Developer implements consent screens and version tracking. The client writes and approves end-user terms and privacy text. The client is the personal-information controller |
+| 13.14 | End-user contact — Developer not customer-facing | End users are not sent to the developer. The client’s primary contact reports defects |
+| 13.15 | Governing law & disputes | Republic of the Philippines. **30 days** good-faith negotiation, then Philippine courts |
+
+Print rules: `@page` Letter, running header/footer + page numbers, tables repeat headers and never split rows, headings never orphaned, cover has no header/footer.
 
 ### 5. Content sources (never invent)
 | Section | From |
 |---------|------|
-| Problem, goals, features, roles, scope, entities | `concept-domain.mdc` (`F`, `T`) |
-| Design | approved `REC-design-n` + `frontend-design/SKILL.md` |
-| Layout, key screens | `route-layouts.mdc` (`R`) |
-| Stack, phases, timing | Profile + `phase-plan.mdc` |
-| Risks | `concept-domain.mdc` risk list |
+| Summary, background, scope, out of scope, what you receive | `concept-domain.mdc` (`F`, roles) |
+| Payment, retainer, client costs, warranty length | The dev’s figures for this engagement — do not reuse another project’s fees |
+| Timeline | `phase-plan.mdc` + the agreed window |
+| Assumptions, risks, acceptance | `concept-domain.mdc` risk list + Section 3 |
+| Terms 13.1–13.15 | This table. Fill names and amounts; do not rewrite the clause titles |
 
 ### 6. Guide (dev + user)
 Sections: what this is · quick start (commands the AI has run) · project map (from `project-structure.mdc`) · how to work here (add a screen / endpoint / migration / design change) · roles & walkthroughs · conventions · environment & deploy · troubleshooting.
 
 ## Flow (`format.mdc`)
-1. **Ask** — audience (client / team / investor), deck flavor, desired length, date/version. AI recommends the flavor as `REC-plan-n`.
+1. **Ask** — audience (client / team / investor), desired length, date/version. The deck is React. Do not ask for an HTML or native deck.
 2. **Write** in this order, after design and layouts are `APPROVED`: deck → document → guide skeleton. Replace **every** `{{placeholder}}`; tokens only from the approved direction (no pure black/white, one accent).
 3. **Verify** — open the deck (keys, swipe, print), print the document to PDF and check: Letter size, page count, no split rows, no clipped text, placeholders gone; run every guide command.
 4. **Confirm** — dev reviews; status `DRAFT` → `APPROVED`. The dev's approval of the proposal is the P1 exit input.
@@ -53,4 +105,6 @@ Sections: what this is · quick start (commands the AI has run) · project map (
 - Invent features, numbers, or dates that are not in the project files
 - Ship with leftover `{{placeholders}}`, or with colors/fonts outside the approved direction
 - Use A4 or other page sizes for the proposal document
+- Build the proposal presentation as HTML, a single static file, or anything other than the React deck
 - Put source/reference traces (`references.mdc`) or AI/model names in any deliverable
+- Change the section order, drop a section, or renumber the Terms clauses

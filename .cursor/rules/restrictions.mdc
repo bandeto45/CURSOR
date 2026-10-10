@@ -12,7 +12,8 @@ alwaysApply: true
 - Keep decisions only in chat, or skip writing them to their file (`format.mdc`)
 - Start feature work while required Profile fields are `TBD` (unless the dev deferred them)
 - Skip intake, or guess brand/stack/features/design/layout — recommend, then get a decision
-- Mix phases, skip exit gates, or build a unit that is not in `phase-plan.mdc`
+- Mix phases, skip the exit gate, or start the next phase before this phase is **passed** (code review, gaps found, fixes in, dev **exit OK**)
+- Build a unit that is not in `phase-plan.mdc`
 - Start P2 screens before `route-layouts.mdc` is `APPROVED`
 - Remove or weaken any default rule; replace the locked UI system (extensions are fine)
 - Assume one AI/tool; skip the AI Handoff Log (`multi-ai.mdc`)
@@ -27,6 +28,7 @@ alwaysApply: true
 
 ## Proposal package (P1)
 - Ship the proposal with leftover `{{placeholders}}`, invented numbers/dates, non-Letter page size, or colors/fonts outside the approved direction
+- Ship the proposal presentation as HTML or any non-React deck (`proposal.mdc` — React only)
 
 ## Code & data
 - Change the schema outside the project's migration tool (manual DDL, ad-hoc `.sql`), mix two migration tools, or edit applied migrations in shared envs; concatenate user input into SQL
