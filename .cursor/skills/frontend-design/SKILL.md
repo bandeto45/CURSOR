@@ -67,8 +67,9 @@ triggers:
 
 | Item | Choice |
 |------|--------|
-| Icon system | TBD — `material` \| `lottie` |
+| Icon system | TBD — `material` \| `fontawesome` \| `flaticon` \| `sf-symbols` \| `lottie` (AI recommends from the concept if the installer leaves this blank) |
 | Lottie asset path | TBD if `lottie` |
+| Flaticon pack | TBD if `flaticon` — local SVGs, license noted |
 | Logo / mark | TBD |
 | Wordmark rules | TBD |
 

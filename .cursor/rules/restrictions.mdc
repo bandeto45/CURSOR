@@ -34,6 +34,8 @@ alwaysApply: true
 - Rely on the UI to hide controls instead of enforcing authorization server-side
 - Return HTTP `200` with an error-only payload when a proper status exists
 - Mix bare native form controls with the custom form system
+- Use `<input type="date">` or the native date picker instead of the custom calendar (year · month · day)
+- Ship an admin area (when an admin or staff role exists) without **CMS CRUD** (list, detail, create, edit, soft delete) on its records and content, or a report that does not print on **US Letter**, or omit graphs on those reports (`admin.mdc`)
 - Skip shared 404 / status-error / empty screens, skeletons, or lazy load
 - Mix Bootstrap/MUI/other themes with the Tailwind product skin
 - Turn SEO on without Schema.org JSON-LD

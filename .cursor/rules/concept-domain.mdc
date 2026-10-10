@@ -40,5 +40,9 @@ Who can do what per role · entity lifecycles (statuses, transitions) · pricing
 |------|----|--------|-----|
 | — | — | — | — |
 
+## Locked when an admin or staff role exists
+Plan these in **Features** (do not leave them out): an admin **CMS** with **CRUD** (list, detail, create, edit, soft delete) on members, orders, transactions, sales, other concept entities, and content (pages, posts, media, site settings); Letter-size printable reports; graphs; filters via the custom calendar picker. Spec: `admin.mdc`.
+
 ## Do not
 - Add out-of-scope features or change the domain without updating this file first
+- Drop the admin CMS, CRUD, Letter reports, graphs, or the year/month/day calendar when an admin role exists

@@ -80,7 +80,7 @@ Files live in `.cursor/reference/components/`. Each row there gives the componen
 | A | `reference/components/foundations.md` | Colors, Themes, Backgrounds, Typography, Paragraph, Text alignment, Alignment (layout), Margin & padding, … |
 | B | `reference/components/layout.md` | Page, PageContent, Section, Grid layout, Panels (left/right), Footers, Component page, Hero, … |
 | C | `reference/components/navigation.md` | Navbar, SubNavbar, Toolbar, Tabs, TabBar, TabPage, Breadcrumb, Back, … |
-| D | `reference/components/actions.md` | Button, Alert, Loader, Progress, Stepper progress, Tooltip, Banner, Undo snackbar, … |
+| D | `reference/components/actions.md` | Button, FAB, Alert, Loader, Progress, Stepper progress, Tooltip, Banner, Undo snackbar, … |
 | E | `reference/components/overlays.md` | Modal, Popup, Popover, Dropdown menu, Overlay / Drawer, Bottom sheet / Action sheet, Lightbox, Share sheet, … |
 | F | `reference/components/inputs.md` | Forms, Calendar picker UI, Time picker UI, Date-time, Search, Autocomplete, Dropdown selection, Selection page, … |
 | G | `reference/components/lists.md` | List, Media list, Blog list, Product list, Feeds layout, Card, Ticket card, Chip / Badge / Avatar, … |

@@ -18,7 +18,7 @@ alwaysApply: false
    | Mode | Light / dark / both (recommend both when users work long or at night) |
    | Type | UI/body + display pairing, weights, base size, line-height |
    | Shape & density | Radius, shadow/border style, spacing rhythm, compact vs airy |
-   | Icons & motion | `material` or `lottie` recommendation; motion character |
+   | Icons & motion | One icon key from `icons-states.mdc` (`material` · `fontawesome` · `flaticon` · `sf-symbols` · `lottie`). If the installer did not choose, recommend from the concept. Motion character |
    | Feel | One paragraph: what the main screen feels like |
 3. **Decide** — dev picks, tweaks ("A but warmer"), or says "you decide" (Recommended, recorded `AI-chosen`). Re-recommend only what changed.
 4. **Write** to `frontend-design/SKILL.md` (tokens, type, icons), the Tailwind theme, and Profile → **Design direction**. Status `DRAFT` → `APPROVED`.

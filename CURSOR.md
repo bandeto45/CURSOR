@@ -56,7 +56,7 @@ Locked defaults are confirmed, not negotiated (`restrictions.mdc`).
 | **Layout resolved** | TBD — `normal` \| `layout` \| `mixed` + 1-line reason |
 | **Design direction** | TBD — name + mood + who chose (`design-direction.mdc`) |
 | **Theme / Typography** | TBD (from the approved direction → Tailwind theme) |
-| **Icons** | `material` \| `lottie` |
+| **Icons** | `material` \| `fontawesome` \| `flaticon` \| `sf-symbols` \| `lottie` — installer choice, or AI-recommended from the concept when blank (`icons-states.mdc`) |
 | **SEO** | `off` \| `on` (Schema.org required when `on`) |
 | **i18n / analytics / testing** | TBD |
 | **Current phase** | `P1` \| `P2` \| `P3` \| `P4` \| `P5` \| `done` (default after install: `P1`) |
@@ -90,7 +90,10 @@ Read at session start; append one row at session end. Do not reverse another AI'
 
 | Date | AI / tool | Phase | What changed | Open / next |
 |------|-----------|-------|--------------|-------------|
-| — | — | — | (first row added by the first AI to work) | — |
+| 2026-10-10 | Cursor | pack | Admin rule: Letter-size reports (sales, members, orders, transactions, others), graphs, custom calendar (year · month · day) | — |
+| 2026-10-10 | Cursor | pack | Admin is a CMS: CRUD on records and content (pages, posts, media, site settings) | — |
+| 2026-10-10 | Cursor | pack | FAB + infinite-scroll specs; loader guide (skeleton, button, top bar, progress, splash) in `icons-states.mdc` | — |
+| 2026-10-10 | Cursor | pack | Icon choices: Material, Font Awesome, Flaticon, SF Symbols, Lottie; AI recommends one from the concept when install leaves it blank | — |
 
 ---
 
@@ -133,6 +136,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | UI | `ui-components.mdc` | Component catalog + Component Spec + **customization contract** (follow the catalog; per-usage `className` overrides specified in the content): foundations, layout, nav, actions, overlays, inputs/pickers, lists, media, network/marketing, hooks |
 | UI | `transitions.mdc` | Page/element transitions: push/pop, sheets, gestures, tokens, reduced motion, per-route map |
 | UI | `forms.mdc` | Custom form controls + patterns |
+| UI | `admin.mdc` | Admin CMS + CRUD, Letter-size reports, graphs, year/month/day calendar — when an admin or staff role exists |
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
 | Logic | `validation.mdc` | Client + server validation |
 | Logic | `database.mdc` | Migration contract (any stack) + schema quality; tools in `reference/migrations.md` |

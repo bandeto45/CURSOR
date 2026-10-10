@@ -1,5 +1,5 @@
 ---
-description: Locked icons (Material or Lottie), state screens, skeleton loaders, lazy load
+description: Locked icon system (five choices; AI recommends if unset), state screens, skeleton loaders, lazy load
 alwaysApply: false
 ---
 
@@ -9,20 +9,25 @@ alwaysApply: false
 
 ## Icon system
 
-The AI recommends one primary system inside the design proposal (`design-direction.mdc`); the dev confirms; Profile **Icons** records it:
+One primary system per project. If the installer names one, that choice wins. If they leave it blank, the AI recommends one from the concept inside the design proposal (`design-direction.mdc`), the dev confirms (or says "you decide"), and Profile **Icons** plus `frontend-design/SKILL.md` record the key. Do not leave Icons as `TBD` after design is approved.
 
-| Choice | Use |
-|--------|-----|
-| **Material Icons** | Static Material Symbols / Material Icons for product chrome |
-| **Lottie** | Animated icons via **Lottie web** JSON (`.json` / `.lottie`) for chrome and state screens |
+| Key | System | Fits when |
+|-----|--------|-----------|
+| `material` | **Material Icons** / Material Symbols | Cross-platform web, Android-style UI, admin, dashboards. Default recommendation when nothing else fits better |
+| `fontawesome` | **Font Awesome** (one style: solid or regular) | A wide classic set for marketing and app chrome; official package or SVG, not a copied webfont from elsewhere |
+| `flaticon` | **Flaticon** SVGs in the repo | The concept needs a broader flat/illustrated set. Licensed pack only; no hotlink to flaticon.com; keep attribution if that license requires it |
+| `sf-symbols` | **SF Symbols** (Apple) | The product surface is Apple-native (iOS, iPadOS, macOS). Not the chrome set for web or Android |
+| `lottie` | **Lottie** JSON (`.json` / `.lottie`) | Brand or state moments need motion (404, empty, success). Official player; assets under `public/lottie/` or `src/assets/lottie/`; lightweight loops |
+
+Recommend in the design REC: one Recommended key and why it fits **this** concept (surface, tone, motion), plus one alternative and its trade-off.
 
 Rules:
 
-- One primary system per project (Profile + `frontend-design` skill)
-- If **Lottie**: use official Lottie web player for the stack; store assets under a shared path (e.g. `public/lottie/` or `src/assets/lottie/`); prefer lightweight loops
-- If **Material**: do not mix a second static icon library for chrome (emoji is not product chrome)
+- One static set for chrome. Emoji is not product chrome
+- `lottie` may animate state screens over the static set; write that hybrid in Profile. Do not mix two static sets (Material + Font Awesome + Flaticon)
+- `sf-symbols` stays on Apple surfaces. A `web` or `web + mobile` project that includes a browser uses `material`, `fontawesome`, or `flaticon` for shared chrome
 - Icon-only controls still need accessible names (`aria-label` / visible text)
-- Honor `prefers-reduced-motion`: pause/stop Lottie loops or show a static frame
+- Honor `prefers-reduced-motion`: pause Lottie, and do not rely on motion-only SF Symbol effects
 
 ## Default state screens (required)
 
@@ -42,6 +47,23 @@ Prefer Lottie (or the chosen icon system) for these animations so they match bra
 - Skeletons match layout shape (not a lone spinner unless the surface is tiny)
 - Shared skeleton primitives in `components/ui/` (or equivalent)
 
+## Which loader (pick one)
+
+Use the shared components in `reference/components/actions.md`. One loader per moment — do not stack a spinner on top of a skeleton.
+
+| Moment | Use | Not this |
+|--------|-----|----------|
+| First load of a page, list, detail, dashboard, or chart | **Skeleton** shaped like the final layout | Full-screen spinner or blank page |
+| Next page of a long list | **Infinite scroll** — sentinel + skeleton rows at the foot (`lists.md`) | Replacing the whole list with a skeleton |
+| Button submit or save | **Button loader** — inline spinner, width locked, no second submit | A spinner beside the button |
+| Route change, data still pending after ~150ms | **Top progress bar** (indeterminate) | Freezing the screen |
+| Upload, export, or import when the percent is known | **Progress bar** with label | A skeleton or a fake percent |
+| App or PWA boot, under 1.5s | **Splash** (`app-system.md`) | A long preloader on every visit |
+| Tiny inline wait (icon, chip, refresh) | **Spinner** | A skeleton |
+| Rare blocking step (payment confirm) | **Overlay loader** | Overlay on ordinary fetches |
+
+**Default:** skeleton for content, button loader for actions, top bar for navigation, progress bar only when the amount done is known.
+
 ## Lazy load (required)
 
 - Route-level **lazy loading** for feature screens/chunks
@@ -53,4 +75,5 @@ Prefer Lottie (or the chosen icon system) for these animations so they match bra
 - Replace skeletons with blank screens or only spinners for primary content
 - Eager-load every route/chunk when lazy load is available
 - Swap the icon system mid-project without updating Profile + skill
-- Mix two static icon sets for the same chrome layer (Lottie may animate states over Material chrome — note the hybrid in Profile)
+- Mix two static icon sets for the same chrome layer (`lottie` may animate states over the chosen static set — note the hybrid in Profile)
+- Use SF Symbols on the web, or hotlink Flaticon assets

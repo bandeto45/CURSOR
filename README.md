@@ -40,6 +40,8 @@ Write short prompts with shortcuts — `.go` continue · `.b R-07` build a scree
 
 UI: a **component catalog** (`ui-components.mdc`) — 100+ components (buttons, alerts, forms, pickers, modal/popover, slides, player, camera, charts, lists, feeds, ticket cards, navbars/tabs/toolbars, panels, network trees for unilevel/binary/affiliate, hooks…), each with a spec and a mobile · tablet · desktop layout, shown on a dev-only component page — plus a **transition system** (`transitions.mdc`): native-feel push/pop, sheets and swipe-back gestures on mobile, quiet crossfades on desktop, reduced-motion safe, one transition defined per route.
 
+**Admin** (when the product has an admin or staff role): a **CMS** with **CRUD** (list, detail, create, edit, soft delete) for records (members, orders, transactions, sales, and others) and content (pages, posts, media, site settings); Letter-size printable reports; graphs; a custom calendar picker that selects year, then month, then day (`admin.mdc`).
+
 Surfaces: **web**, **mobile**, or **web + mobile** — always **one project**; `web + mobile` uses **Layout Responsive** (a layout per screen class, never one stretched layout). Ready folder/shell structure for each: `.cursor/rules/project-structure.mdc`.
 
 Everything lands in files: Profile in `CURSOR.md`, then `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`, and `skills/frontend-design/SKILL.md`.
@@ -66,7 +68,7 @@ local · **staging** · production: `develop` deploys to staging automatically, 
 
 ## Locked defaults
 
-Tailwind UI system with shared components · custom forms · client + server validation · migrations via the backend's own tool (Node, Python, PHP, Ruby, Go, Java, .NET…) · animated 404/error/empty, skeletons, lazy load · Material or Lottie icons · GitHub Secrets for live env · references leave no trace. Everything else is a recommendation.
+Tailwind UI system with shared components · custom forms · client + server validation · migrations via the backend's own tool (Node, Python, PHP, Ruby, Go, Java, .NET…) · animated 404/error/empty, skeletons, lazy load · one icon system (Material, Font Awesome, Flaticon, SF Symbols, or Lottie — AI recommends from the concept if unset) · GitHub Secrets for live env · references leave no trace. Everything else is a recommendation.
 
 ## Files
 

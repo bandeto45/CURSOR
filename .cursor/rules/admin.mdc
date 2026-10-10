@@ -1,0 +1,51 @@
+---
+description: Admin CMS — CRUD, Letter-size reports, graphs, and the custom calendar (when an admin or staff role exists)
+alwaysApply: false
+---
+
+# Admin
+
+> Purpose: when the concept has an admin or staff role, that area is a CMS — full CRUD on managed records and content — plus Letter-size reports, graphs, and a custom calendar (year, month, day). Plan them in `concept-domain.mdc` and `phase-plan.mdc`; do not treat them as optional extras.
+
+## Rules
+
+### 1. When this applies
+- Any role that manages other people’s records (admin, staff, operator) gets a **CMS**: one admin area, not a pile of one-off pages.
+- Authorization is server-side on every read and write. Hiding a button is not enough.
+
+### 2. CMS + CRUD
+- The admin manages two kinds of modules. Both get the same CRUD:
+  - **Records** the concept already has: **members**, **orders**, **transactions**, **sales**, plus inventory, payouts, commissions, and any other entity in `concept-domain.mdc`.
+  - **Content** the public site shows: **pages**, **posts / announcements**, **media library**, and **site settings** (name, contact, and other copy an admin should change without a deploy).
+- Each module has five screens, built from the shared catalog and forms: **list** · **detail** · **create** · **edit** · **remove**.
+- Remove is a **soft delete** (`deleted_at`) when that is the project norm. List can filter to archived rows. Hard delete only when `concept-domain.mdc` says so.
+- Matching API per entity: `list` (filter, sort, paginate) · `get` · `create` · `update` · `delete`. Validate every write on the server. Audit admin writes (`backend.mdc`).
+- List filters that depend on a date use the custom calendar picker (year · month · day). Create and edit use the shared form controls, including that picker for date fields.
+- Reports read the same records. They are not a second database or a second editor.
+
+### 3. Letter-size print
+- Each report has a **Print** action that opens a print view and can save as PDF.
+- Page size is **US Letter 8.5 × 11 in** (`@page { size: letter; margin: 0.6in; }`).
+- Print view: title, date range, generated-at, running header/footer, page numbers.
+- Tables repeat the header on each page and do not split a row across pages.
+- Screen chrome (nav, filters, buttons) is hidden in print (`print:` utilities).
+- On-screen layout still follows `layout-strategy.mdc` (mobile · tablet · desktop). Print is a separate Letter layout, not a screenshot of the screen.
+
+### 4. Graphs
+- Admin home and each time-based report include a **Chart** from the catalog (`reference/components/media.md`).
+- Use the shared chart wrapper and theme colors. One chart library per project.
+- Empty, loading (skeleton), and error states are required. Provide a table fallback for the same numbers.
+- The print view includes the chart or, when the chart will not print cleanly, the table of the same figures.
+
+### 5. Date range
+- Filters use the custom **Calendar picker** (`reference/components/inputs.md`): the user can select **year**, then **month**, then **day** (single date and range).
+- Do not use `<input type="date">` or the browser’s native picker.
+- Presets (Today, Last 7 days, This month, This year) sit beside the custom picker. Changing the range updates the table and the graph together.
+
+## Do not
+- Ship an admin that can only view records — every managed module has create, read, update, and soft delete
+- Skip the content modules (pages, posts, media, site settings) when an admin role exists
+- Ship an admin report that prints on A4, or with no `@page` size, when this rule applies
+- Omit sales, members, orders, or transactions when those entities exist
+- Use a native date input in place of the year / month / day calendar
+- Put graphs only on the dashboard and leave report pages as bare tables
