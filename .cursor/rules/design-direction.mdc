@@ -25,19 +25,28 @@ alwaysApply: false
 
 ## Style (the AI picks one)
 
-The style is the named look (editorial, futuristic, and the others). The AI picks **one** from this list for the concept. It does not ask the dev to name it. Palette, type, radius, and motion must match that style. A second style is not mixed in.
+A style name is a spec to build from, not a mood word. The AI picks the style per page and per layout class. It does not ask the dev to name it. One view uses one style. Do not mix two styles on the same screen.
 
-| Style | Use when the product feels like | Look |
-|-------|----------------------------------|------|
-| **Editorial** | Reading, stories, magazines, long content | Serif display, airy measure, strong headlines, few colors, quiet cards |
-| **Futuristic** | Tech, tools, data, “what’s next” | Geometric sans, tight tracking on labels, hairline borders, cool neutrals, one sharp accent, restrained glow |
-| **Soft product** | Everyday apps people open often | Rounded sans, soft radius, warm off-white, friendly empty states |
-| **Warm commerce** | Shops, bookings, food, services | Rounded cards, clear price hierarchy, warm neutrals, one appetizing accent |
-| **Utilitarian** | Admin, ops, dense tables | Compact density, tabular numbers, neutral surfaces, accent only on actions |
-| **Calm clinical** | Health, finance, trust | Cool neutrals, generous space, plain language, no decoration |
-| **Bold campaign** | A short marketing story | Large display type, one saturated accent, big sections, still readable body |
+Each route in `route-layouts.mdc` records three lines — **Style — mobile**, **Style — tablet**, **Style — desktop** — each with a name from this list and the concrete rules for that class (type, surface, chrome). “Same as mobile” or “clean and modern” is not a style line. A landing may be **Bold campaign** while an admin list is **Utilitarian**. They still share the project tokens.
 
-If none fits, name the closest and say what was adjusted. Do not invent a style that breaks the four goals below.
+| Style | Follow this |
+|-------|-------------|
+| **Editorial** | Serif display, sans body, wide measure, large headlines, hairline rules, few colors, quiet cards, no heavy shadow |
+| **Futuristic** | Geometric sans, tight label tracking, hairline borders, cool near-black surfaces, one sharp accent, restrained glow on the primary control only, mono for figures |
+| **Soft product** | Rounded sans, large radius, warm off-white, soft shadow, friendly empty states, one calm accent |
+| **Warm commerce** | Rounded cards, price as the strongest text, warm neutrals, one appetizing accent, clear photo crops |
+| **Utilitarian** | Compact density, tabular numbers, neutral surfaces, accent only on the primary action, sticky table head, no decoration |
+| **Calm clinical** | Cool neutrals, generous space, plain labels, no decoration, status color only for success and danger |
+| **Bold campaign** | Display type at hero scale, one saturated accent, full-bleed bands, body still at reading size and contrast |
+
+If none fits, name the closest and write what was adjusted. Do not invent a style that breaks the four goals below.
+
+## The recommendation is the design
+
+The style lines on the route are what P2 builds. They are not a note for later.
+
+- A page that looks like an unstyled form or a default card stack is not done.
+- Mobile, tablet, and desktop each follow their own style line. Desktop is not a stretched phone screen with the same padding.
 
 ## Every recommendation must satisfy four goals
 
@@ -68,3 +77,5 @@ If none fits, name the closest and say what was adjusted. Do not invent a style 
 - Present one option only, or several without a Recommended
 - Choose colors by taste alone — show contrast ratios and the concept-based reason
 - Hardcode the palette outside the Tailwind theme, or change the approved direction silently
+- Use a generic “clean and modern” note as the design. The written direction is specific to this concept
+- Leave any page on a basic, junior layout once the direction is chosen

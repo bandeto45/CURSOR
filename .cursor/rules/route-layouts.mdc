@@ -30,6 +30,9 @@ alwaysApply: false
 - Role / access:   <who>
 - Purpose:         <the one primary job>
 - Layout concept:  <pattern + why it is the recommended fit>
+- Style — mobile:  <style name from design-direction.mdc> — <type, surface, chrome for this class>
+- Style — tablet:  <style name> — <what changes at this density; not “same as mobile”>
+- Style — desktop: <style name> — <columns, type scale, chrome; not a stretched phone layout>
 - Mobile (<768):   <regions top→bottom · nav · primary CTA · sheets/drawers>
 - Tablet (768–1023): <columns/panes · nav · what appears that mobile hid>
 - Desktop (≥1024): <columns/panes · sidebar/top bar · density · hover/keyboard extras>
@@ -45,6 +48,7 @@ alwaysApply: false
 ```
 ### R-nn <route path> — <Page name>
 - Role / access · Purpose · Layout concept: <as above, single composition>
+- Style — mobile · tablet · desktop: <one named style each, with the concrete rules for that width — design-direction.mdc>
 - Reflow:          <columns at base / md / lg · what stacks · what hides/collapses>
 - Nav:             <navbar → menu button at what width>
 - Transition:      <fade (normal mode: crossfade only)>
@@ -62,5 +66,6 @@ alwaysApply: false
 | — | — | — | — |
 
 ## Do not
-- Leave a v1 route without a block before P2, or write vague blocks ("responsive layout")
+- Leave a v1 route without a block before P2, or write vague blocks ("responsive layout", "clean and modern", "same as mobile")
+- Leave a layout class without its own style line
 - Add routes outside the concept's v1 scope
