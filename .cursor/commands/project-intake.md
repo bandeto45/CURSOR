@@ -16,4 +16,4 @@ description: Install or update the project — Ask → Recommend → Decide → 
 3. Generate/refresh in order: `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`.
 4. Build the P1 **proposal package** from `.cursor/templates/` (`proposal.mdc`): deck, Letter-size document, guide skeleton.
 5. Run `.cursor/adapters/sync-ai-adapters.sh`; append an **AI Handoff Log** row.
-6. Confirm the "Install complete when" checklist, then continue from the Current phase (`P1` by default).
+6. Confirm the "Install complete when" checklist. Design, layout, and route style lines must already be written — not “the AI will recommend.” Then continue from the Current phase (`P1` by default).

@@ -5,9 +5,20 @@ alwaysApply: false
 
 # Design direction
 
-> Purpose: the dev needs no design knowledge. The AI chooses the look from the concept and writes it into the project files. Structure stays locked in `ui-styling.mdc`. The pack rules never name a palette.
+> Purpose: during **install**, if the dev did not give a design, the AI chooses the look and **writes the actual direction** into the project files. After install, those files are the design. Do not recommend again. Structure stays locked in `ui-styling.mdc`. The pack rules never name a palette.
+
+## When it runs
+
+| Moment | What the AI does |
+|--------|------------------|
+| **Install** | If the dev named no style, pattern, or palette: choose the Recommended direction and write it before install is complete |
+| **After install** | Read `frontend-design/SKILL.md`, Profile → **Design direction**, and each route’s style lines. Build that. Do not open a new design recommendation |
+
+Install is not complete while the skill still says `TBD` or “the AI will recommend.” The written files must name the style, tokens, type, icon, and the layout pattern for every route.
 
 ## Flow (`format.mdc`: Ask → Recommend → Decide → Write → Confirm)
+
+This flow is **install only**.
 
 1. **Ask** for constraints only: brand already decided (logo, brand color, fonts), light/dark preference, tone words, references. Dev-provided values **win**.
 2. **Recommend** 2–3 directions as `REC-design-n` blocks, one **Recommended**. Each direction carries:
@@ -29,15 +40,240 @@ A style name is a spec to build from, not a mood word. The AI picks the style pe
 
 Each route in `route-layouts.mdc` records three lines — **Style — mobile**, **Style — tablet**, **Style — desktop** — each with a name from this list and the concrete rules for that class (type, surface, chrome). “Same as mobile” or “clean and modern” is not a style line. A landing may be **Bold campaign** while an admin list is **Utilitarian**. They still share the project tokens.
 
-| Style | Follow this |
-|-------|-------------|
-| **Editorial** | Serif display, sans body, wide measure, large headlines, hairline rules, few colors, quiet cards, no heavy shadow |
-| **Futuristic** | Geometric sans, tight label tracking, hairline borders, cool near-black surfaces, one sharp accent, restrained glow on the primary control only, mono for figures |
-| **Soft product** | Rounded sans, large radius, warm off-white, soft shadow, friendly empty states, one calm accent |
-| **Warm commerce** | Rounded cards, price as the strongest text, warm neutrals, one appetizing accent, clear photo crops |
-| **Utilitarian** | Compact density, tabular numbers, neutral surfaces, accent only on the primary action, sticky table head, no decoration |
-| **Calm clinical** | Cool neutrals, generous space, plain labels, no decoration, status color only for success and danger |
-| **Bold campaign** | Display type at hero scale, one saturated accent, full-bleed bands, body still at reading size and contrast |
+Every style below is a full spec. When a route names a style, follow **all** of its rows for that class. Write the chosen type, radius, and chrome into `frontend-design/SKILL.md` at install. Do not reduce a style to one sentence.
+
+### Editorial
+| | |
+|--|--|
+| Use | Reading, stories, magazines, long content |
+| Type | Serif display, sans body, 16–18px body, wide measure (60–75ch), large headlines, small uppercase kicker |
+| Surface | Paper off-white, ink near-black, one muted accent, hairline rules, no heavy shadow |
+| Chrome | Quiet cards, text-first buttons, nav as a thin masthead, images full-bleed with a caption |
+| Motion | Almost none. Section fade only. No bounce |
+| Mobile | One column, large title, sticky thin title bar |
+| Tablet | Title plus a narrow margin column for kickers |
+| Desktop | Reading column plus a quiet aside (contents or pull quote) |
+| Not | Card grids, bright fills, icon-only navigation |
+
+### Futuristic
+| | |
+|--|--|
+| Use | Tech, tools, data, control rooms |
+| Type | Geometric sans, tight tracking on labels, mono for figures and IDs |
+| Surface | Cool dark-gray or cool off-white, hairline borders, one sharp accent, glow on the primary control only |
+| Chrome | Segmented controls, outlined panels, status as a short mono label, charts with a thin accent line |
+| Motion | 120–200ms opacity and translate. No bounce, no looping glow |
+| Mobile | Stacked panels, one chart, bottom nav as icon plus label |
+| Tablet | Two panes, rail nav, figures in mono |
+| Desktop | Multi-pane, dense but aligned to a grid, hover reveals detail |
+| Not | Warm paper, serif headlines, soft blobs, skeuomorphic dials |
+
+### Soft product
+| | |
+|--|--|
+| Use | Everyday apps people open often |
+| Type | Rounded sans, 16px body, medium headlines, friendly empty-state copy |
+| Surface | Warm off-white, soft shadow, large radius, one calm accent |
+| Chrome | Pill buttons, rounded inputs, cards with padding, illustrated or simple empty states |
+| Motion | Short ease, 150–250ms. Reduced motion becomes a fade |
+| Mobile | Large targets, one primary button, bottom nav |
+| Tablet | Comfortable two-column cards |
+| Desktop | Same softness, more whitespace, not a dense table skin |
+| Not | Hairline-only tech chrome, all-caps labels, pure black surfaces |
+
+### Warm commerce
+| | |
+|--|--|
+| Use | Shops, bookings, food, services |
+| Type | Sans, price as the strongest text, name under the image, short meta line |
+| Surface | Warm neutrals, one appetizing accent, photo-first cards, consistent crop |
+| Chrome | Add-to-cart or book as the only filled button, rating as text plus a mark, filters as chips |
+| Motion | Image crossfade, button press. No confetti |
+| Mobile | 2-col catalog, sticky cart or book bar |
+| Tablet | 3-col catalog, filters in a top bar |
+| Desktop | Filters aside, 4-col catalog, summary pane on checkout |
+| Not | Editorial measure, utilitarian gray tables as the home screen |
+
+### Utilitarian
+| | |
+|--|--|
+| Use | Admin, ops, dense records |
+| Type | Sans, compact, tabular numbers, labels above fields |
+| Surface | Neutral, 1px borders, accent only on the primary action, sticky table head |
+| Chrome | Toolbar, filters, row hover, bulk actions, no decoration |
+| Motion | Almost none. Selection and sort only |
+| Mobile | Card list of the key fields, filter sheet |
+| Tablet | Condensed table, row opens a drawer |
+| Desktop | Full table, column controls, sidebar nav |
+| Not | Hero type, full-bleed photography, glow |
+
+### Calm clinical
+| | |
+|--|--|
+| Use | Health, finance, trust |
+| Type | Sans, plain labels, 16px body, no slang, status words not color alone |
+| Surface | Cool neutrals, generous space, success and danger only for real status |
+| Chrome | Clear steps, review before submit, quiet confirmations |
+| Motion | Fade only. Nothing playful |
+| Mobile | One question or one group per view, sticky continue |
+| Tablet | Form plus a short summary |
+| Desktop | Form plus a persistent summary, still airy |
+| Not | Saturated marketing bands, novelty icons, urgency badges |
+
+### Bold campaign
+| | |
+|--|--|
+| Use | A short marketing story, the public landing |
+| Type | Display at hero scale, body still ≥ 16px and AA contrast, one saturated accent |
+| Surface | Full-bleed bands, large media, few sections on screen at once |
+| Chrome | One primary CTA per band, nav that does not compete with the hero |
+| Motion | One entrance on the hero. No looping background |
+| Mobile · tablet | Getting-started slides (`layout-patterns.md`). Each band is a step |
+| Desktop | Stacked full-width bands, anchors, footer under the last band |
+| Not | Dense tables, 12 equal cards, a second accent |
+
+### Minimal
+| | |
+|--|--|
+| Use | Tools that should feel quiet and fast |
+| Type | One sans family, two sizes doing most of the work, 16px body |
+| Surface | Off-white, almost no border, no shadow, one accent used rarely |
+| Chrome | Text buttons, thin nav, content starts immediately |
+| Motion | None, or a 120ms fade |
+| Mobile | Single column, lots of the page surface showing |
+| Tablet | Same, with a wider measure |
+| Desktop | Narrow content column centered or left, empty margin is intentional |
+| Not | Cards around every block, icons on every row, gradients |
+
+### Luxury
+| | |
+|--|--|
+| Use | Premium goods, reservations, private services |
+| Type | High-contrast serif display, small sans labels, generous letter-spacing on kickers |
+| Surface | Deep neutral or warm ivory, thin gold-tone or stone accent used sparingly, no glossy plastic |
+| Chrome | Few controls, large photography, quiet price, underlined text links |
+| Motion | Slow fade, 250ms. No bounce |
+| Mobile | Full-bleed image, title over a scrim that still meets contrast |
+| Tablet | Image beside a short column of copy |
+| Desktop | Wide image, narrow text, large margins |
+| Not | Discount badges, crowded grids, playful illustration |
+
+### Playful
+| | |
+|--|--|
+| Use | Learning, games, light consumer products |
+| Type | Rounded sans, lively headlines, body still 16px and serious enough to read |
+| Surface | Soft tinted surface, one bright accent, a second neutral, large radius |
+| Chrome | Chunk y buttons, simple illustration, progress as a friendly bar |
+| Motion | 200ms ease. No flashing, no shake |
+| Mobile | One idea per screen, big target |
+| Tablet | Two playful cards, still aligned |
+| Desktop | A loose grid, not a carnival of badges |
+| Not | Baby fonts for adult tools, rainbow gradients, bouncing loops |
+
+### Organic
+| | |
+|--|--|
+| Use | Food, wellness, outdoors, plants, slow living |
+| Type | Soft serif or humanist sans, 16–18px body |
+| Surface | Warm paper, moss or clay accent, soft radius, photography of real materials |
+| Chrome | Quiet buttons, captions under photos, lots of air |
+| Motion | Slow fade only |
+| Mobile | Stacked stories, full-width photo then text |
+| Tablet | Photo and text side by side |
+| Desktop | Wide photo bands, reading column |
+| Not | Neon, hard grids, cold gray dashboards |
+
+### Industrial
+| | |
+|--|--|
+| Use | Logistics, hardware, field work, warehouses |
+| Type | Condensed sans for labels, regular sans for body, mono for codes |
+| Surface | Cool gray, strong 1px borders, caution color only for real warnings |
+| Chrome | Big tap targets, status stamps, scan-first layouts |
+| Motion | None |
+| Mobile | One job per screen, huge primary action, works in sunlight (strong contrast, not pure black on white) |
+| Tablet | Split: list and the active job |
+| Desktop | Board of jobs, filters pinned |
+| Not | Delicate serifs, tiny type, decorative photography |
+
+### Terminal
+| | |
+|--|--|
+| Use | Developer tools, logs, consoles |
+| Type | Mono for code and IDs, sans for explanations, 16px minimum |
+| Surface | Dark-gray panel, hairline, one syntax accent. Not pure black |
+| Chrome | Command row, keyboard hints, dense but aligned rows |
+| Motion | Caret blink is enough. Respect reduced motion by stopping the blink |
+| Mobile | Single log stream, sticky command field |
+| Tablet | List plus detail |
+| Desktop | Three columns: tree, content, meta |
+| Not | Marketing heroes, rounded candy buttons, stock photos |
+
+### Social
+| | |
+|--|--|
+| Use | Feeds, communities, comments |
+| Type | Sans, name stronger than the meta line, body 16px |
+| Surface | Neutral page, white or off-white cards, avatar plus a quiet action row |
+| Chrome | Compose field, reactions as counts not animation storms, infinite scroll |
+| Motion | New-item fade. No autoplay with sound |
+| Mobile | Full-bleed feed, composer sticky |
+| Tablet | Centered column |
+| Desktop | Feed plus a side column for profile or trends |
+| Not | Magazine layouts, admin tables as the home feed |
+
+### Gallery
+| | |
+|--|--|
+| Use | Portfolios, photos, menus that are mostly images |
+| Type | Small sans captions, image does the talking |
+| Surface | Neutral field, consistent aspect ratios, thin gaps |
+| Chrome | Lightbox, filter chips, almost no cards |
+| Motion | Crossfade in the lightbox |
+| Mobile | 2-col grid or a full-screen swipe |
+| Tablet | 3-col |
+| Desktop | 4–5 col or a justified row, hover shows the caption |
+| Not | Long paragraphs on every tile, heavy frames |
+
+### Local
+| | |
+|--|--|
+| Use | A city, barangay, shop, or place with a real address |
+| Type | Humanist sans, place name as the headline, hours and address easy to scan |
+| Surface | Warm neutral, map or photo of the real place, one local accent |
+| Chrome | Call, directions, and hours as the first actions |
+| Motion | Map does not animate on its own |
+| Mobile | Address and hours first, then the story |
+| Tablet | Map beside the facts |
+| Desktop | Map, facts, and a short story in three zones |
+| Not | Generic skyline stock, hiding the address |
+
+### Academic
+| | |
+|--|--|
+| Use | Courses, research, schools, references |
+| Type | Serif for long text, sans for UI, citations visible, 16px body |
+| Surface | Quiet paper, numbered sections, footnotes or side notes |
+| Chrome | Contents, progress through a lesson, references as links |
+| Motion | Step change is a fade |
+| Mobile | One section, contents behind a button |
+| Tablet | Contents rail plus the lesson |
+| Desktop | Contents, reading, and notes |
+| Not | Billboard heroes, slang, decorative icons on every heading |
+
+### Night
+| | |
+|--|--|
+| Use | Products used in the dark: events, audio, late shifts |
+| Type | Sans, slightly larger body, high contrast without pure white on pure black |
+| Surface | Dark gray, lifted panels one step lighter, one dim accent |
+| Chrome | Large targets, low glare, no bright full-screen fills |
+| Motion | Short and dim |
+| Mobile | Dark shell, bottom nav |
+| Tablet | Two dark panes |
+| Desktop | Dark workspace, light only on the active panel |
+| Not | A light marketing page bolted on, flashing alerts |
 
 If none fits, name the closest and write what was adjusted. Do not invent a style that breaks the four goals below.
 

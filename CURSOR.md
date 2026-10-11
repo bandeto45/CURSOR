@@ -20,8 +20,8 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 ### Install complete when
 - [ ] Profile has no `TBD` (except items the dev deferred)
 - [ ] `concept-domain.mdc` filled (features `F`, entities `T`, roles, rules)
-- [ ] Design direction recommended → approved → written to `frontend-design/SKILL.md` + Tailwind theme
-- [ ] Layout strategy chosen; `route-layouts.mdc` `APPROVED` (every route `R`)
+- [ ] Design is **set**, not pending: `frontend-design/SKILL.md` names the style, palette, type, and icon (no `TBD`, no “AI will recommend”). Tailwind theme matches it
+- [ ] Layout is **set**: strategy recorded; every route in `route-layouts.mdc` has its pattern and Style — mobile · tablet · desktop. No “recommend later”
 - [ ] `phase-plan.mdc` filled (endpoints `E`, units `U` for P1–P5)
 - [ ] Proposal package drafted from `.cursor/templates/` (deck, Letter document + PDF, guide skeleton) and reviewed by the dev — may finish inside P1
 - [ ] Environments + deploy method chosen; live env path confirmed: **GitHub Environments/Secrets** (`/deploy setup`)

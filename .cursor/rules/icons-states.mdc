@@ -9,7 +9,7 @@ alwaysApply: false
 
 ## Icon system
 
-One primary system per project. If the installer names one, that choice wins. If they leave it blank, the AI recommends one from the concept inside the design proposal (`design-direction.mdc`), the dev confirms (or says "you decide"), and Profile **Icons** plus `frontend-design/SKILL.md` record the key. Do not leave Icons as `TBD` after design is approved.
+One primary system per project. If the installer names one, that choice wins. If they leave it blank, the AI picks one during **install** and writes the key into Profile **Icons** and `frontend-design/SKILL.md`. After install, use that key. Do not recommend again, and do not leave Icons as `TBD`.
 
 | Key | System | Fits when |
 |-----|--------|-----------|

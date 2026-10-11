@@ -12,7 +12,7 @@ triggers:
 # Frontend Design
 
 > Status: TEMPLATE — filled by —, —; approved by —
-> Purpose: this project's visual tokens, from the approved `REC-design-n` (`design-direction.mdc`). Structure is locked in `ui-styling.mdc`.
+> Purpose: the design this project already chose. Install fills every `TBD` with the real style, tokens, type, and icon. After that, build from this file. Do not recommend a new direction unless the dev asks to change it. Structure is locked in `ui-styling.mdc`.
 
 ## Project
 
