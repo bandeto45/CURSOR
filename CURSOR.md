@@ -22,6 +22,7 @@ Triggers: user says install / setup / copy this pack, Profile still has `TBD`, o
 - [ ] `concept-domain.mdc` filled (features `F`, entities `T`, roles, rules)
 - [ ] Design is **set**, not pending: `frontend-design/SKILL.md` names the style, palette, type, and icon (no `TBD`, no “AI will recommend”). Tailwind theme matches it
 - [ ] Layout is **set**: strategy recorded; every route in `route-layouts.mdc` has its pattern and Style — mobile · tablet · desktop. No “recommend later”
+- [ ] Wireframes are **set**: every v1 route has a diagram in `reference/wireframes/<group>.md` (structure, sections, photo, icon, button, menu)
 - [ ] `phase-plan.mdc` filled (endpoints `E`, units `U` for P1–P5)
 - [ ] Proposal package drafted from `.cursor/templates/` (deck, Letter document + PDF, guide skeleton) and reviewed by the dev — may finish inside P1
 - [ ] Environments + deploy method chosen; live env path confirmed: **GitHub Environments/Secrets** (`/deploy setup`)
@@ -111,7 +112,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | **Every session** | Profile · Handoff Log · the current phase's checkboxes in **`implementation-phases.mdc`** (what is implemented) · `phase-plan.mdc` only for the functions under the open checkbox |
 | **Phase exit** | Checkboxes in `implementation-phases.mdc` · `/phase-exit` |
 | **Intake / P1** | `reference/intake.md` · `concept-domain` · `design-direction` · `layout-strategy` (+ `reference/layout-patterns.md`) · `route-layouts` · `project-structure` · `database` (+ `reference/migrations.md`) · `proposal` (+ `templates/`) |
-| **P2 building a screen** | its `R-nn` block in `route-layouts` · `ui-styling` · `ui-components` §1b + the group files of the components it uses (`reference/components/<group>.md`) · `forms` · `icons-states` · `transitions` · `validation` (client) |
+| **P2 building a screen** | its `R-nn` block in `route-layouts` · its wireframe (`reference/wireframes/<group>.md`, grammar: `reference/wireframe-patterns.md`) · `ui-styling` · `ui-components` §1b + `reference/components/implementation.md` + the group file of the components it uses · `forms` · `icons-states` · `transitions` · `validation` (client) |
 | **P3 API** | `backend` · `database` · `security` · `validation` (server) · `testing` · `error-log` (debug envelope, `/health`) |
 | **P4 integration** | `backend` · `validation` · `testing` + the P2 files for the screen being wired |
 | **Environments / deploy / P5 ship** | `environments` · `/deploy` · `templates/ci/` · `testing` · `security` · `seo` (if on) |
@@ -134,11 +135,11 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | Dev tool | `error-log.mdc` | Error console: toggle, popup for UI · API · status errors, redaction, backend debug envelope, `/health` |
 | Ops | `environments.mdc` | local · staging · production, GitHub Environments/Secrets, branches, promotion, FTP/SSH |
 | Design | `design-direction.mdc` | AI-recommended look; comfort + return-worthy rules |
-| Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`) |
+| Design | `layout-strategy.mdc` | normal / layout / auto; breakpoints (patterns: `reference/layout-patterns.md`; wireframes: `reference/wireframe-patterns.md` + `reference/wireframes/`) |
 | Structure | `project-structure.mdc` | Ready folders/shells per surface (web · mobile · web + mobile); React or native flavor; route folder pattern |
 | Deliverable | `proposal.mdc` | P1 proposal deck (React only), Letter-size document, guide |
 | UI | `ui-styling.mdc` | Tailwind system, shared components, motion, frontend conventions |
-| UI | `ui-components.mdc` | Component catalog + Component Spec + **customization contract** (follow the catalog; per-usage `className` overrides specified in the content): foundations, layout, nav, actions, overlays, inputs/pickers, lists, media, network/marketing, hooks |
+| UI | `ui-components.mdc` | Component catalog + Component Spec + customization contract. Finished behavior: `reference/components/implementation.md` |
 | UI | `transitions.mdc` | Page/element transitions: push/pop, sheets, gestures, tokens, reduced motion, per-route map |
 | UI | `forms.mdc` | Custom form controls + patterns |
 | UI | `admin.mdc` | Admin CMS + CRUD, Letter-size reports, graphs, year/month/day calendar — when an admin or staff role exists |

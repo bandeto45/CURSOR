@@ -58,7 +58,7 @@ lib/hooks/           useViewClass, useDisclosure, useToast, useForm, … (refere
 Each file exports one component + its types; variants are props, never copies.
 
 ### 3. Component page (required, dev builds only)
-Route `/_components` (excluded from production builds and SEO): every component × variant × state, in light **and** dark, at mobile · tablet · desktop widths. It is the visual contract — a component is `done` when it appears here.
+Route `/_components` (excluded from production builds and SEO). **Finished** components are listed first, each on the light surface and the dark surface (stacked below desktop, side by side from desktop), with the route name when it differs from the file name. Components not yet finished stay in a second grid until they move up. A component is `done` when its finished entry shows the variants and states the routes use. Behavior: `reference/components/implementation.md`.
 
 ### 4. Universal requirements
 - Tailwind utilities + theme tokens only; no raw hex, no inline styles for spacing/color
@@ -73,7 +73,7 @@ Route `/_components` (excluded from production builds and SEO): every component 
 
 ## Catalog (read the group file before building a component from it)
 
-Files live in `.cursor/reference/components/`. Each row there gives the component's anatomy/variants, behavior/states, and its mobile · tablet · desktop layout.
+Files live in `.cursor/reference/components/`. Each row there gives the component's anatomy/variants, behavior/states, and its mobile · tablet · desktop layout. The finished behavior (chrome, overlays, component page, and the controls the routes use) is `implementation.md`. Follow that file when building. Do not invent a second behavior.
 
 | | File | Components |
 |-|------|------------|

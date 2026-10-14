@@ -42,7 +42,9 @@ Exit ≈ 75% of enter. Animate **only `transform` and `opacity`** (never width/h
 Under `normal` (Normal Responsive) layout mode: crossfade only (`--dur-base`); no push/sheet patterns.
 
 ### 3. Mobile behavior (Layout Responsive)
-- **The shell stays put:** navbar, tab bar, and bottom toolbar do not animate between pages of the same shell — only the content area does. Header title crossfades.
+- **Full page, not the content slot:** the entering page and the leaving page are each a full-viewport layer (`inset-0`, at least the screen height). Do not animate only the inner content or a context panel inside a shared frame.
+- **Each page has a background:** the page root paints an opaque background (`bg-background`, or the background that route names) across that full layer for the whole transition. A transparent page is invalid — the page underneath must not show through gaps.
+- **Chrome:** a shared navbar, tab bar, or toolbar stays fixed above the pages (`z-20`) and does not slide with them. Everything under that chrome — the page, including its background — is what moves.
 - **Direction-aware:** forward = push, back = pop, tab/root = crossfade. Direction comes from history (`useNavDirection()` → `forward | back | replace`) and is written to `data-nav="forward|back|replace"` on `<html>` for CSS.
 - **Edge-swipe back:** drag from the left ~20px edge; the page follows the finger (interactive), commits past ~35% width or a fast flick, otherwise springs back with `--ease-sheet`. Disabled on the root page and in horizontally scrolling regions.
 - **Sheets:** drag handle; snap points (peek · half · full); swipe-down dismiss with velocity; scrim opacity tracks position; inner scroll doesn't drag the sheet until scrolled to top.
@@ -56,7 +58,7 @@ Under `normal` (Normal Responsive) layout mode: crossfade only (`--dur-base`); n
 - **One wrapper:** `PageTransition` in `app/` around the route outlet (`Presence` handles enter/exit mounting). Native flavor: `router.js` → `transitionTo(route, direction)`.
 - **Route table declares** the transition per route and class: `transition: { mobile: 'push' | 'sheet' | 'fade' | 'none', tablet: …, desktop: … }`, copied from `route-layouts.mdc`.
 - Prefer the **View Transitions API** (`document.startViewTransition`, `view-transition-name` for shared elements) with a CSS-class fallback (`.page-enter`, `.page-exit`, `.sheet-enter` …) where unsupported.
-- Both pages are mounted only during the transition; unmount the old one at `transitionend`/timeout (safety timeout = duration + 50ms).
+- Both pages are mounted only during the transition; unmount the old one at `transitionend`/timeout (safety timeout = duration + 50ms). The leaving page is `absolute inset-0`; the entering page fills the same viewport. Each root carries its background. Do not size the layer to the content height.
 - **Focus & a11y:** on route change move focus to the page `<h1>` (or `main`), update `document.title`, and announce via a polite live region; overlays trap focus and restore it. Motion never carries meaning alone.
 
 ### 5. Reduced motion
@@ -73,6 +75,7 @@ Transition ≤ 320ms (hard ceiling 400ms); 60fps on a mid-range phone; no layout
 ## Do not
 - Animate layout properties, or exceed the duration tokens
 - Slide pages on desktop, or push/pop between peer tabs
+- Animate only an inner content or context region, or leave a page without its own opaque background
 - Animate the fixed shell (navbar/tab bar) with the page
 - Block input or hide feedback while waiting for data
 - Ship a route without a defined `Transition:` in `route-layouts.mdc`

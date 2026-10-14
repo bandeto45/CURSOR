@@ -13,7 +13,7 @@ description: Install or update the project — Ask → Recommend → Decide → 
 ## Steps
 1. Follow `CURSOR.md` → **§1 Install** and **§2 Intake** (one topic at a time; format in `.cursor/rules/format.mdc`).
 2. `--update`: ask which topic changed, re-run only that topic, set the affected file to `DRAFT` until re-approved, add a change-log line.
-3. Generate/refresh in order: `concept-domain.mdc` → `route-layouts.mdc` → `phase-plan.mdc`.
+3. Generate/refresh in order: `concept-domain.mdc` → `route-layouts.mdc` → `reference/wireframes/<group>.md` → `phase-plan.mdc`.
 4. Build the P1 **proposal package** from `.cursor/templates/` (`proposal.mdc`): deck, Letter-size document, guide skeleton.
 5. Run `.cursor/adapters/sync-ai-adapters.sh`; append an **AI Handoff Log** row.
 6. Confirm the "Install complete when" checklist. Design, layout, and route style lines must already be written — not “the AI will recommend.” Then continue from the Current phase (`P1` by default).

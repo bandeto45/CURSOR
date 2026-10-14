@@ -46,12 +46,14 @@ Nav by class (`layout`): mobile bottom tabs/drawer · tablet nav rail/collapsibl
 3. **Decide → Write** Profile: Layout strategy, Layout resolved, one-line reason.
 4. **Derive routes** `R-nn` from the concept (every v1 screen, per role).
 5. **Recommend per route** (`REC-route-n`): choose the best pattern from the catalog, then write its mobile · tablet · desktop layout **and its transition** (`transitions.mdc` §2) into `route-layouts.mdc`. `normal` → one composition + reflow notes; `layout` → three explicit layouts; `mixed` → each group follows its mode.
-6. **Confirm** — dev approves the map (`APPROVED`) before P2. Later layout changes: edit `route-layouts.mdc` first.
+6. **Wireframes** — for every `R-nn`, write `reference/wireframes/<group>.md`: an ASCII diagram (mobile · tablet · desktop) plus Photo, Icon, Button, Menu, and Section. Inherit `reference/wireframe-patterns.md`; only the route-specific delta is new. Structure folders stay in `project-structure.mdc`.
+7. **Confirm** — dev approves the map (`APPROVED`) before P2. Later layout changes: edit `route-layouts.mdc` first, then the wireframe.
 
 ## Pattern catalog
-`.cursor/reference/layout-patterns.md` — dashboard · list→detail · data table · form/wizard · settings · auth · landing · feed/gallery · detail/article · checkout, each with mobile · tablet · desktop.
+`.cursor/reference/layout-patterns.md` — dashboard · list→detail · data table · form/wizard · settings · auth · landing · feed/gallery · detail/article · checkout, each with mobile · tablet · desktop. Placement diagrams: `reference/wireframe-patterns.md`. Per route: `reference/wireframes/<group>.md`.
 
 ## Do not
 - Infer the choice silently, or build P2 screens before `route-layouts.mdc` is `APPROVED`
 - Under `normal`: claim the result is mobile-app-ready
 - Show a wide desktop table on mobile
+- Start P2 before every v1 route has a wireframe diagram
