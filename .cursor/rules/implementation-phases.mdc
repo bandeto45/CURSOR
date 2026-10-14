@@ -27,7 +27,7 @@ alwaysApply: false
 - [ ] P1.4 **Layout strategy chosen** + **`route-layouts.mdc`** filled and approved (every v1 route: mobile · tablet · desktop)
 - [ ] P1.4a **Wireframes** — every v1 route has an ASCII diagram in `reference/wireframes/<group>.md` (photo, icon, button, menu, sections) inheriting `reference/wireframe-patterns.md`. P2 follows the diagram, not a blank layout
 - [ ] P1.5 **Route & feature inventory** — route list × role, endpoint list (method, path, purpose), function inventory per feature
-- [ ] P1.6 **`phase-plan.mdc` generated** — one or more `U-nn` rows for each P2–P5 item below; Function Specs on the critical path
+- [ ] P1.6 **`phase-plan.mdc` generated** — and the **P2 / P3 / P4 / P5 slices** written into this file (one checkbox per route, per endpoint, per feature cutover, and per feature final pass). No box that means “all routes”, “all endpoints”, or “the whole regression”. Function Specs on the critical path
 - [ ] P1.7 **Repo skeleton** from `project-structure.mdc` for the Profile surface (`web` | `mobile` | `web + mobile`, one project) and flavor (`react` | `native`): `app/`, `api/`, `migrations/`, `seeds/`, `docs/`, `components/ui/`, `mocks/`, `tests/`, shared `types/contracts`
 - [ ] P1.7a **Proposal package** (`proposal.mdc`) — **React** presentation only (not HTML), **Letter-size proposal document** (+ PDF), and guide skeleton in `docs/`; dev reviews → `APPROVED`
 - [ ] P1.8 **Migrations** — one per entity, made with the Profile's migration tool (`db:new`): creates table/indexes/FKs, reversible when the tool supports it (`database.mdc`)
@@ -47,82 +47,108 @@ alwaysApply: false
 
 **Goal:** every v1 route works visually and behaviorally on **mocks**, built exactly to `route-layouts.mdc`. The default path is full enough to demo: no blank sections, no empty lists, no “lorem” standing in for real fields.
 
-- [ ] P2.1 **Mock data — enough to show the product whole** — `mocks/<entity>.ts` fixtures + `mockApi.<entity>.list()/get()/create()/update()/remove()` matching the future real contract (same shapes, same error format); simulated latency + error toggles
-  - Every screen’s happy path is populated: landing sections the route lists, lists, detail pages, dashboards, charts, admin records, and forms that display saved values
-  - Enough rows to show the real layout (a list looks like a list, a chart has a series, a landing step has its copy and media). Not one stub row and not placeholder text
-  - Names, dates, money, and statuses follow the concept. Copy reads like the real product (“Maria Santos booked a grooming visit”), never “demo here”, “demo dito”, “demo doon”, “lorem”, “test user”, or “sample item”
-  - Do not copy another product’s content
-  - Empty, loading, and error stay available as toggles. They are not the default demo
-- [ ] P2.1a **Demo walk** — click through every v1 route on mocks at mobile, tablet, and desktop. Each section that should have content has content before P2 can exit
-- [ ] P2.2 **Contracts/types** — request/response types per endpoint (single source reused in P3/P4)
-- [ ] P2.3 **Components finished** — every catalog component the routes use matches `reference/components/implementation.md` (chrome, overlays, states, keyboard), and its finished entry is on `/_components` (light + dark)
-- [ ] P2.4 **Form system** — every control in `forms.mdc`; `FormField` error slots; client validators as named functions (`validateEmail()`, `validateRequired()`, … or schema per form)
-- [ ] P2.5 **Routing shells** — router, guards (`RequireAuth`, `RequireRole` on mock session), lazy-loaded route chunks, `PageTransition` wired with each route's `Transition:` from `route-layouts.mdc`
-- [ ] P2.6 **Route-by-route build** — for each route in `route-layouts.mdc`, in plan order:
-  - page component + its child components (each a `U-nn` under this item)
-  - **mobile · tablet · desktop layout exactly as specified** (or reflow per `normal`), matching the route wireframe (`reference/wireframes/`) and the high-level direction in `frontend-design/SKILL.md` — not a plain junior layout
-  - data hooks (`use<Entity>List()`, `use<Entity>()`, mutations) calling `mockApi`
-  - all states: **skeleton** → loaded · **empty** · **error** (retry) · success feedback
-  - tables: card list (mobile) · condensed table + drawer (tablet) · full table (desktop) where specified
-- [ ] P2.7 **Forms wired** — submit handlers (`onSubmit`), disabled/loading state, inline field errors, no double-submit
-- [ ] P2.8 **Shared screens** — animated **404**, status-error, empty data
-- [ ] P2.9 **Navigation** — navbar/rail/sidebar/bottom tabs per class, back behavior, tab pages
-- [ ] P2.10 **Layout & transition verification** — each route at 375 · 768 · 1280 against its block; transitions forward · back · deep link · refresh · rapid back-tap · reduced motion; fix drift
-- [ ] P2.10a **Error console** — `<ErrorConsole/>` + `ErrorBoundary` mounted; `getContext` returns route ID + view class; mock errors (UI/API/status) verified in the popup
-- [ ] P2.11 **Mock inventory** — list every mock module + consumer (for P4 removal)
-- [ ] P2.12 **SEO stubs** only if Profile SEO = `on`
-- [ ] P2.13 **Admin CMS** (when an admin or staff role exists) — CRUD screens (list, detail, create, edit, remove) for records and content, plus Letter print views, charts, and the year/month/day calendar picker per `admin.mdc`
+Shared pieces are one box. **Each route is its own box** (`P2-Rnn`), written here at P1.6. Do not keep one item that means “build every page”.
 
-**Exit (P2 → P3):** every route matches its layout block on all three classes; the demo walk shows each screen full on mocks (no blank happy path); no real API coupling; mock inventory written; ui primitives reused (no one-offs); 404/empty/skeleton/lazy present; contracts/types complete for P3. Then the **exit gate** below must pass. Do not start P3 before that.
+- [ ] P2.1 **Mock harness** — `mockApi` shape (`list` / `get` / `create` / `update` / `remove`), same error format as the future API, latency + error toggles. Fixtures for a screen live on that screen’s `P2-Rnn` box, not here
+- [ ] P2.2 **Contract types** — the shared request/response types file. Each endpoint’s fields are filled on its `P3-Enn` box; P2 screens import these types
+- [ ] P2.3 **Components finished** — every catalog component the routes use matches `reference/components/implementation.md` (chrome, overlays, states, keyboard), and its finished entry is on `/_components` (light + dark)
+- [ ] P2.4 **Form system** — the shared controls in `forms.mdc`; `FormField` error slots; client validators as named functions. Wiring a form is part of the route box that owns it
+- [ ] P2.5 **Routing shells** — router, guards (`RequireAuth`, `RequireRole` on mock session), lazy-loaded route chunks, `PageTransition` wired from each route’s `Transition:` line
+- [ ] P2.8 **Shared screens** — animated **404**, status-error, empty data
+- [ ] P2.9 **Navigation chrome** — navbar / rail / sidebar / bottom tabs per class, back behavior. Each destination screen is still its own `P2-Rnn`
+- [ ] P2.10a **Error console** — `<ErrorConsole/>` + `ErrorBoundary` mounted; `getContext` returns route ID + view class; mock errors (UI/API/status) verified in the popup
+- [ ] P2.11 **Mock inventory** — list every mock module + which `P2-Rnn` uses it (for P4 removal)
+- [ ] P2.12 **SEO stubs** only if Profile SEO = `on`
+
+### P2 routes — one box per route (write at P1.6)
+
+Copy once per `R-nn` in `route-layouts.mdc`, in feature order. A feature with many pages gets many boxes. An admin screen is a route box too (CRUD, Letter print, chart, year/month/day calendar — `admin.mdc` — live on the admin routes, not one admin blob).
+
+```
+- [ ] P2-R01 **<Page name>** (`F-01`) — this screen on mocks
+```
+
+Every `P2-Rnn` box is done only when all of these are true for **that** route:
+
+- Page + child components (`U-nn` under this box). Mock rows for this screen only: enough that a list looks like a list and a chart has a series. Copy reads like the product (“Maria Santos booked a grooming visit”), never “demo here”, “demo dito”, “demo doon”, “lorem”, “test user”, or “sample item”. Do not copy another product. Empty, loading, and error are toggles, not the default
+- **Mobile · tablet · desktop** exactly as specified (or reflow per `normal`), matching this route’s wireframe and `frontend-design/SKILL.md` — not a plain junior layout
+- **Style fidelity:** for every layout class, the full style spec in `design-direction.mdc` (Use, Type, Surface, Chrome, Motion, that class’s row, and Not) — every style, not only marketing ones. Photos, icons, type weight, motion, and surface the rows name are on the screen. A `Not:` row is only the ban list. The AI that builds the screen checks this before the box is checked
+- Data hooks call `mockApi`. States: skeleton → loaded · empty · error (retry) · success
+- Tables: card list (mobile) · condensed table + drawer (tablet) · full table (desktop) where this route says so
+- Forms on this screen: submit, disabled/loading, inline field errors, no double-submit
+- Checked at 375 · 768 · 1280, including forward · back · deep link · reduced motion
+
+**Exit (P2 → P3):** every `P2-Rnn` box is checked (layout + full style spec + a full mock path); shared boxes above are checked; no real API coupling; mock inventory written; ui primitives reused; 404/empty/skeleton/lazy present; contract types exist for P3. Then the **exit gate** below must pass. Do not start P3 before that.
 
 ## P3 — API backend
 
-**Goal:** the real API, built **endpoint by endpoint**, matching the P2 contracts. UI still on mocks.
+**Goal:** the real API, matching the P2 contracts. UI still on mocks. Shared plumbing is one box. **Each endpoint is its own box** (`P3-Enn`), written here at P1.6. Do not keep one item that means “all endpoints”.
 
 - [ ] P3.0 **Error envelope** — `requestId` on every request, `{ error, requestId, debug? }` (debug only when `APP_DEBUG=true` and not production), `GET /health`
 - [ ] P3.1 **Bootstrap** — router, request/response helpers, `jsonSuccess()` / `jsonError()` (one consistent shape), error handler, CORS from env, request logging
 - [ ] P3.2 **DB access** — `Database::query()`/`execute()` with **prepared statements only**; transaction helper
 - [ ] P3.3 **Migrations applied** on local DB; seeds usable
-- [ ] P3.4 **Auth** — `register()`, `login()`, `logout()`, `refresh()`/session, `me()`, password hashing/verify, token/session issue + expiry
-- [ ] P3.5 **Middleware** — `authenticate()`, `requireRole(...roles)`, ownership check `canAccess(user, resource)`, rate limit on auth
-- [ ] P3.6 **Validation layer** — server validators per endpoint as named functions; **every write validated server-side**; errors map to field names matching the UI form fields
-- [ ] P3.7 **Endpoints, one by one** — for each endpoint, a Function Spec: route, handler, service, repository, validator, authz, response shape, error cases, tests. Typical set per entity: `list` (filter/sort/paginate), `get`, `create`, `update`, `delete` (soft-delete if norm), plus concept-specific actions. Admin CMS modules get this full set (`admin.mdc`)
-- [ ] P3.8 **Special endpoints** if in concept: file upload (type/size/path checks), payments, notifications, exports
-- [ ] P3.9 **Per-endpoint tests** — happy · validation fail (422 with field errors) · unauthenticated (401) · forbidden (403) · not found (404)
-- [ ] P3.10 **API smoke run** — Postman-style/manual collection covering every endpoint; saved in repo
-- [ ] P3.11 **Contract list** — final routes + payloads vs P2 contracts; diffs noted for P4
+- [ ] P3.4 **Auth core** — password hashing/verify, token or session issue + expiry. `register`, `login`, `logout`, `refresh`, and `me` are each a `P3-Enn` box, not this one
+- [ ] P3.5 **Middleware** — `authenticate()`, `requireRole(...roles)`, `canAccess(user, resource)`, rate limit on auth. Each endpoint box names which of these it uses
+- [ ] P3.6 **Validator helpers** — shared server validators and the error→field map. Each write endpoint calls them; “every write is validated” is checked on the `P3-Enn` box, not here
+- [ ] P3.10 **API smoke collection** — one saved collection that calls every `P3-Enn`. Written after those boxes exist; not a substitute for them
+- [ ] P3.11 **Contract diff** — list where a finished endpoint differs from the P2 type. One line per difference, for P4
 
-**Exit (P3 → P4):** every inventory endpoint done with tests; authz enforced server-side; prepared statements everywhere; contract diffs listed; UI still on mocks is OK. Then the **exit gate** below must pass. Do not start P4 before that.
+### P3 endpoints — one box per endpoint (write at P1.6)
+
+Copy once per `E-nn`, including uploads, payments, notifications, and exports. Admin CMS entities get `list`, `get`, `create`, `update`, and soft `delete` as separate boxes (`admin.mdc`).
+
+```
+- [ ] P3-E01 **POST /auth/login** (`F-01`) — this endpoint only
+```
+
+Every `P3-Enn` box is done only when that endpoint has its handler, service, repository, server validator, authz, response shape, and tests: happy · validation fail (422 with field errors) · unauthenticated (401) · forbidden (403) · not found (404), whichever apply. `list` includes filter, sort, and pagination when the concept has them.
+
+**Exit (P3 → P4):** every `P3-Enn` box is checked, with tests; shared boxes above are checked; authz is enforced on the endpoint, not only in the UI; prepared statements everywhere; contract diffs listed; UI still on mocks is OK. Then the **exit gate** below must pass. Do not start P4 before that.
 
 ## P4 — Integration (API ↔ UI) + mock cleanup
 
-**Goal:** the UI runs on the real API, feature by feature, with no silent mock fallbacks.
+**Goal:** the UI runs on the real API. One feature at a time. **Each feature cutover is its own box** (`P4-Fnn`), written here at P1.6. If a feature has many routes, split the box per route (`P4-Fnn-Rnn`). Do not keep one item that means “wire the whole app”.
 
-- [ ] P4.1 **API client** — `apiClient.request()` (base URL from env, auth header, JSON, timeout), typed wrappers per endpoint; error normalization
-- [ ] P4.2 **Auth wiring** — login/logout/refresh, session persistence, `RequireAuth`/`RequireRole` on real session, 401 → sign-out flow
-- [ ] P4.3 **Feature-by-feature cutover** (not big-bang): for each feature in plan order — swap `mockApi.<entity>.*` for real service functions, verify, then delete that mock's usage
-- [ ] P4.4 **Error mapping** — API field errors → form field errors; status codes → shared error/empty/404 screens
-- [ ] P4.5 **Loading/empty/error** verified on real latency and real empty data
-- [ ] P4.6 **Pagination / filters / infinite scroll** wired to real query params
-- [ ] P4.7 **Mocks removed or quarantined** — only behind an explicit dev flag, never in production builds
+- [ ] P4.1 **API client** — `apiClient.request()` (base URL from env, auth header, JSON, timeout) and the shared error normalizer. A typed wrapper is part of the feature box that calls it
+- [ ] P4.2 **Session plumbing** — persist the session, attach it on the client, `RequireAuth` / `RequireRole` read the real session, 401 signs out. Login and logout screens are a `P4-Fnn` box
+- [ ] P4.4 **Error map** — one mapper: API field errors → form fields; status codes → the shared error / empty / 404 screens. Each feature box proves it on that feature’s forms
+- [ ] P4.7 **Mock sweep** — after every `P4-Fnn` box is checked: no silent mock fallback in production builds. Anything left is named for P5 delete
 - [ ] P4.8 **SEO meta + Schema.org** if SEO = `on`
-- [ ] P4.9 **End-to-end happy paths** per role on the real API
-- [ ] P4.10 **Layout re-check** — real data (long text, many rows) at 375 · 768 · 1280
 
-**Exit (P4 → P5):** no silent mock fallbacks in prod builds; remaining mocks listed for P5 delete; integration bugs triaged; e2e paths pass. Then the **exit gate** below must pass. Do not start P5 before that.
+### P4 features — one box per feature (write at P1.6)
+
+Copy once per `F-nn`, in plan order. Split into `P4-Fnn-Rnn` when that feature has more than one route.
+
+```
+- [ ] P4-F01 **<Feature name>** — this feature on the real API
+```
+
+Every `P4-Fnn` box is done only when, for that feature alone: `mockApi` calls are replaced and that mock’s usage is deleted; loading, empty, and error are checked on real latency; pagination, filters, and infinite scroll use real query params where this feature has them; one happy path per role that uses it passes; long text and many rows still match the layout at 375 · 768 · 1280.
+
+**Exit (P4 → P5):** every `P4-Fnn` box is checked; no silent mock fallbacks in prod builds; remaining mocks listed for P5 delete; integration bugs triaged. Then the **exit gate** below must pass. Do not start P5 before that.
 
 ## P5 — Cleanup, documentation, final testing
 
-- [ ] P5.1 **Delete** dead code, unused routes/components, leftover mocks and flags
-- [ ] P5.2 **Docs** — README/setup/env, migrate + seed commands, API reference (endpoint list), GitHub Secret **names** (not values)
-- [ ] P5.3 **Regression pass** — roles × critical flows × three layout classes
-- [ ] P5.4 **a11y** spot-check (forms, focus, contrast, reduced motion) and **security** smoke (authz, uploads, injection, secrets scan)
-- [ ] P5.5 **Performance** sanity — main pages, bundle/lazy chunks, image sizes
+Shared steps are one box. **Each feature’s final pass is its own box** (`P5-Fnn`), written here at P1.6. If a feature has many routes, split it (`P5-Fnn-Rnn`). Do not keep one item that means “regression of the whole app”.
+
+- [ ] P5.2 **Docs shell** — README, setup, env, migrate + seed commands, GitHub Secret **names** (not values). Each feature’s API lines are written on its `P5-Fnn` box
 - [ ] P5.6 **Deploy** — `/deploy setup` done (workflows from `templates/ci/`, GitHub Environments + secrets complete in each); staging deployed and verified with the `/deploy` checklist; production promoted with approval; rollback tested
 - [ ] P5.6a **Production has no debug** — `APP_DEBUG=false`, no `debug` in responses, error-console code absent from the production build
-- [ ] P5.7 **Phase notes closed**; `phase-plan.mdc` rows for finished P-items are `done`/`deferred`; Profile Current phase = `done`
+- [ ] P5.1 **Leftover sweep** — after every `P5-Fnn` box is checked: delete dead code that no feature box owned
+- [ ] P5.7 **Phase notes closed** — `phase-plan.mdc` rows for finished boxes are `done` / `deferred`; Profile Current phase = `done`
 
-**Exit (P5 → done):** no open P1–P4 items unless the dev marked them `deferred (reason)`. Ship only when the **exit gate** below passes.
+### P5 features — one box per feature (write at P1.6)
+
+Copy once per `F-nn`. Split into `P5-Fnn-Rnn` when that feature has more than one route.
+
+```
+- [ ] P5-F01 **<Feature name>** — final pass for this feature only
+```
+
+Every `P5-Fnn` box is done only when, for that feature alone: its unused routes, components, mocks, and flags are deleted; its endpoints are in the API reference; regression passes for each role that uses it, on the critical flow, at mobile · tablet · desktop; a11y is checked on its forms (focus, contrast, reduced motion); security smoke covers its authz, uploads, and injection points; its main page is checked for bundle chunk and image size.
+
+**Exit (P5 → done):** every `P5-Fnn` box is checked; shared boxes above are checked; no open P1–P4 items unless the dev marked them `deferred (reason)`. Ship only when the **exit gate** below passes.
 
 ---
 
@@ -130,7 +156,7 @@ alwaysApply: false
 
 `phase-plan.mdc` holds the functions under these boxes. It does not add a deliverable that has no P-item here.
 
-1. **One function = one `U-nn`.** No "implement auth" — `AuthService.login()`, `requireRole()`, `LoginForm.onSubmit()`.
+1. **One function = one `U-nn`, under one slice box.** No "implement auth" and no "build the routes". A screen is `P2-R07`; a function under it is `OrderDetailMobile`. An endpoint is `P3-E12`; a function under it is `OrderService.create()`.
 2. **Order:** types/contracts → helpers → core functions → composition → tests.
 3. **Status:** `todo` → `doing` → `done` | `deferred (reason)`. When the deliverable is implemented, check its box **in this file** and set its `U-nn` rows to the same status.
 4. Work **one item at a time**. A new function is added to `phase-plan.mdc` first, then built.
@@ -140,7 +166,7 @@ alwaysApply: false
 
 ```
 #### <Module.function or Component> — <one-line purpose>
-- ID / phase / feature: <U-nn> · <P#> · <F-nn> (+ R/E/T ids) · covers <P-item, e.g. P2.6>
+- ID / phase / feature: <U-nn> · <P#> · <F-nn> (+ R/E/T ids) · covers <the slice box, e.g. P2-R07, P3-E12, P4-F03, P5-F03>
 - File: <path>
 - Depends on: <other items / contracts / tables>
 - Input: <params + types + validation rules>

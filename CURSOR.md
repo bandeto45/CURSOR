@@ -146,7 +146,7 @@ Read at session start; append one row at session end. Do not reverse another AI'
 | UI | `icons-states.mdc` | Icon system; 404/error/empty; skeleton; lazy load |
 | Logic | `validation.mdc` | Client + server validation |
 | Logic | `database.mdc` | Migration contract (any stack) + schema quality; tools in `reference/migrations.md` |
-| Logic | `implementation-phases.mdc` | **What gets implemented** — P1–P5 checkboxes. Check a box when that deliverable is done |
+| Logic | `implementation-phases.mdc` | **What gets implemented** — P1–P5 checkboxes. P2 one box per route, P3 one per endpoint, P4 and P5 one per feature. Check a box when that slice is done |
 | Scoped | `backend.mdc` · `security.mdc` · `testing.mdc` · `seo.mdc` | Apply to matching files (`globs`) |
 | **Project (AI-filled)** | `concept-domain.mdc` · `route-layouts.mdc` · `phase-plan.mdc` · `skills/frontend-design/SKILL.md` | This project's decisions. `phase-plan.mdc` is the function split under each P-item, not a second implementation list |
 

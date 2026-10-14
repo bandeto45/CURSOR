@@ -12,7 +12,7 @@ triggers:
 # Frontend Design
 
 > Status: TEMPLATE — filled by —, —; approved by —
-> Purpose: the design this project already chose. Install fills every `TBD` with the real style, tokens, type, and icon. After that, build from this file. Do not recommend a new direction unless the dev asks to change it. Structure is locked in `ui-styling.mdc`.
+> Purpose: the design this project already chose. Install fills every `TBD` with the real style, tokens, type, and icon. After that, build from this file. The lock is the **choice**: style name, palette, typography system, and icon key. Do not re-ask the dev to pick those, and do not swap in a different direction unless the dev asks to change it. Applying this file on each screen — the photos, icons, motion, type weight, and surfaces the chosen style names — is the build, not a new design recommendation. Structure is locked in `ui-styling.mdc`.
 
 ## Project
 

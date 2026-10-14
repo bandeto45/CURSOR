@@ -9,7 +9,7 @@ alwaysApply: false
 
 ## Icon system
 
-One primary system per project. If the installer names one, that choice wins. If they leave it blank, the AI picks one during **install** and writes the key into Profile **Icons** and `frontend-design/SKILL.md`. After install, use that key. Do not recommend again, and do not leave Icons as `TBD`.
+One primary system per project. If the installer names one, that choice wins. If they leave it blank, the AI picks one during **install** and writes the key into Profile **Icons** and `frontend-design/SKILL.md`. After install, that **key** is locked: do not re-ask which set, and do not leave Icons as `TBD`. Placing the icons that a route’s style and layout call for — with this key — is the ongoing work, not a new icon recommendation.
 
 | Key | System | Fits when |
 |-----|--------|-----------|

@@ -5,14 +5,14 @@ alwaysApply: false
 
 # Design direction
 
-> Purpose: during **install**, if the dev did not give a design, the AI chooses the look and **writes the actual direction** into the project files. After install, those files are the design. Do not recommend again. Structure stays locked in `ui-styling.mdc`. The pack rules never name a palette.
+> Purpose: during **install**, if the dev did not give a design, the AI chooses the look and **writes the actual direction** into the project files. After install, those files are the design. The lock is the **choice** only: style name, palette, typography system, and icon key. Do not re-ask the dev to pick those, and do not swap them for a different direction. Building each screen to that choice — the photos, icons, motion, type weight, and surfaces its style rows name — is the ongoing work, not a new recommendation. Structure stays locked in `ui-styling.mdc`. The pack rules never name a palette.
 
 ## When it runs
 
 | Moment | What the AI does |
 |--------|------------------|
 | **Install** | If the dev named no style, pattern, or palette: choose the Recommended direction and write it before install is complete |
-| **After install** | Read `frontend-design/SKILL.md`, Profile → **Design direction**, and each route’s style lines. Build that. Do not open a new design recommendation |
+| **After install** | Read `frontend-design/SKILL.md`, Profile → **Design direction**, and each route’s style lines. Build every screen to the full rows of the style already written (photos, icons, motion, type, surface). Do not re-open the choice of style, palette, type system, or icon key |
 
 Install is not complete while the skill still says `TBD` or “the AI will recommend.” The written files must name the style, tokens, type, icon, and the layout pattern for every route.
 
